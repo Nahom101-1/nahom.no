@@ -11,11 +11,27 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.6",
+    "@react-three/drei": "^10.6.1",
+    "@react-three/fiber": "^9.3.0",
+    "@react-three/postprocessing": "^3.0.4",
+    "@react-three/rapier": "^2.1.0",
+    "@sanity/image-url": "^1.1.0",
+    "@sanity/vision": "^4.2.0",
+    "@types/three": "^0.178.0",
     "gsap": "^3.13.0",
-    "next": "^15.4.0-canary.114",
+    "meshline": "^3.3.1",
+    "next": "^15.5.1-canary.6",
+    "next-sanity": "^10.0.6",
+    "ogl": "^1.0.11",
     "postcss": "^8.5.6",
+    "postprocessing": "^6.37.6",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-is": "^19.1.1",
+    "sanity": "^4.2.0",
+    "styled-components": "^6.1.19",
+    "three": "^0.167.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
