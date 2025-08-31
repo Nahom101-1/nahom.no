@@ -1,7 +1,7 @@
 export type Poster = {
   _id: string;
   poster: string;
-  image: any;
+  image: SanityImage;
   imageUrl?: string;
   slug?: string;
 };

@@ -13,6 +13,26 @@ export default function HeroSection({ posters }: { posters: Poster[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
 
+  // Effect to handle automatic image cycling
+  useEffect(() => {
+    // Don't start cycling if no posters
+    if (!posters || posters.length === 0) {
+      return;
+    }
+
+    const slideTimer = setInterval(() => {
+      setIsFading(true);
+      setTimeout(() => {
+        setCurrentIndex(prevIndex => (prevIndex + 1) % posters.length);
+        setIsFading(false);
+      }, FADE_DURATION);
+    }, SLIDE_INTERVAL + FADE_DURATION);
+
+    return () => {
+      clearInterval(slideTimer);
+    };
+  }, [posters]);
+
   // Handle case where no posters are provided
   if (!posters || posters.length === 0) {
     return (
@@ -29,21 +49,6 @@ export default function HeroSection({ posters }: { posters: Poster[] }) {
       </div>
     );
   }
-
-  // Effect to handle automatic image cycling
-  useEffect(() => {
-    const slideTimer = setInterval(() => {
-      setIsFading(true);
-      setTimeout(() => {
-        setCurrentIndex(prevIndex => (prevIndex + 1) % posters.length);
-        setIsFading(false);
-      }, FADE_DURATION);
-    }, SLIDE_INTERVAL + FADE_DURATION);
-
-    return () => {
-      clearInterval(slideTimer);
-    };
-  }, [posters.length]);
 
   try {
     const currentPosterData = posters[currentIndex];

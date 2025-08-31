@@ -113,6 +113,7 @@ interface AuroraProps {
   blend?: number;
   time?: number;
   speed?: number;
+  midPoint?: number;
 }
 
 export default function Aurora(props: AuroraProps) {
@@ -120,6 +121,7 @@ export default function Aurora(props: AuroraProps) {
     colorStops = ['#5227FF', '#7cff67', '#5227FF'],
     amplitude = 1.0,
     blend = 0.5,
+    midPoint = 0.2,
   } = props;
   const propsRef = useRef<AuroraProps>(props);
   propsRef.current = props;
@@ -140,8 +142,6 @@ export default function Aurora(props: AuroraProps) {
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     gl.canvas.style.backgroundColor = 'transparent';
-
-    let program: Program | undefined;
 
     function resize() {
       if (!ctn) return;
@@ -164,7 +164,7 @@ export default function Aurora(props: AuroraProps) {
       return [c.r, c.g, c.b];
     });
 
-    program = new Program(gl, {
+    const program = new Program(gl, {
       vertex: VERT,
       fragment: FRAG,
       uniforms: {
@@ -207,7 +207,7 @@ export default function Aurora(props: AuroraProps) {
       }
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, [amplitude]);
+  }, [amplitude, blend, colorStops, midPoint]);
 
   return <div ref={ctnDom} className='w-full h-full' />;
 }
