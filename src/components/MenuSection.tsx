@@ -22,7 +22,7 @@ export default function MenuSection({ variant = 'hero' }: Props) {
       aria-label='Section navigation'
     >
       {/* pad-left to avoid the round "N" button in your corner (tweak as needed) */}
-      <ul className='ml-12 md:ml-16 flex flex-wrap items-center gap-8 text-white'>
+      <ul className='ml-12 md:ml-16 flex flex-wrap items-bottom gap-8 text-white'>
         {[
           { id: 'projects', label: 'Projects' },
           { id: 'experience', label: 'Experience' },

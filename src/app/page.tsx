@@ -1,7 +1,20 @@
-import { HeroSection } from '@/components';
+import { HeroSection, WorkExperience } from '@/components';
+import Education from '@/components/education';
+import WorkExperienceSection from '@/components/workExperience';
+import workExperience from '@/components/workExperience';
+import { getEducation } from '@/utils/getEducation';
 import { getPosters } from '@/utils/getPosters';
+import { getWorkExperience } from '@/utils/getWorkExperince';
 
 export default async function Home() {
   const posters = await getPosters();
-  return <HeroSection posters={posters} />;
+  const education = await getEducation();
+  const workExperience = await getWorkExperience();
+  return (
+    <>
+      <HeroSection posters={posters} />
+      <Education education={education} />
+      <WorkExperienceSection workExperience={workExperience} />
+    </>
+  );
 }
