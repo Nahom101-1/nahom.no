@@ -1,7 +1,6 @@
-import { HeroSection, WorkExperience } from '@/components';
+import { HeroSection } from '@/components';
 import Education from '@/components/education';
 import WorkExperienceSection from '@/components/workExperience';
-import workExperience from '@/components/workExperience';
 import { getEducation } from '@/utils/getEducation';
 import { getPosters } from '@/utils/getPosters';
 import { getWorkExperience } from '@/utils/getWorkExperince';

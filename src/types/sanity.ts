@@ -1,5 +1,4 @@
 export type Poster = {
-  picture: any;
   _id: string;
   poster: string;
   image: SanityImage;
