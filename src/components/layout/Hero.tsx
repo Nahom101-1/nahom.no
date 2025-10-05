@@ -1,11 +1,11 @@
 'use client';
 
 import { Poster } from '@/types/sanity';
-import { urlFor } from '@/utils/imageUrlBuilder';
+import { urlFor } from '@/lib/sanity';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import MenuSection from './MenuSection';
-
+import MenuSection from './Menu';
+import CurrentlyPlaying from '../features/CurrentlyPlaying';
 const FADE_DURATION = 1500;
 const SLIDE_INTERVAL = 4000;
 
@@ -96,6 +96,11 @@ export default function HeroSection({ posters }: { posters: Poster[] }) {
           />
         )}
         <MenuSection variant='sticky' />
+
+        {/* CurrentlyPlaying - only shown when posters are available */}
+        <div className='absolute bottom-0 right-0 p-8 z-50'>
+          <CurrentlyPlaying />
+        </div>
       </div>
     );
   } catch (error) {

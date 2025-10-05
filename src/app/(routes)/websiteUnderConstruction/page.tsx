@@ -10,9 +10,7 @@ const ConstructionPage = () => {
           <p className='text-xl text-gray-300 max-w-md mx-auto'>
             This website is currently under construction. Please check back
             soon.
-            <a href='mailto:Nahomberhane101@gmail.com'>
-              Nahomberhane101@gmail.com
-            </a>{' '}
+            <a href='mailto:nahom@berhane.no'>nahom@berhane.no</a>{' '}
           </p>
           <div className='mt-8'>
             <div className='animate-pulse text-sm text-gray-400'>

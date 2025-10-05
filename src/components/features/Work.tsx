@@ -129,8 +129,6 @@ export default function WorkExperienceSection({
                   </div>
                 </CardContent>
               </Card>
-
-              {/* Separator between entries */}
               {index < workExperience.length - 1 && (
                 <div className='my-16'>
                   <Separator className='bg-white/10' />

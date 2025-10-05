@@ -1,49 +1,42 @@
 # nahom.no
 
-My personal website built with modern web technologies.
-
-## Technologies
-
-- **Next.js 15** - React framework with App Router
-- **TypeScript** - Type-safe JavaScript
-- **Tailwind CSS 4** - Utility-first CSS framework
-- **React bits** - 3D graphics and animations and other components
-- **SHADCNUI** - Other components
-- **Sanity CMS** - Content management
+My personal website built with Next.js, React, and TypeScript.
 
 ## Setup
 
-1. **Install dependencies**
+```bash
+# Install dependencies
+npm install
 
-   ```bash
-   npm install
-   ```
+# Start development server
+npm run dev
 
-2. **Start development server**
+# Build for production
+npm run build
+```
 
-   ```bash
-   npm run dev
-   ```
+## Project Structure
 
-3. **Open browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+```
+src/
+├── app/          # Next.js pages and API routes
+├── components/   # React components
+├── lib/         # Utilities and API clients
+└── types/       # TypeScript types
+```
 
-## Construction Mode
-
-Toggle website availability with an environment variable:
+## Environment Variables
 
 ```bash
 # .env.local
 NEXT_PUBLIC_UNDER_CONSTRUCTION=true
 ```
 
-When enabled, all routes redirect to a construction page. When disabled or not set, the website works normally.
+## Tech Stack
 
-## Scripts
-
-```bash
-npm run dev      # Development server
-npm run build    # Production build
-```
-
----
+- Next.js 15
+- TypeScript
+- Tailwind CSS
+- shadcn and reactbits for animation and other components
+- Spotify API
+- Sanity CMS

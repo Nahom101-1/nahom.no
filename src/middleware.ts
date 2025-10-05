@@ -2,22 +2,13 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 const isUnderConstruction =
-  process.env.NEXT_PUBLIC_UNDER_CONSTRUCTION === 'true';
+  process.env.NEXT_PUBLIC_UNDER_CONSTRUCTION === 'fasle';
 /**
  * Middleware for handling website construction mode
  * Redirects users to construction page when NEXT_PUBLIC_UNDER_CONSTRUCTION=true
  */
 export function middleware(request: NextRequest): NextResponse {
   const { pathname } = request.nextUrl;
-
-  // Skip middleware for static assets
-  if (
-    pathname.startsWith('/_next') ||
-    pathname.startsWith('/favicon') ||
-    pathname.includes('.')
-  ) {
-    return NextResponse.next();
-  }
 
   // If the site is under construction, redirect to the construction page
   if (isUnderConstruction) {

@@ -1,23 +1,32 @@
 'use client';
-import AnimatedBackground from '@/components/AnimatedBackground';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import CurrentlyPlaying from '@/components/features/CurrentlyPlaying';
 
 export default function NotFound() {
   return (
-    <div className='fixed inset-0 w-screen h-screen bg-black overflow-hidden'>
-      <AnimatedBackground
-        auroraColors={['#00D8FF', '#427F39', '#00D8FF']}
-        auroraAmplitude={2.5}
-        auroraBlend={0.6}
-        auroraSpeed={0.5}
-        auroraMidPoint={0.05}
-      />
-      <div className='absolute inset-0 flex flex-col items-center justify-center z-10 text-white text-center'>
-        <h1 className='text-4xl font-bold'>404 - Page Not Found 🙅🏾‍♂️</h1>
-        <p className='mt-4'>
-          This page either does not exist or is under construction or you typed
-          the wrong path in the url. 😛
-        </p>
-      </div>
+    <div className='min-h-screen flex items-center justify-center p-4 bg-black/95'>
+      <Card className='w-full max-w-2xl bg-black/40 border-gray-800'>
+        <CardHeader>
+          <CardTitle className='text-4xl font-bold text-center text-white'>
+            404 - Page Not Found
+          </CardTitle>
+        </CardHeader>
+        <CardContent className='space-y-6'>
+          <p className='text-gray-400 text-center text-lg'>
+            This page doesn't exist or is under construction.
+          </p>
+          <Separator className='bg-gray-800' />
+          <div className='flex justify-center'>
+            <div className='w-full max-w-md'>
+              <p className='text-gray-400 text-center mb-4'>
+                While you're here, check out what I'm listening to:
+              </p>
+              <CurrentlyPlaying />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
