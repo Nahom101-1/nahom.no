@@ -35,7 +35,7 @@ const SplitText: React.FC<SplitTextProps> = ({
   rootMargin = '-100px',
   tag = 'p',
   textAlign = 'center',
-  onLetterAnimationComplete
+  onLetterAnimationComplete,
 }) => {
   const ref = useRef<HTMLParagraphElement>(null);
   const animationCompletedRef = useRef(false);
@@ -61,7 +61,7 @@ const SplitText: React.FC<SplitTextProps> = ({
       if (el._rbsplitInstance) {
         try {
           el._rbsplitInstance.revert();
-        } catch (_) {}
+        } catch {}
         el._rbsplitInstance = undefined;
       }
 
@@ -78,10 +78,26 @@ const SplitText: React.FC<SplitTextProps> = ({
       const start = `top ${startPct}%${sign}`;
       let targets: Element[] = [];
       const assignTargets = (self: GSAPSplitText) => {
-        if (splitType.includes('chars') && (self as GSAPSplitText).chars?.length)
+        if (
+          splitType.includes('chars') &&
+          (self as GSAPSplitText).chars?.length
+        ) {
           targets = (self as GSAPSplitText).chars;
-        if (!targets.length && splitType.includes('words') && self.words.length) targets = self.words;
-        if (!targets.length && splitType.includes('lines') && self.lines.length) targets = self.lines;
+        }
+        if (
+          !targets.length &&
+          splitType.includes('words') &&
+          self.words.length
+        ) {
+          targets = self.words;
+        }
+        if (
+          !targets.length &&
+          splitType.includes('lines') &&
+          self.lines.length
+        ) {
+          targets = self.lines;
+        }
         if (!targets.length) targets = self.chars || self.words || self.lines;
       };
       const splitInstance = new GSAPSplitText(el, {
@@ -107,17 +123,17 @@ const SplitText: React.FC<SplitTextProps> = ({
                 start,
                 once: true,
                 fastScrollEnd: true,
-                anticipatePin: 0.4
+                anticipatePin: 0.4,
               },
               onComplete: () => {
                 animationCompletedRef.current = true;
                 onLetterAnimationComplete?.();
               },
               willChange: 'transform, opacity',
-              force3D: true
+              force3D: true,
             }
           );
-        }
+        },
       });
       el._rbsplitInstance = splitInstance;
       return () => {
@@ -126,7 +142,7 @@ const SplitText: React.FC<SplitTextProps> = ({
         });
         try {
           splitInstance.revert();
-        } catch (_) {}
+        } catch {}
         el._rbsplitInstance = undefined;
       };
     },
@@ -142,9 +158,9 @@ const SplitText: React.FC<SplitTextProps> = ({
         threshold,
         rootMargin,
         fontsLoaded,
-        onLetterAnimationComplete
+        onLetterAnimationComplete,
       ],
-      scope: ref
+      scope: ref,
     }
   );
 
@@ -152,7 +168,7 @@ const SplitText: React.FC<SplitTextProps> = ({
     const style: React.CSSProperties = {
       textAlign,
       wordWrap: 'break-word',
-      willChange: 'transform, opacity'
+      willChange: 'transform, opacity',
     };
     const classes = `split-parent overflow-hidden inline-block whitespace-normal ${className}`;
     switch (tag) {

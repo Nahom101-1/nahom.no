@@ -1,4 +1,3 @@
-'use client';
 import { getEducation } from '@/lib/sanity';
 import EducationSection from '@/components/features/Education';
 

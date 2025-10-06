@@ -39,6 +39,7 @@ export function Navbar() {
         accentColor='#ff6b6b'
         onMenuOpen={() => console.log('Menu opened')}
         onMenuClose={() => console.log('Menu closed')}
+        isFixed={false}
       />
     </div>
   );
