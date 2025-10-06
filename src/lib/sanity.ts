@@ -2,8 +2,7 @@ import { createClient } from 'next-sanity';
 import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import groq from 'groq';
-import { Education, Poster, WorkExperience } from '@/types/index';
-
+import { Education, Poster, WorkExperience } from '@/types/sanity';
 // Environment variables
 export const apiVersion =
   process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2025-07-31';

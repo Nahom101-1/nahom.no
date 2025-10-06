@@ -14,13 +14,13 @@ export default function NotFound() {
         </CardHeader>
         <CardContent className='space-y-6'>
           <p className='text-gray-400 text-center text-lg'>
-            This page doesn't exist or is under construction.
+            This page doesn&apos;t exist or is under construction.
           </p>
           <Separator className='bg-gray-800' />
           <div className='flex justify-center'>
             <div className='w-full max-w-md'>
               <p className='text-gray-400 text-center mb-4'>
-                While you're here, check out what I'm listening to:
+                While you&apos;re here, check out what I&apos;m listening to:
               </p>
               <CurrentlyPlaying />
             </div>

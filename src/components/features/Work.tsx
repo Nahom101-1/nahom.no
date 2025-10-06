@@ -2,6 +2,7 @@ import { type WorkExperience } from '@/types/sanity';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import Image from 'next/image';
 
 export default function WorkExperienceSection({
   workExperience,
@@ -29,9 +30,11 @@ export default function WorkExperienceSection({
                       <CardHeader className='p-0 space-y-4'>
                         {work.picture && (
                           <div className='w-16 h-16 mb-6'>
-                            <img
+                            <Image
                               src={work.imageUrl || '/placeholder.jpg'}
                               alt={`${work.company} logo`}
+                              width={64}
+                              height={64}
                               className='w-full h-full object-contain filter brightness-0 invert opacity-80'
                             />
                           </div>

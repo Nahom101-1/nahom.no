@@ -1,0 +1,13 @@
+/* Sanity Studio styles */
+:root {
+  --studio-container-height: 100vh;
+  --studio-container-max-height: 100dvh;
+}
+
+#sanity {
+  height: var(--studio-container-height);
+  max-height: var(--studio-container-max-height);
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  overflow: auto;
+}
