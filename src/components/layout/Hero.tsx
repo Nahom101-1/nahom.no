@@ -4,8 +4,9 @@ import { Poster } from '@/types/sanity';
 import { urlFor } from '@/lib/sanity';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import MenuSection from './Menu';
+import SplitText from '../SplitText';
 import CurrentlyPlaying from '../features/CurrentlyPlaying';
+import { Navbar } from './navbar';
 const FADE_DURATION = 1500;
 const SLIDE_INTERVAL = 4000;
 
@@ -32,7 +33,6 @@ export default function HeroSection({ posters }: { posters: Poster[] }) {
       clearInterval(slideTimer);
     };
   }, [posters]);
-
   // Handle case where no posters are provided
   if (!posters || posters.length === 0) {
     return (
@@ -76,12 +76,20 @@ export default function HeroSection({ posters }: { posters: Poster[] }) {
 
         {/* Overlay to darken the background image */}
         <div className='absolute inset-0 bg-black/40' />
-
-        {/* Name positioned in upper center */}
         <div className='absolute top-16 left-1/2 transform -translate-x-1/2 z-20'>
-          <h1 className='text-3xl font-bold text-center text-white tracking-wider'>
-            NAHOM Berhane
-          </h1>
+          <SplitText
+            text='Nahom Berhane'
+            className='text-6xl font-semibold text-center text-white'
+            delay={100}
+            duration={0.6}
+            ease='power3.out'
+            splitType='chars'
+            from={{ opacity: 0, y: 40 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.1}
+            rootMargin='-100px'
+            textAlign='center'
+          />
         </div>
 
         {/* Preload next image */}
@@ -95,7 +103,7 @@ export default function HeroSection({ posters }: { posters: Poster[] }) {
             priority
           />
         )}
-        <MenuSection variant='sticky' />
+        <Navbar />
 
         {/* CurrentlyPlaying - only shown when posters are available */}
         <div className='absolute bottom-0 right-0 p-8 z-50'>

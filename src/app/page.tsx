@@ -2,6 +2,7 @@ import HeroSection from '@/components/layout/Hero';
 import Education from '@/components/features/Education';
 import WorkExperienceSection from '@/components/features/Work';
 import { getPosters, getEducation, getWorkExperience } from '@/lib/sanity';
+import { Navbar } from '@/components/layout/navbar';
 
 export default async function Home() {
   const posters = await getPosters();
@@ -11,8 +12,8 @@ export default async function Home() {
   return (
     <>
       <HeroSection posters={posters} />
-      <Education education={education} />
-      <WorkExperienceSection workExperience={workExperience} />
+      {/* <Education education={education} />
+      <WorkExperienceSection workExperience={workExperience} /> */}
     </>
   );
 }
