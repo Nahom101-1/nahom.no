@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     // ppr: 'incremental',
   },
   images: {
-    domains: ['cdn.sanity.io'],
+    domains: ['cdn.sanity.io', 'a.ltrbxd.com'],
   },
 };
 

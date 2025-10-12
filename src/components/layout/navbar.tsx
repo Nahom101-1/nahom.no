@@ -1,15 +1,22 @@
 'use client';
-import StaggeredMenu from '../StaggeredMenu';
+import { StaggeredMenu } from '@/components/ui/staggered-menu';
 
 const menuItems = [
+  { label: 'Home', ariaLabel: 'Home', link: '/' },
   { label: 'Education', ariaLabel: 'Education section', link: '/education' },
   { label: 'Work', ariaLabel: 'Work Experience', link: '/work-experience' },
   { label: 'Skills', ariaLabel: 'Skills and tools used', link: '/skills' },
-  { label: 'About', ariaLabel: 'About me', link: '/about-me' },
+  { label: 'About', ariaLabel: 'About me', link: '/about' },
   {
     label: 'Courses',
     ariaLabel: 'Relevant courses',
-    link: '/relevant-courses',
+    link: '/courses',
+  },
+  { label: 'About', ariaLabel: 'About me', link: '/about' },
+  {
+    label: 'Latest Watched',
+    ariaLabel: 'Latest Watched',
+    link: '/latest-watched',
   },
 ];
 
@@ -24,7 +31,7 @@ const socialItems = [
 
 export function Navbar() {
   return (
-    <div style={{ height: '100vh', background: '#1a1a1a' }}>
+    <div className='fixed top-0 left-0 z-50 w-full'>
       <StaggeredMenu
         position='left'
         items={menuItems}
@@ -39,7 +46,7 @@ export function Navbar() {
         accentColor='#ff6b6b'
         onMenuOpen={() => console.log('Menu opened')}
         onMenuClose={() => console.log('Menu closed')}
-        isFixed={false}
+        isFixed={true}
       />
     </div>
   );
