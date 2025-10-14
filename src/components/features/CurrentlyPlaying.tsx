@@ -51,7 +51,7 @@ export default function CurrentlyPlaying() {
   return (
     <section
       aria-label='Currently Playing'
-      className='flex flex-col items-start gap-4'
+      className='flex flex-col items-start gap-4 scale-[0.35] sm:scale-[0.4] md:scale-[0.45] lg:scale-[0.5] origin-bottom-right'
     >
       <div onClick={refresh} className='cursor-pointer'>
         <TiltedCard
@@ -71,8 +71,7 @@ export default function CurrentlyPlaying() {
         />
       </div>
       <div
-        className='flex flex-col text-left mb-2 bg-transparent'
-        style={{ width: 400 }}
+        className='flex flex-col text-left mb-2 bg-transparent w-[400px] -mt-2'
         key={itemKey}
       >
         <h2 className='text-white font-bold text-3xl leading-tight max-w-xl break-words'>

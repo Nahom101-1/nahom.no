@@ -17,7 +17,7 @@ export async function GET() {
     }));
 
     return NextResponse.json({ LatestWatchedMovies: movies });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to fetch movies' },
       { status: 500 }

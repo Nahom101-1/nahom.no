@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { Navbar } from '@/components/layout/navbar';
 import { Loader2, Star } from 'lucide-react';
 import { LetterboxdFeed } from '@/types/letterBoxItem';

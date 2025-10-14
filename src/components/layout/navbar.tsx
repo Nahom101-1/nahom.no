@@ -1,5 +1,5 @@
 'use client';
-import { StaggeredMenu } from '@/components/ui/staggered-menu';
+import { StaggeredMenu } from '@/components/ui/staggered-menu/index';
 
 const menuItems = [
   { label: 'Home', ariaLabel: 'Home', link: '/' },

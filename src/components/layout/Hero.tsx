@@ -4,7 +4,7 @@ import { Poster } from '@/types/sanity';
 import { urlFor } from '@/lib/sanity';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import SplitText from '../SplitText';
+import SplitText from '@/components/effects/SplitText';
 import CurrentlyPlaying from '../features/CurrentlyPlaying';
 import { Navbar } from './navbar';
 const FADE_DURATION = 1500;
@@ -38,11 +38,11 @@ export default function HeroSection({ posters }: { posters: Poster[] }) {
     return (
       <div className='relative flex h-screen w-full items-center justify-center overflow-hidden bg-gray-900'>
         <div className='absolute inset-0 z-10 bg-black/60' />
-        <div className='relative z-20 flex h-full flex-col items-center justify-center'>
-          <h1 className='text-2xl font-semibold text-center text-white'>
+        <div className='relative z-20 flex h-full flex-col items-center justify-center px-4'>
+          <h1 className='text-xl md:text-2xl font-semibold text-center text-white'>
             Nahom
           </h1>
-          <p className='mt-2 text-white text-opacity-80'>
+          <p className='mt-2 text-white text-opacity-80 text-center'>
             No posters available to display.
           </p>
         </div>
@@ -64,10 +64,10 @@ export default function HeroSection({ posters }: { posters: Poster[] }) {
       : '';
 
     return (
-      <div className='relative h-screen w-full overflow-hidden'>
+      <div className='relative h-[100dvh] w-full overflow-hidden'>
         {/* Background Image Container */}
         <div
-          className='absolute inset-0 bg-cover bg-center transition-opacity duration-[1500ms] ease-in-out'
+          className='absolute inset-0 bg-cover bg-[center_top] md:bg-center transition-opacity duration-[1500ms] ease-in-out bg-no-repeat'
           style={{
             backgroundImage: `url(${currentImageUrl})`,
             opacity: isFading ? 0 : 1,
@@ -75,11 +75,11 @@ export default function HeroSection({ posters }: { posters: Poster[] }) {
         />
 
         {/* Overlay to darken the background image */}
-        <div className='absolute inset-0 bg-black/40' />
-        <div className='absolute top-16 left-1/2 transform -translate-x-1/2 z-20'>
+        <div className='absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60' />
+        <div className='absolute top-8 left-0 right-0 z-20 w-full px-16 md:px-20'>
           <SplitText
             text='Nahom Berhane'
-            className='text-6xl font-semibold text-center text-white'
+            className='text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-center text-white tracking-tight'
             delay={100}
             duration={0.6}
             ease='power3.out'
@@ -106,7 +106,7 @@ export default function HeroSection({ posters }: { posters: Poster[] }) {
         <Navbar />
 
         {/* CurrentlyPlaying - only shown when posters are available */}
-        <div className='absolute bottom-0 right-0 p-8 z-50'>
+        <div className='fixed md:absolute bottom-0 left-0 md:left-auto md:right-0 p-4 md:p-8 z-50 w-full md:w-auto'>
           <CurrentlyPlaying />
         </div>
       </div>
@@ -115,14 +115,14 @@ export default function HeroSection({ posters }: { posters: Poster[] }) {
     return (
       <div className='relative flex h-screen w-full items-center justify-center overflow-hidden bg-gray-900'>
         <div className='absolute inset-0 z-10 bg-black/60' />
-        <div className='relative z-20 flex h-full flex-col items-center justify-center'>
-          <h1 className='text-2xl font-semibold text-center text-white'>
+        <div className='relative z-20 flex h-full flex-col items-center justify-center px-4'>
+          <h1 className='text-xl md:text-2xl font-semibold text-center text-white'>
             Error
           </h1>
-          <p className='mt-2 text-white text-opacity-80'>
+          <p className='mt-2 text-white text-opacity-80 text-center'>
             Something went wrong loading the hero section.
           </p>
-          <p className='mt-1 text-sm text-white text-opacity-60'>
+          <p className='mt-1 text-sm text-white text-opacity-60 text-center break-words max-w-full'>
             {error instanceof Error ? error.message : 'Unknown error'}
           </p>
         </div>

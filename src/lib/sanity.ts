@@ -31,9 +31,23 @@ export function urlFor(source: SanityImageSource) {
 
 // Queries
 const WORK_EXPERIENCE_QUERY = groq`*[_type == "workExperience"] | order(startDate desc) {
-  _id, _type, picture, company, position, location,
-  startDate, endDate, isCurrent, description,
-  technologies, learnings
+  _id,
+  _type,
+  picture {
+    asset->{
+      _id,
+      url
+    }
+  },
+  company,
+  position,
+  location,
+  startDate,
+  endDate,
+  isCurrent,
+  description,
+  technologies,
+  learnings
 }`;
 
 const EDUCATION_QUERY = groq`*[_type == "education"] {
