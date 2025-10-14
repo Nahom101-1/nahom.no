@@ -24,7 +24,8 @@ export default function WatchedRecently() {
         const data = await res.json();
         if (!cancel) setItems(data.items || []);
       } catch (e) {
-        if (!cancel) setError(e.message ?? 'Failed to load');
+        if (!cancel)
+          setError(e instanceof Error ? e.message : 'Failed to load');
       }
     })();
     return () => {
