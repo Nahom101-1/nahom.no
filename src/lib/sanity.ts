@@ -3,6 +3,7 @@ import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import groq from 'groq';
 import { Education, Poster, WorkExperience } from '@/types/sanity';
+import { Asset } from 'sanity';
 // Environment variables
 export const apiVersion =
   process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2025-07-31';
@@ -87,6 +88,25 @@ export async function getPosters(): Promise<Poster[]> {
     ...post,
     imageUrl: post.image?.asset?._ref ? urlFor(post.image) : '/placeholder.jpg',
   }));
+}
+
+export async function getPicAboutMePage(): Promise<{
+  babyPic: string;
+  oldNahomPic: string;
+}> {
+  const assets = await client.fetch<Array<{ alt: string; imageUrl: string }>>(
+    `*[_type == "picture" && alt in ["BabyPic", "OlderPic"]] {
+      alt,
+      "imageUrl": url.asset->url
+    }`
+  );
+
+  const babyPic =
+    assets.find(a => a.alt === 'BabyPic')?.imageUrl || '/placeholder.jpg';
+  const oldNahomPic =
+    assets.find(a => a.alt === 'OlderPic')?.imageUrl || '/placeholder.jpg';
+
+  return { babyPic, oldNahomPic };
 }
 
 // Utility function for environment variables
