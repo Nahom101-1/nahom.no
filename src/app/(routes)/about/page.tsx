@@ -1,4 +1,3 @@
-'use client';
 import Image from 'next/image';
 import { getPicAboutMePage } from '@/lib/sanity';
 import Link from 'next/link';
@@ -47,9 +46,9 @@ export default async function AboutPage() {
               <div className='bg-yellow-100 border-2 border-yellow-400 p-3'>
                 <h3 className='font-bold text-blue-800'>Bio</h3>
                 <p className='text-sm'>
-                  I'm Nahom, a 20-year-old third-year IT student at NTNU Gjøvik.
-                  I'm originally from Eritrea, grew up in Trondheim, and now
-                  live in Gjøvik for my studies.
+                  I&apos;m Nahom, a 20-year-old third-year IT student at NTNU
+                  Gjøvik. I&apos;m originally from Eritrea, grew up in
+                  Trondheim, and now live in Gjøvik for my studies.
                 </p>
               </div>
               <div className='bg-pink-100 border-2 border-pink-400 p-3'>
