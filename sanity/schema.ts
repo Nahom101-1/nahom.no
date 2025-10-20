@@ -148,6 +148,35 @@ const backGroundPoster = {
   ],
 };
 
+const asset = {
+  name: 'picture',
+  title: 'Pictures Assets',
+  type: 'document',
+  description: 'Pictures assets for the website',
+  fields: [
+    {
+      name: 'url',
+      title: 'Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    },
+    {
+      name: 'alt',
+      title: 'Alt Text',
+      type: 'string',
+      description: 'Alternative text for accessibility',
+    },
+    {
+      name: 'caption',
+      title: 'Caption',
+      type: 'string',
+      description: 'Optional caption for the image',
+    },
+  ],
+};
+
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [workExperience, education, backGroundPoster],
+  types: [workExperience, education, backGroundPoster, asset],
 };
