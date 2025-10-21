@@ -177,6 +177,36 @@ const asset = {
   ],
 };
 
+const relevantClasses = {
+  name: 'relevantClasses',
+  title: 'Classes',
+  type: 'document',
+  fields: [
+    {
+      name: 'courseCode',
+      title: 'Code',
+      type: 'string',
+    },
+    {
+      name: 'courseName',
+      title: 'Name',
+      type: 'string',
+    },
+    {
+      name: 'grade',
+      title: 'Grade',
+      type: 'string',
+      options: {
+        list: ['A', 'B', 'C', 'D', 'F'],
+      },
+    },
+    {
+      name: 'year',
+      title: 'Year',
+      type: 'number',
+    },
+  ],
+};
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [workExperience, education, backGroundPoster, asset],
+  types: [workExperience, education, backGroundPoster, asset, relevantClasses],
 };
