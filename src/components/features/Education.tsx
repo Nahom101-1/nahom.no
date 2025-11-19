@@ -161,11 +161,6 @@ export default function EducationSection({
           </div>
         </div>
       </div>
-
-      {/* CurrentlyPlaying */}
-      {/* <div className='fixed md:absolute bottom-0 left-0 md:left-auto md:right-0 p-4 md:p-8 z-50 w-full md:w-auto'>
-        <CurrentlyPlaying />
-      </div> */}
     </div>
   );
 }

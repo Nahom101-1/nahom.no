@@ -5,7 +5,6 @@ import { urlFor } from '@/lib/sanity';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import SplitText from '@/components/effects/SplitText';
-import CurrentlyPlaying from '../features/CurrentlyPlaying';
 import { Navbar } from './navbar';
 const FADE_DURATION = 1500;
 const SLIDE_INTERVAL = 4000;
@@ -104,11 +103,6 @@ export default function HeroSection({ posters }: { posters: Poster[] }) {
           />
         )}
         <Navbar />
-
-        {/* CurrentlyPlaying - only shown when posters are available */}
-        <div className='fixed md:absolute bottom-0 left-0 md:left-auto md:right-0 p-4 md:p-8 z-50 w-full md:w-auto'>
-          <CurrentlyPlaying />
-        </div>
       </div>
     );
   } catch (error) {

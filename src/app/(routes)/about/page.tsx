@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { getPicAboutMePage } from '@/lib/sanity';
 import Link from 'next/link';
-import CurrentlyPlaying from '@/components/features/CurrentlyPlaying';
 
 export default async function AboutPage() {
   const { babyPic, oldNahomPic } = await getPicAboutMePage();
@@ -72,7 +71,6 @@ export default async function AboutPage() {
                   </a>
                 </p>
               </div>
-              <CurrentlyPlaying />
             </div>
           </div>
         </div>

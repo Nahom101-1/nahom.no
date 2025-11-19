@@ -4,7 +4,6 @@ import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 import { Navbar } from '../layout/navbar';
 import SplitText from '../effects/SplitText';
-import CurrentlyPlaying from './CurrentlyPlaying';
 import ScrollStack, { ScrollStackItem } from '../effects/ScrollStack';
 
 export default function WorkExperienceSection({
@@ -157,11 +156,6 @@ export default function WorkExperienceSection({
             </ScrollStackItem>
           ))}
         </ScrollStack>
-      </div>
-
-      {/* CurrentlyPlaying */}
-      <div className='fixed md:absolute bottom-0 left-0 md:left-auto md:right-0 p-4 md:p-8 z-50 w-full md:w-auto'>
-        <CurrentlyPlaying />
       </div>
     </div>
   );
