@@ -2,7 +2,12 @@ import { createClient } from 'next-sanity';
 import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import groq from 'groq';
-import { Education, Poster, WorkExperience } from '@/types/sanity';
+import {
+  Education,
+  Poster,
+  RelevantClasses,
+  WorkExperience,
+} from '@/types/sanity';
 // Environment variables
 export const apiVersion =
   process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2025-07-31';
@@ -60,6 +65,14 @@ const POSTER_QUERY = groq`*[_type == "backGroundPoster"] {
   _id, poster, image 
 }`;
 
+const RELEVANT_CLASSES_QUERY = groq`*[_type == "relevantClasses"] {
+  _id,
+  courseCode,
+  courseName,
+  grade,
+  year
+}`;
+
 // Data fetching functions
 export async function getWorkExperience(): Promise<WorkExperience[]> {
   const docs = await client.fetch<WorkExperience[]>(WORK_EXPERIENCE_QUERY);
@@ -106,6 +119,11 @@ export async function getPicAboutMePage(): Promise<{
     assets.find(a => a.alt === 'OlderPic')?.imageUrl || '/placeholder.jpg';
 
   return { babyPic, oldNahomPic };
+}
+
+export async function getRelevantClasses(): Promise<RelevantClasses[]> {
+  const classes = await client.fetch<RelevantClasses[]>(RELEVANT_CLASSES_QUERY);
+  return classes;
 }
 
 // Utility function for environment variables

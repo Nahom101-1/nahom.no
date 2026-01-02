@@ -101,7 +101,7 @@ const education = {
     {
       name: 'gpa',
       title: 'GPA',
-      type: 'string',
+      type: 'number',
     },
     {
       name: 'location',

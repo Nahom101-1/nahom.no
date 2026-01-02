@@ -38,6 +38,14 @@ export type WorkExperience = {
   imageUrl?: string;
 };
 
+export type RelevantClasses = {
+  _id: string;
+  courseCode: string;
+  courseName: string;
+  grade: string;
+  year: number;
+};
+
 // image type
 export type SanityImage = {
   asset: {

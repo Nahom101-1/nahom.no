@@ -8,12 +8,6 @@ const menuItems = [
   { label: 'Skills', ariaLabel: 'Skills and tools used', link: '/skills' },
   { label: 'About', ariaLabel: 'About me', link: '/about' },
   {
-    label: 'Courses',
-    ariaLabel: 'Relevant courses',
-    link: '/courses',
-  },
-  { label: 'About', ariaLabel: 'About me', link: '/about' },
-  {
     label: 'Latest Watched',
     ariaLabel: 'Latest Watched',
     link: '/latest-watched',
