@@ -5,7 +5,16 @@ const nextConfig: NextConfig = {
     // ppr: 'incremental',
   },
   images: {
-    domains: ['cdn.sanity.io', 'a.ltrbxd.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },
+      {
+        protocol: 'https',
+        hostname: 'a.ltrbxd.com',
+      },
+    ],
   },
 };
 
