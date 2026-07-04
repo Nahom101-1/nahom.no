@@ -107,24 +107,27 @@ Defined in [`.github/workflows/ci.yml`](../.github/workflows/ci.yml):
 | Lint   | `npm run lint`         |
 | Format | `npm run format:check` |
 | Test   | `npm test`             |
+| Audit  | `npm run audit`        |
 | Build  | `npm run build`        |
+
+The workflow uses `permissions: contents: read` (least privilege).
 
 ### Branch protection
 
-After merging the protection setup once, run:
+After merging once, run:
 
 ```bash
 gh auth login
-.github/setup-branch-protection.sh
+.github/setup-repo.sh
 ```
 
-This creates or updates a **Protect main** ruleset that:
+This script:
 
-- Requires pull requests (no direct pushes to the default branch)
-- Requires all four CI checks to pass
-- Blocks force pushes
+- Enables delete branch on merge and auto-merge
+- Enables Dependabot security updates
+- Creates or updates **Protect main** (PR required, Lint / Format / Test / Audit / Build, no force push)
 
-You can also configure the same rules under **Settings → Rules → Rulesets** in GitHub.
+You can also configure rules under **Settings → Rules → Rulesets** in GitHub.
 
 ## AI code review
 
@@ -155,7 +158,7 @@ sequenceDiagram
 
   Dev->>GH: Branch from main
   Dev->>GH: Push + open PR
-  GH->>CI: Run Lint, Format, Test, Build
+  GH->>CI: Run Lint, Format, Test, Audit, Build
   GH->>AI: Review diff
   AI-->>GH: Comments on PR
   CI-->>GH: Pass / fail
@@ -190,16 +193,32 @@ When adding or changing CMS fields:
 4. Section component(s) — read the new field
 5. `scripts/seed.mjs` — seed EN + NO values (local only)
 
-Publish documents in Studio after editing. Production page cache revalidates hourly (`revalidate = 3600`).
+Publish documents in Studio after editing. Without a webhook, production cache revalidates hourly (`revalidate = 3600`).
+
+### On-demand revalidation (webhook)
+
+`POST /api/revalidate` clears the home page cache when Sanity content changes.
+
+1. Generate a secret and add `SANITY_REVALIDATE_SECRET` in Vercel (and `.env.local` locally).
+2. In [Sanity Manage](https://www.sanity.io/manage) → your project → **API** → **Webhooks**, create a webhook:
+   - **URL:** `https://nahom.no/api/revalidate`
+   - **Dataset:** production
+   - **Trigger on:** Create, Update, Delete
+   - **Filter:** `_type in ["siteSettings", "workExperience", "project", "education", "relevantClasses", "resume"]`
+   - **Secret:** same value as `SANITY_REVALIDATE_SECRET`
+   - **HTTP method:** POST
+   - **API version:** v2021-03-25 or later
+
+After setup, CMS publishes appear on the live site within seconds instead of waiting for the hourly cache.
 
 ## Key paths
 
-| Area                    | Path                                                    |
-| ----------------------- | ------------------------------------------------------- |
-| Page assembly           | `src/app/page.tsx`                                      |
-| i18n                    | `src/lib/i18n.tsx`, `src/lib/lang.ts`, `src/lib/cms.ts` |
-| Sanity client + queries | `src/lib/sanity.ts`                                     |
-| Section components      | `src/components/features/`                              |
-| API routes              | `src/app/api/now-playing/`, `src/app/api/letterboxd/`   |
-| CI                      | `.github/workflows/ci.yml`                              |
-| AI review               | `.coderabbit.yaml`, `.github/copilot-instructions.md`   |
+| Area                    | Path                                                                             |
+| ----------------------- | -------------------------------------------------------------------------------- |
+| Page assembly           | `src/app/page.tsx`                                                               |
+| i18n                    | `src/lib/i18n.tsx`, `src/lib/lang.ts`, `src/lib/cms.ts`                          |
+| Sanity client + queries | `src/lib/sanity.ts`                                                              |
+| Section components      | `src/components/features/`                                                       |
+| API routes              | `src/app/api/now-playing/`, `src/app/api/letterboxd/`, `src/app/api/revalidate/` |
+| CI                      | `.github/workflows/ci.yml`                                                       |
+| AI review               | `.coderabbit.yaml`, `.github/copilot-instructions.md`                            |
