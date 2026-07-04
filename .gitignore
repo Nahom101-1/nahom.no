@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp
@@ -19,6 +17,10 @@
 
 # production
 /build
+/dist
+
+# sanity
+.sanity/
 
 # misc
 .DS_Store
@@ -30,10 +32,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
 
-# vercel
+.env*
+!.env.example
+
+
 .vercel
 
 # typescript
@@ -41,3 +44,13 @@ yarn-error.log*
 next-env.d.ts
 
 .vscode
+.idea
+
+# claude code
+.claude/settings.local.json
+.mcp.json
+
+# local project notes
+PROJECT_OVERVIEW.md
+
+scripts/
