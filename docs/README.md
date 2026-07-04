@@ -70,12 +70,12 @@ flowchart LR
   Lang --> CMS
 ```
 
-| Layer | Role |
-| ----- | ---- |
-| Sanity `*No` fields | Bilingual content edited in Studio |
-| `LanguageProvider` | EN/NO toggle, persists choice |
-| `pickLang` / `pickListLang` | Pick EN or NO string or list from CMS object |
-| `label()` | Section labels and nav copy from `siteSettings` |
+| Layer                       | Role                                            |
+| --------------------------- | ----------------------------------------------- |
+| Sanity `*No` fields         | Bilingual content edited in Studio              |
+| `LanguageProvider`          | EN/NO toggle, persists choice                   |
+| `pickLang` / `pickListLang` | Pick EN or NO string or list from CMS object    |
+| `label()`                   | Section labels and nav copy from `siteSettings` |
 
 ## CI and pull requests
 
@@ -102,12 +102,12 @@ flowchart LR
 
 Defined in [`.github/workflows/ci.yml`](../.github/workflows/ci.yml):
 
-| Job | Command |
-| --- | ------- |
-| Lint | `npm run lint` |
+| Job    | Command                |
+| ------ | ---------------------- |
+| Lint   | `npm run lint`         |
 | Format | `npm run format:check` |
-| Test | `npm test` |
-| Build | `npm run build` |
+| Test   | `npm test`             |
+| Build  | `npm run build`        |
 
 ### Branch protection
 
@@ -196,12 +196,12 @@ Publish documents in Studio after editing. Production page cache revalidates hou
 
 ## Key paths
 
-| Area | Path |
-| ---- | ---- |
-| Page assembly | `src/app/page.tsx` |
-| i18n | `src/lib/i18n.tsx`, `src/lib/lang.ts`, `src/lib/cms.ts` |
-| Sanity client + queries | `src/lib/sanity.ts` |
-| Section components | `src/components/features/` |
-| API routes | `src/app/api/now-playing/`, `src/app/api/letterboxd/` |
-| CI | `.github/workflows/ci.yml` |
-| AI review | `.coderabbit.yaml`, `.github/copilot-instructions.md` |
+| Area                    | Path                                                    |
+| ----------------------- | ------------------------------------------------------- |
+| Page assembly           | `src/app/page.tsx`                                      |
+| i18n                    | `src/lib/i18n.tsx`, `src/lib/lang.ts`, `src/lib/cms.ts` |
+| Sanity client + queries | `src/lib/sanity.ts`                                     |
+| Section components      | `src/components/features/`                              |
+| API routes              | `src/app/api/now-playing/`, `src/app/api/letterboxd/`   |
+| CI                      | `.github/workflows/ci.yml`                              |
+| AI review               | `.coderabbit.yaml`, `.github/copilot-instructions.md`   |

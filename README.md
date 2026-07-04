@@ -128,8 +128,10 @@ First-time repo setup for maintainers:
 
 ```bash
 gh auth login
-.github/setup-branch-protection.sh   # enforce PR + CI on main
+.github/setup-branch-protection.sh
 ```
+
+The script requires `gh` to be logged in. It enforces pull requests and passing CI on the default branch.
 
 Install the [CodeRabbit GitHub App](https://coderabbit.ai/) and enable Copilot code review in repo settings. See [docs/README.md](docs/README.md) for details.
 
@@ -152,13 +154,13 @@ npm run seed         # Push content to Sanity (scripts/seed.mjs — local only, 
 The studio (`/studio`) is organized into one **Site Settings** singleton plus content lists.
 Document types in `sanity/schema.ts`:
 
-| Type              | Purpose                                                                 |
-| ----------------- | ----------------------------------------------------------------------- |
-| `siteSettings`    | Site copy, nav labels, section toggles, portrait (EN + `*No` fields)    |
-| `workExperience`  | Roles with bilingual descriptions                                     |
-| `project`         | Projects with stack, screenshot, link                                   |
-| `education`       | Degrees with GPA and location                                           |
-| `relevantClasses` | Classes linked to an `education` entry                                  |
-| `resume`          | English + Norwegian PDF uploads                                         |
+| Type              | Purpose                                                              |
+| ----------------- | -------------------------------------------------------------------- |
+| `siteSettings`    | Site copy, nav labels, section toggles, portrait (EN + `*No` fields) |
+| `workExperience`  | Roles with bilingual descriptions                                    |
+| `project`         | Projects with stack, screenshot, link                                |
+| `education`       | Degrees with GPA and location                                        |
+| `relevantClasses` | Classes linked to an `education` entry                               |
+| `resume`          | English + Norwegian PDF uploads                                      |
 
 Everything subject to change lives in Sanity so the site can be updated without touching code.
