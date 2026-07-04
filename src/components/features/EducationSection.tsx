@@ -2,13 +2,22 @@
 import { motion } from 'motion/react';
 import { rv } from '@/lib/motion';
 import type { Education, Language } from '@/types/sanity';
+import { useLang, LANGUAGE_NAMES_NO, LANGUAGE_LEVELS_NO } from '@/lib/i18n';
 
-const DEFAULT_COURSES = [
-  { name: 'Algorithms & Data Structures', grade: '' },
-  { name: 'Databases', grade: '' },
-  { name: 'Cloud Technologies', grade: '' },
-  { name: 'Robust & Scalable Services', grade: '' },
-];
+const DEFAULT_COURSES = {
+  en: [
+    { name: 'Algorithms & Data Structures', grade: '' },
+    { name: 'Databases', grade: '' },
+    { name: 'Cloud Technologies', grade: '' },
+    { name: 'Robust & Scalable Services', grade: '' },
+  ],
+  no: [
+    { name: 'Algoritmer og datastrukturer', grade: '' },
+    { name: 'Databaser', grade: '' },
+    { name: 'Skytjenester', grade: '' },
+    { name: 'Robuste og skalerbare tjenester', grade: '' },
+  ],
+};
 
 const DEFAULT_LANGUAGES: Language[] = [
   { name: 'Norwegian', level: 'Fluent' },
@@ -25,22 +34,33 @@ export default function EducationSection({
   education: Education | null;
   languages?: Language[];
 }) {
+  const { lang, ui, pick, tr } = useLang();
+
+  const degreeName = education ? pick(education.degree, education.degreeNo) : undefined;
+  const fieldName = education
+    ? pick(education.fieldOfStudy, education.fieldOfStudyNo)
+    : undefined;
   const degree = education
-    ? `${education.degree}${education.fieldOfStudy ? ` / ${education.fieldOfStudy}` : ''}`
-    : 'BSc, Programming / IT';
+    ? `${degreeName}${fieldName ? ` / ${fieldName}` : ''}`
+    : lang === 'no'
+      ? 'Bachelor, Programmering / IT'
+      : 'BSc, Programming / IT';
 
   const school = education
     ? `${education.institution}${education.location ? ` · ${education.location}` : ''}`
     : 'NTNU Gjøvik';
 
   const years = education
-    ? `${new Date(education.startDate).getFullYear()}—${education.endDate ? new Date(education.endDate).getFullYear() : 'Present'}`
+    ? `${new Date(education.startDate).getFullYear()}—${education.endDate ? new Date(education.endDate).getFullYear() : ui.present}`
     : '2023—2026';
 
   const courses =
     education?.relevantClasses && education.relevantClasses.length > 0
-      ? education.relevantClasses.map(c => ({ name: c.courseName, grade: c.grade }))
-      : DEFAULT_COURSES;
+      ? education.relevantClasses.map(c => ({
+          name: pick(c.courseName, c.courseNameNo) ?? c.courseName,
+          grade: c.grade,
+        }))
+      : DEFAULT_COURSES[lang];
 
   const spokenLanguages =
     languages && languages.length > 0 ? languages : DEFAULT_LANGUAGES;
@@ -69,10 +89,10 @@ export default function EducationSection({
             className='font-display font-extrabold uppercase'
             style={{ fontSize: 'clamp(34px, 6vw, 76px)', letterSpacing: '-0.03em', lineHeight: '0.9' }}
           >
-            Education
+            {ui.eduTitle}
           </h2>
           <p className='font-mono uppercase mt-1' style={{ fontSize: '11px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}>
-            &amp; spoken languages
+            {ui.eduSub}
           </p>
         </div>
       </motion.div>
@@ -95,7 +115,7 @@ export default function EducationSection({
             style={{ fontSize: '12px', letterSpacing: '0.1em', color: 'var(--ds-accent)' }}
           >
             {school} · {years}
-            {gpa ? ` · Grade ${gpa}` : ''}
+            {gpa ? ` · ${ui.grade} ${gpa}` : ''}
           </div>
           <div className='flex flex-wrap gap-2'>
             {courses.map(course => (
@@ -133,7 +153,7 @@ export default function EducationSection({
             className='font-mono uppercase mb-5'
             style={{ fontSize: '11px', letterSpacing: '0.16em', color: 'var(--ds-fg-muted)' }}
           >
-            Languages
+            {ui.languagesHeader}
           </h4>
           {spokenLanguages.map(lang => (
             <div
@@ -145,13 +165,13 @@ export default function EducationSection({
                 className='font-display font-bold'
                 style={{ fontSize: '24px', letterSpacing: '-0.02em' }}
               >
-                {lang.name}
+                {tr(LANGUAGE_NAMES_NO, lang.name)}
               </span>
               <span
                 className='font-mono uppercase'
                 style={{ fontSize: '10px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}
               >
-                {lang.level}
+                {lang.level ? tr(LANGUAGE_LEVELS_NO, lang.level) : ''}
               </span>
             </div>
           ))}

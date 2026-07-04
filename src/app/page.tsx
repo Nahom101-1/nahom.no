@@ -39,7 +39,7 @@ export default async function Home() {
 
   return (
     <>
-      <Navbar resumeUrl={resume?.url} />
+      <Navbar resumeUrl={resume?.url} resumeNoUrl={resume?.urlNo} />
 
       <main>
         <HeroSection settings={settings} />
@@ -51,24 +51,27 @@ export default async function Home() {
           skillGroups={settings?.skillGroups}
           heading={settings?.toolkitHeading}
           subtitle={settings?.toolkitSubtitle}
+          headingNo={settings?.toolkitHeadingNo}
+          subtitleNo={settings?.toolkitSubtitleNo}
         />
         <EducationSection education={education} languages={settings?.languages} />
         {settings?.offClockEnabled !== false && (
-          <OffTheClock kicker={settings?.offClockKicker} />
+          <OffTheClock
+            kicker={settings?.offClockKicker}
+            kickerNo={settings?.offClockKickerNo}
+          />
         )}
         <ContactSection
           settings={settings}
           resumeUrl={resume?.url}
           resumeNoUrl={resume?.urlNo}
-          resumeNoLabel={resume?.labelNo}
         />
       </main>
 
       <FooterSection
         name={settings?.name}
         note={settings?.footerNote}
-        phone={settings?.phone}
-        location={settings?.location}
+        email={settings?.email}
       />
     </>
   );

@@ -13,6 +13,7 @@ const workExperience = {
   fields: [
     { name: 'company', title: 'Company', type: 'string', validation: (R: Rule) => R.required() },
     { name: 'position', title: 'Position', type: 'string', validation: (R: Rule) => R.required() },
+    { name: 'positionNo', title: 'Position (Norwegian)', type: 'string' },
     { name: 'location', title: 'Location', type: 'string' },
     { name: 'startDate', title: 'Start Date', type: 'date', validation: (R: Rule) => R.required() },
     {
@@ -29,8 +30,10 @@ const workExperience = {
       description: 'Optional status badge, e.g. "Incoming" or "Part-time"',
     },
     { name: 'description', title: 'Description', type: 'text' },
+    { name: 'descriptionNo', title: 'Description (Norwegian)', type: 'text' },
     { name: 'technologies', title: 'Technologies', type: 'array', of: [{ type: 'string' }] },
     { name: 'learnings', title: 'Key Learnings', type: 'array', of: [{ type: 'string' }] },
+    { name: 'learningsNo', title: 'Key Learnings (Norwegian)', type: 'array', of: [{ type: 'string' }] },
     { name: 'picture', title: 'Picture', type: 'image', options: { hotspot: true } },
   ],
   preview: {
@@ -52,6 +55,7 @@ const relevantClasses = {
     },
     { name: 'courseCode', title: 'Code', type: 'string' },
     { name: 'courseName', title: 'Name', type: 'string', validation: (R: Rule) => R.required() },
+    { name: 'courseNameNo', title: 'Name (Norwegian)', type: 'string' },
     {
       name: 'grade',
       title: 'Grade',
@@ -72,7 +76,9 @@ const education = {
   fields: [
     { name: 'institution', title: 'Institution', type: 'string', validation: (R: Rule) => R.required() },
     { name: 'degree', title: 'Degree', type: 'string', validation: (R: Rule) => R.required() },
+    { name: 'degreeNo', title: 'Degree (Norwegian)', type: 'string' },
     { name: 'fieldOfStudy', title: 'Field of Study', type: 'string' },
+    { name: 'fieldOfStudyNo', title: 'Field of Study (Norwegian)', type: 'string' },
     { name: 'startDate', title: 'Start Date', type: 'date' },
     {
       name: 'endDate',
@@ -137,6 +143,7 @@ const project = {
     { name: 'title', title: 'Title', type: 'string', validation: (R: Rule) => R.required() },
     { name: 'year', title: 'Year', type: 'number' },
     { name: 'description', title: 'Description', type: 'text' },
+    { name: 'descriptionNo', title: 'Description (Norwegian)', type: 'text' },
     { name: 'stack', title: 'Tech Stack', type: 'array', of: [{ type: 'string' }] },
     { name: 'image', title: 'Screenshot', type: 'image', options: { hotspot: true } },
     { name: 'link', title: 'Project URL', type: 'url' },
@@ -180,6 +187,12 @@ const siteSettings = {
       description: 'Small label in the hero/footer, e.g. "Programmer · Developer"',
     },
     {
+      name: 'roleLabelNo',
+      title: 'Role Label (Norwegian)',
+      type: 'string',
+      group: 'identity',
+    },
+    {
       name: 'birthDate',
       title: 'Birth Date',
       type: 'date',
@@ -194,11 +207,24 @@ const siteSettings = {
       description: 'Where you live, e.g. "Oslo, Norway"',
     },
     {
+      name: 'locationNo',
+      title: 'Location (Norwegian)',
+      type: 'string',
+      group: 'identity',
+      description: 'e.g. "Oslo, Norge"',
+    },
+    {
       name: 'tagline',
       title: 'Tagline',
       type: 'text',
       group: 'identity',
       description: 'The large serif sentence in the hero',
+    },
+    {
+      name: 'taglineNo',
+      title: 'Tagline (Norwegian)',
+      type: 'text',
+      group: 'identity',
     },
     {
       name: 'heroHighlights',
@@ -225,6 +251,13 @@ const siteSettings = {
       group: 'about',
       of: [{ type: 'text' }],
       description: 'Each item becomes one paragraph in the About section',
+    },
+    {
+      name: 'aboutTextNo',
+      title: 'About — Paragraphs (Norwegian)',
+      type: 'array',
+      group: 'about',
+      of: [{ type: 'text' }],
     },
     {
       name: 'portrait',
@@ -268,6 +301,18 @@ const siteSettings = {
       type: 'string',
       group: 'skills',
       description: 'Small line under the heading, e.g. "Languages, frameworks & methods I\'ve used or am familiar with"',
+    },
+    {
+      name: 'toolkitHeadingNo',
+      title: 'Toolkit — Heading (Norwegian)',
+      type: 'string',
+      group: 'skills',
+    },
+    {
+      name: 'toolkitSubtitleNo',
+      title: 'Toolkit — Subtitle (Norwegian)',
+      type: 'string',
+      group: 'skills',
     },
     {
       name: 'skillGroups',
@@ -314,6 +359,19 @@ const siteSettings = {
       description: 'The big call-to-action, e.g. "Say hello"',
     },
     {
+      name: 'contactKickerNo',
+      title: 'Contact — Kicker (Norwegian)',
+      type: 'string',
+      group: 'contact',
+    },
+    {
+      name: 'contactHeadingNo',
+      title: 'Contact — Heading (Norwegian)',
+      type: 'string',
+      group: 'contact',
+      description: 'e.g. "Si hei"',
+    },
+    {
       name: 'footerNote',
       title: 'Footer Note',
       type: 'string',
@@ -335,6 +393,12 @@ const siteSettings = {
       type: 'string',
       group: 'sections',
       description: 'e.g. "Now playing & recently watched"',
+    },
+    {
+      name: 'offClockKickerNo',
+      title: 'Off the clock — Subtitle (Norwegian)',
+      type: 'string',
+      group: 'sections',
     },
   ],
   preview: {

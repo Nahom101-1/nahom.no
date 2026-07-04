@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import Image from 'next/image';
 import { rv } from '@/lib/motion';
 import type { LetterboxdFeed } from '@/types/letterBoxItem';
+import { useLang } from '@/lib/i18n';
 
 type NowPlaying = {
   playing: boolean;
@@ -36,6 +37,7 @@ function Equalizer() {
 }
 
 function NowPlayingCard() {
+  const { ui } = useLang();
   const [data, setData] = useState<NowPlaying | null>(null);
 
   useEffect(() => {
@@ -76,7 +78,7 @@ function NowPlayingCard() {
           color: 'var(--ds-fg-muted)',
         }}
       >
-        <span>Now Playing</span>
+        <span>{ui.nowPlaying}</span>
         {playing ? (
           <Equalizer />
         ) : (
@@ -134,13 +136,13 @@ function NowPlayingCard() {
               color: 'var(--ds-fg-muted)',
             }}
           >
-            Nothing playing
+            {ui.nothingPlaying}
           </div>
           <div
             className='font-serif mt-1'
             style={{ fontSize: '15px', color: 'var(--ds-fg-muted)' }}
           >
-            Nothing is currently playing.
+            {ui.nothingPlayingSub}
           </div>
         </div>
       )}
@@ -163,6 +165,7 @@ function Stars({ rating }: { rating: number }) {
 }
 
 function RecentlyWatched() {
+  const { ui } = useLang();
   const [movies, setMovies] = useState<LetterboxdFeed[] | null>(null);
 
   useEffect(() => {
@@ -192,7 +195,7 @@ function RecentlyWatched() {
           color: 'var(--ds-fg-muted)',
         }}
       >
-        <span>Recently Watched</span>
+        <span>{ui.recentlyWatched}</span>
         <span style={{ color: 'var(--ds-fg-subtle)' }}>Letterboxd</span>
       </div>
 
@@ -257,7 +260,14 @@ function RecentlyWatched() {
   );
 }
 
-export default function OffTheClock({ kicker }: { kicker?: string }) {
+export default function OffTheClock({
+  kicker,
+  kickerNo,
+}: {
+  kicker?: string;
+  kickerNo?: string;
+}) {
+  const { ui, pick } = useLang();
   return (
     <section
       id='off-the-clock'
@@ -287,7 +297,7 @@ export default function OffTheClock({ kicker }: { kicker?: string }) {
               lineHeight: '0.9',
             }}
           >
-            Off the clock
+            {ui.offTitle}
           </h2>
           <p
             className='font-mono uppercase mt-1'
@@ -297,7 +307,7 @@ export default function OffTheClock({ kicker }: { kicker?: string }) {
               color: 'var(--ds-fg-muted)',
             }}
           >
-            {kicker ?? 'Now playing & recently watched'}
+            {pick(kicker, kickerNo) ?? ui.offSub}
           </p>
         </div>
       </motion.div>

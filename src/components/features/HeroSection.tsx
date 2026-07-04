@@ -2,6 +2,7 @@
 import { motion } from 'motion/react';
 import type { SiteSettings } from '@/types/sanity';
 import { rv, rvViewport } from '@/lib/motion';
+import { useLang, HIGHLIGHT_LABELS_NO } from '@/lib/i18n';
 
 const reveal = rv;
 
@@ -11,10 +12,14 @@ const DEFAULT_HIGHLIGHTS = [
   { label: 'Stack', value: 'Kotlin · Go · TS' },
 ];
 
+const DEFAULT_TAGLINE = {
+  en: 'Backend and AI-leaning developer. I build APIs, data models and reliable services.',
+  no: 'Backend- og KI-orientert utvikler. Jeg bygger API-er, datamodeller og pålitelige tjenester.',
+};
+
 export default function HeroSection({ settings }: { settings: SiteSettings | null }) {
-  const tagline =
-    settings?.tagline ??
-    'Backend and AI-leaning developer. I build APIs, data models and reliable services.';
+  const { lang, ui, pick, tr } = useLang();
+  const tagline = pick(settings?.tagline, settings?.taglineNo) ?? DEFAULT_TAGLINE[lang];
 
   const [firstName, ...rest] = (settings?.name ?? 'Nahom Berhane').split(' ');
   const lastName = rest.join(' ');
@@ -34,9 +39,13 @@ export default function HeroSection({ settings }: { settings: SiteSettings | nul
         className='flex justify-between flex-wrap gap-3 font-mono uppercase mb-9'
         style={{ fontSize: '11px', letterSpacing: '0.14em', color: 'var(--ds-fg-muted)' }}
       >
-        <span>{settings?.roleLabel ?? 'Programmer · Developer'}</span>
-        <span>Portfolio — Index {year}</span>
-        <span>{settings?.location ?? 'Oslo, Norway'}</span>
+        <span>
+          {pick(settings?.roleLabel, settings?.roleLabelNo) ??
+            (lang === 'no' ? 'Programmerer · Utvikler' : 'Programmer · Developer')}
+        </span>
+        <span>
+          {ui.portfolioIndex} {year}
+        </span>
       </div>
 
       <motion.h1
@@ -82,7 +91,7 @@ export default function HeroSection({ settings }: { settings: SiteSettings | nul
         >
           {highlights.map((h, i) => (
             <span key={i}>
-              {h.label} →{' '}
+              {tr(HIGHLIGHT_LABELS_NO, h.label)} →{' '}
               <strong style={{ color: 'var(--ds-fg)', fontWeight: 500 }}>{h.value}</strong>
               {i < highlights.length - 1 ? <br /> : null}
             </span>

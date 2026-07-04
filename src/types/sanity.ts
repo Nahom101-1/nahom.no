@@ -3,6 +3,7 @@ export type Project = {
   title: string;
   year: number;
   description: string;
+  descriptionNo?: string;
   stack: string[];
   imageUrl?: string;
   link?: string;
@@ -27,15 +28,21 @@ export type Language = {
 export type SiteSettings = {
   name?: string;
   roleLabel?: string;
+  roleLabelNo?: string;
   birthDate?: string;
   location?: string;
+  locationNo?: string;
   tagline?: string;
+  taglineNo?: string;
   heroHighlights?: HeroHighlight[];
   aboutText?: string[];
+  aboutTextNo?: string[];
   portraitUrl?: string;
   languages?: Language[];
   toolkitHeading?: string;
   toolkitSubtitle?: string;
+  toolkitHeadingNo?: string;
+  toolkitSubtitleNo?: string;
   skillGroups?: SkillGroup[];
   marqueeWords?: string[];
   email?: string;
@@ -45,9 +52,12 @@ export type SiteSettings = {
   phone?: string;
   contactKicker?: string;
   contactHeading?: string;
+  contactKickerNo?: string;
+  contactHeadingNo?: string;
   footerNote?: string;
   offClockEnabled?: boolean;
   offClockKicker?: string;
+  offClockKickerNo?: string;
 };
 
 export type Education = {
@@ -56,7 +66,9 @@ export type Education = {
   picture?: SanityImage;
   institution: string;
   degree: string;
+  degreeNo?: string;
   fieldOfStudy?: string;
+  fieldOfStudyNo?: string;
   startDate: string;
   endDate?: string;
   isCurrent: boolean;
@@ -73,14 +85,17 @@ export type WorkExperience = {
   picture?: SanityImage;
   company: string;
   position: string;
+  positionNo?: string;
   location?: string;
   startDate: string;
   endDate?: string;
   isCurrent: boolean;
   badge?: string;
   description?: string;
+  descriptionNo?: string;
   technologies?: string[];
   learnings?: string[];
+  learningsNo?: string[];
   imageUrl?: string;
 };
 
@@ -88,6 +103,7 @@ export type RelevantClasses = {
   _id: string;
   courseCode: string;
   courseName: string;
+  courseNameNo?: string;
   grade: string;
   year: number;
   education?: {

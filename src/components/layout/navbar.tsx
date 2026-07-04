@@ -1,15 +1,21 @@
 'use client';
 import Link from 'next/link';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { LanguageToggle } from '@/components/LanguageToggle';
+import { useLang } from '@/lib/i18n';
 
-const navLinks = [
-  { label: 'Work', href: '#work' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
-];
+export function Navbar({ resumeUrl, resumeNoUrl }: { resumeUrl?: string; resumeNoUrl?: string }) {
+  const { lang, ui } = useLang();
 
-export function Navbar({ resumeUrl }: { resumeUrl?: string }) {
+  const navLinks = [
+    { label: ui.navWork, href: '#work' },
+    { label: ui.navExperience, href: '#experience' },
+    { label: ui.navAbout, href: '#about' },
+    { label: ui.navContact, href: '#contact' },
+  ];
+
+  const cvUrl = lang === 'no' ? (resumeNoUrl ?? resumeUrl) : resumeUrl;
+
   return (
     <nav className='fixed top-0 left-0 right-0 z-50 navbar-glass'>
       <div className='page-wrap flex items-center justify-between py-4'>
@@ -40,37 +46,47 @@ export function Navbar({ resumeUrl }: { resumeUrl?: string }) {
           ))}
         </div>
 
-        <ThemeToggle />
+        <div className='flex items-center gap-3'>
+          <div className='flex items-center gap-2'>
+            <LanguageToggle />
+            <span
+              className='w-px h-4 flex-none'
+              style={{ background: 'var(--ds-border-strong)' }}
+              aria-hidden='true'
+            />
+            <ThemeToggle />
+          </div>
 
-        {resumeUrl ? (
-          <a
-            href={resumeUrl}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='font-mono text-[11px] uppercase px-4 py-2 transition-colors duration-200 hover:bg-accent hover:text-[var(--ds-accent-fg)]'
-            style={{
-              letterSpacing: '0.10em',
-              background: 'var(--ds-fg)',
-              color: 'var(--ds-bg)',
-              borderRadius: '2px',
-            }}
-          >
-            Résumé ↓
-          </a>
-        ) : (
-          <a
-            href='#contact'
-            className='font-mono text-[11px] uppercase px-4 py-2 transition-colors duration-200'
-            style={{
-              letterSpacing: '0.10em',
-              background: 'var(--ds-fg)',
-              color: 'var(--ds-bg)',
-              borderRadius: '2px',
-            }}
-          >
-            Say hello
-          </a>
-        )}
+          {cvUrl ? (
+            <a
+              href={cvUrl}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='font-mono text-[11px] uppercase px-4 py-2 transition-colors duration-200 hover:bg-accent hover:text-[var(--ds-accent-fg)]'
+              style={{
+                letterSpacing: '0.10em',
+                background: 'var(--ds-fg)',
+                color: 'var(--ds-bg)',
+                borderRadius: '2px',
+              }}
+            >
+              {ui.resumeLabel}
+            </a>
+          ) : (
+            <a
+              href='#contact'
+              className='font-mono text-[11px] uppercase px-4 py-2 transition-colors duration-200'
+              style={{
+                letterSpacing: '0.10em',
+                background: 'var(--ds-fg)',
+                color: 'var(--ds-bg)',
+                borderRadius: '2px',
+              }}
+            >
+              {ui.sayHello}
+            </a>
+          )}
+        </div>
       </div>
     </nav>
   );

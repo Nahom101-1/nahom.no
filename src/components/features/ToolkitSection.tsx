@@ -2,6 +2,7 @@
 import { motion } from 'motion/react';
 import { rv } from '@/lib/motion';
 import type { SkillGroup } from '@/types/sanity';
+import { useLang, SKILL_CATEGORIES_NO } from '@/lib/i18n';
 
 const DEFAULT_SKILL_GROUPS: SkillGroup[] = [
   { category: 'Languages', skills: ['Kotlin', 'JavaScript / TS', 'Go', 'C / C++'] },
@@ -17,11 +18,16 @@ export default function ToolkitSection({
   skillGroups,
   heading,
   subtitle,
+  headingNo,
+  subtitleNo,
 }: {
   skillGroups?: SkillGroup[];
   heading?: string;
   subtitle?: string;
+  headingNo?: string;
+  subtitleNo?: string;
 }) {
+  const { ui, pick, tr } = useLang();
   const groups = skillGroups && skillGroups.length > 0 ? skillGroups : DEFAULT_SKILL_GROUPS;
 
   return (
@@ -46,10 +52,10 @@ export default function ToolkitSection({
             className='font-display font-extrabold uppercase'
             style={{ fontSize: 'clamp(34px, 6vw, 76px)', letterSpacing: '-0.03em', lineHeight: '0.9' }}
           >
-            {heading ?? 'Toolkit'}
+            {pick(heading, headingNo) ?? ui.toolkitTitle}
           </h2>
           <p className='font-mono uppercase mt-1' style={{ fontSize: '11px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}>
-            {subtitle ?? 'Languages, frameworks & methods'}
+            {pick(subtitle, subtitleNo) ?? ui.toolkitSub}
           </p>
         </div>
       </motion.div>
@@ -73,7 +79,7 @@ export default function ToolkitSection({
               className='font-mono uppercase mb-5'
               style={{ fontSize: '11px', letterSpacing: '0.16em', color: 'var(--ds-accent)' }}
             >
-              {group.category}
+              {tr(SKILL_CATEGORIES_NO, group.category)}
             </h4>
             <ul className='flex flex-col gap-2.5'>
               {group.skills.map(skill => (

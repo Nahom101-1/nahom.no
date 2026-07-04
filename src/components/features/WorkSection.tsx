@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { rv } from '@/lib/motion';
 import Image from 'next/image';
 import type { Project } from '@/types/sanity';
+import { useLang } from '@/lib/i18n';
 
 const DEFAULT_PROJECTS: Project[] = [
   {
@@ -11,6 +12,8 @@ const DEFAULT_PROJECTS: Project[] = [
     year: 2025,
     description:
       'A web app that generates travel itineraries with language models and external APIs — built with a careful eye on token economy and privacy.',
+    descriptionNo:
+      'En webapp som genererer reiseplaner med språkmodeller og eksterne API-er, med fokus på tokenøkonomi og personvern.',
     stack: ['Next.js', 'LLM', 'Firebase', 'Scrum'],
   },
   {
@@ -19,6 +22,8 @@ const DEFAULT_PROJECTS: Project[] = [
     year: 2024,
     description:
       'A REST service with webhook notifications and saved dashboard configs. It pulls weather and currency data and runs in Docker on OpenStack.',
+    descriptionNo:
+      'En REST-tjeneste med webhook-varsler og lagrede dashboard-oppsett. Henter vær- og valutadata og kjører i Docker på OpenStack.',
     stack: ['Go', 'REST', 'PostgreSQL', 'Docker'],
   },
   {
@@ -27,6 +32,8 @@ const DEFAULT_PROJECTS: Project[] = [
     year: 2024,
     description:
       'Designed and normalized the relational schema for a full-stack e-commerce platform.',
+    descriptionNo:
+      'Designet og normaliserte det relasjonelle skjemaet for en fullstack e-handelsplattform.',
     stack: ['PostgreSQL', 'SQL', 'Node.js', 'Docker'],
   },
   {
@@ -35,12 +42,15 @@ const DEFAULT_PROJECTS: Project[] = [
     year: 2025,
     description:
       'My personal site with projects and contact info. Content is managed in Sanity so it can be updated without redeploying.',
+    descriptionNo:
+      'Min personlige nettside med prosjekter og kontaktinfo. Innholdet administreres i Sanity, så det kan oppdateres uten ny deploy.',
     stack: ['React', 'Next.js', 'Tailwind', 'Sanity'],
   },
 ];
 
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const { pick } = useLang();
   const num = String(index + 1).padStart(2, '0');
 
   return (
@@ -101,7 +111,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         className='font-serif mt-3'
         style={{ fontSize: '17px', lineHeight: '1.55', color: '#3c3a32', maxWidth: '42ch' }}
       >
-        {project.description}
+        {pick(project.description, project.descriptionNo)}
       </p>
 
       <div className='flex flex-wrap gap-2 mt-4'>
@@ -126,6 +136,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 export default function WorkSection({ projects }: { projects: Project[] }) {
+  const { ui } = useLang();
   const items = projects.length > 0 ? projects : DEFAULT_PROJECTS;
 
   return (
@@ -150,10 +161,10 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
             className='font-display font-extrabold uppercase'
             style={{ fontSize: 'clamp(34px, 6vw, 76px)', letterSpacing: '-0.03em', lineHeight: '0.9' }}
           >
-            Selected Work
+            {ui.workTitle}
           </h2>
           <p className='font-mono uppercase mt-1' style={{ fontSize: '11px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}>
-            Four pieces · 2024—2026
+            {ui.workSub}
           </p>
         </div>
       </motion.div>

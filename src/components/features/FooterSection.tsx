@@ -1,15 +1,17 @@
+'use client';
+
 export default function FooterSection({
   name,
   note,
-  phone,
-  location,
+  email,
 }: {
   name?: string;
   note?: string;
-  phone?: string;
-  location?: string;
+  email?: string;
 }) {
   const year = new Date().getFullYear();
+  const address = email ?? 'nahom@berhane.no';
+
   return (
     <footer style={{ background: 'var(--ds-fg)', color: 'var(--ds-bg)', padding: '30px 0' }}>
       <div
@@ -20,10 +22,9 @@ export default function FooterSection({
           {name ?? 'Nahom Berhane'} © {year}
         </span>
         <span>{note ?? 'nahom.no'}</span>
-        <span>
-          {(location ?? 'Oslo').split(',')[0]}
-          {phone ? ` · ${phone}` : ''}
-        </span>
+        <a href={`mailto:${address}`} className='transition-opacity duration-200 hover:opacity-70'>
+          {address}
+        </a>
       </div>
     </footer>
   );

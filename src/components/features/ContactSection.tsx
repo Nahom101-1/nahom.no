@@ -2,37 +2,49 @@
 import { motion } from 'motion/react';
 import { rv } from '@/lib/motion';
 import type { SiteSettings } from '@/types/sanity';
+import { useLang } from '@/lib/i18n';
 
 
 export default function ContactSection({
   settings,
   resumeUrl,
   resumeNoUrl,
-  resumeNoLabel,
 }: {
   settings: SiteSettings | null;
   resumeUrl?: string;
   resumeNoUrl?: string;
-  resumeNoLabel?: string;
 }) {
-  const email = settings?.email ?? 'hello@nahom.no';
+  const { lang, ui, pick } = useLang();
+  const email = settings?.email ?? 'nahom@berhane.no';
   const github = settings?.githubUrl ?? 'https://github.com/Nahom101-1';
   const linkedin = settings?.linkedinUrl ?? 'https://www.linkedin.com/in/nahom-berhane-19ab84233/';
   const website = settings?.websiteUrl ?? 'https://nahom.no';
-  const kicker = settings?.contactKicker ?? 'Open to graduate roles & collaborations';
-  const heading = settings?.contactHeading ?? 'Say hello';
+  const kicker =
+    pick(settings?.contactKicker, settings?.contactKickerNo) ?? ui.contactKicker;
+  const heading =
+    pick(settings?.contactHeading, settings?.contactHeadingNo) ?? ui.sayHello;
 
   const websiteLabel = website.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
-  const links = [
-    { label: 'Email me', href: `mailto:${email}`, primary: true },
+  type ContactLink = {
+    label: string;
+    href: string;
+    primary?: boolean;
+    download?: boolean;
+  };
+
+  const resumeLinks: ContactLink[] = [
+    ...(resumeUrl ? [{ label: ui.resumeEn, href: resumeUrl, download: true }] : []),
+    ...(resumeNoUrl ? [{ label: ui.resumeNo, href: resumeNoUrl, download: true }] : []),
+  ];
+  if (lang === 'no') resumeLinks.reverse();
+
+  const links: ContactLink[] = [
+    { label: ui.emailMe, href: `mailto:${email}`, primary: true },
     { label: 'GitHub', href: github },
     { label: 'LinkedIn', href: linkedin },
     { label: websiteLabel, href: website },
-    ...(resumeUrl ? [{ label: 'Résumé ↓', href: resumeUrl, download: true }] : []),
-    ...(resumeNoUrl
-      ? [{ label: `${resumeNoLabel ?? 'CV (norsk)'} ↓`, href: resumeNoUrl, download: true }]
-      : []),
+    ...resumeLinks,
   ];
 
   return (

@@ -41,14 +41,17 @@ const WORK_EXPERIENCE_QUERY = groq`*[_type == "workExperience"] | order(startDat
   },
   company,
   position,
+  positionNo,
   location,
   startDate,
   endDate,
   isCurrent,
   badge,
   description,
+  descriptionNo,
   technologies,
-  learnings
+  learnings,
+  learningsNo
 }`;
 
 const PROJECT_QUERY = groq`*[_type == "project"] | order(order asc, year desc) {
@@ -56,6 +59,7 @@ const PROJECT_QUERY = groq`*[_type == "project"] | order(order asc, year desc) {
   title,
   year,
   description,
+  descriptionNo,
   stack,
   link,
   order,
@@ -65,15 +69,21 @@ const PROJECT_QUERY = groq`*[_type == "project"] | order(order asc, year desc) {
 const SITE_SETTINGS_QUERY = groq`*[_type == "siteSettings"][0] {
   name,
   roleLabel,
+  roleLabelNo,
   birthDate,
   location,
+  locationNo,
   tagline,
+  taglineNo,
   heroHighlights,
   aboutText,
+  aboutTextNo,
   "portraitUrl": portrait.asset->url,
   languages,
   toolkitHeading,
   toolkitSubtitle,
+  toolkitHeadingNo,
+  toolkitSubtitleNo,
   skillGroups,
   marqueeWords,
   email,
@@ -83,17 +93,20 @@ const SITE_SETTINGS_QUERY = groq`*[_type == "siteSettings"][0] {
   phone,
   contactKicker,
   contactHeading,
+  contactKickerNo,
+  contactHeadingNo,
   footerNote,
   offClockEnabled,
-  offClockKicker
+  offClockKicker,
+  offClockKickerNo
 }`;
 
 const EDUCATION_QUERY = groq`*[_type == "education"] | order(startDate desc) {
-  _id, _type, picture, institution, degree,
-  fieldOfStudy, startDate, endDate, isCurrent,
+  _id, _type, picture, institution, degree, degreeNo,
+  fieldOfStudy, fieldOfStudyNo, startDate, endDate, isCurrent,
   gpa, location, institutionLogo,
   "relevantClasses": *[_type == "relevantClasses" && references(^._id)] {
-    _id, courseCode, courseName, grade, year
+    _id, courseCode, courseName, courseNameNo, grade, year
   }
 }`;
 
