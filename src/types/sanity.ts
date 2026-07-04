@@ -1,9 +1,53 @@
-export type Poster = {
+export type Project = {
   _id: string;
-  poster: string;
-  image: SanityImage;
+  title: string;
+  year: number;
+  description: string;
+  stack: string[];
   imageUrl?: string;
-  slug?: string;
+  link?: string;
+  order?: number;
+};
+
+export type SkillGroup = {
+  category: string;
+  skills: string[];
+};
+
+export type HeroHighlight = {
+  label: string;
+  value: string;
+};
+
+export type Language = {
+  name: string;
+  level?: string;
+};
+
+export type SiteSettings = {
+  name?: string;
+  roleLabel?: string;
+  birthDate?: string;
+  location?: string;
+  tagline?: string;
+  heroHighlights?: HeroHighlight[];
+  aboutText?: string[];
+  portraitUrl?: string;
+  languages?: Language[];
+  toolkitHeading?: string;
+  toolkitSubtitle?: string;
+  skillGroups?: SkillGroup[];
+  marqueeWords?: string[];
+  email?: string;
+  githubUrl?: string;
+  linkedinUrl?: string;
+  websiteUrl?: string;
+  phone?: string;
+  contactKicker?: string;
+  contactHeading?: string;
+  footerNote?: string;
+  offClockEnabled?: boolean;
+  offClockKicker?: string;
 };
 
 export type Education = {
@@ -16,10 +60,11 @@ export type Education = {
   startDate: string;
   endDate?: string;
   isCurrent: boolean;
-  gpa?: number;
+  gpa?: string;
   location?: string;
   institutionLogo?: SanityImage;
   imageUrl?: string;
+  relevantClasses?: RelevantClasses[];
 };
 
 export type WorkExperience = {
@@ -32,6 +77,7 @@ export type WorkExperience = {
   startDate: string;
   endDate?: string;
   isCurrent: boolean;
+  badge?: string;
   description?: string;
   technologies?: string[];
   learnings?: string[];
@@ -44,6 +90,9 @@ export type RelevantClasses = {
   courseName: string;
   grade: string;
   year: number;
+  education?: {
+    _id: string;
+  } | null;
 };
 
 // image type

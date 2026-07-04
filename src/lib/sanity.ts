@@ -2,12 +2,7 @@ import { createClient } from 'next-sanity';
 import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import groq from 'groq';
-import {
-  Education,
-  Poster,
-  RelevantClasses,
-  WorkExperience,
-} from '@/types/sanity';
+import { Education, Project, SiteSettings, WorkExperience } from '@/types/sanity';
 // Environment variables
 export const apiVersion =
   process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2025-07-31';
@@ -50,27 +45,56 @@ const WORK_EXPERIENCE_QUERY = groq`*[_type == "workExperience"] | order(startDat
   startDate,
   endDate,
   isCurrent,
+  badge,
   description,
   technologies,
   learnings
 }`;
 
-const EDUCATION_QUERY = groq`*[_type == "education"] {
+const PROJECT_QUERY = groq`*[_type == "project"] | order(order asc, year desc) {
+  _id,
+  title,
+  year,
+  description,
+  stack,
+  link,
+  order,
+  "imageUrl": image.asset->url
+}`;
+
+const SITE_SETTINGS_QUERY = groq`*[_type == "siteSettings"][0] {
+  name,
+  roleLabel,
+  birthDate,
+  location,
+  tagline,
+  heroHighlights,
+  aboutText,
+  "portraitUrl": portrait.asset->url,
+  languages,
+  toolkitHeading,
+  toolkitSubtitle,
+  skillGroups,
+  marqueeWords,
+  email,
+  githubUrl,
+  linkedinUrl,
+  websiteUrl,
+  phone,
+  contactKicker,
+  contactHeading,
+  footerNote,
+  offClockEnabled,
+  offClockKicker
+}`;
+
+const EDUCATION_QUERY = groq`*[_type == "education"] | order(startDate desc) {
   _id, _type, picture, institution, degree,
   fieldOfStudy, startDate, endDate, isCurrent,
-  gpa, location, institutionLogo
-}`;
-
-const POSTER_QUERY = groq`*[_type == "backGroundPoster"] { 
-  _id, poster, image 
-}`;
-
-const RELEVANT_CLASSES_QUERY = groq`*[_type == "relevantClasses"] {
-  _id,
-  courseCode,
-  courseName,
-  grade,
-  year
+  gpa, location, institutionLogo,
+  "relevantClasses": *[_type == "relevantClasses" && references(^._id)] {
+    _id, courseCode, courseName, grade, year
+  }
 }`;
 
 // Data fetching functions
@@ -94,36 +118,29 @@ export async function getEducation(): Promise<Education[]> {
   }));
 }
 
-export async function getPosters(): Promise<Poster[]> {
-  const posts = await client.fetch<Poster[]>(POSTER_QUERY);
-  return posts.map(post => ({
-    ...post,
-    imageUrl: post.image?.asset?._ref ? urlFor(post.image) : '/placeholder.jpg',
-  }));
-}
-
-export async function getPicAboutMePage(): Promise<{
-  babyPic: string;
-  oldNahomPic: string;
-}> {
-  const assets = await client.fetch<Array<{ alt: string; imageUrl: string }>>(
-    `*[_type == "picture" && alt in ["BabyPic", "OlderPic"]] {
-      alt,
-      "imageUrl": url.asset->url
-    }`
+export async function getResume(): Promise<{
+  url: string;
+  label: string;
+  urlNo?: string;
+  labelNo?: string;
+} | null> {
+  const result = await client.fetch<{
+    url: string;
+    label: string;
+    urlNo?: string;
+    labelNo?: string;
+  } | null>(
+    groq`*[_type == "resume"][0] { "url": file.asset->url, label, "urlNo": fileNo.asset->url, labelNo }`
   );
-
-  const babyPic =
-    assets.find(a => a.alt === 'BabyPic')?.imageUrl || '/placeholder.jpg';
-  const oldNahomPic =
-    assets.find(a => a.alt === 'OlderPic')?.imageUrl || '/placeholder.jpg';
-
-  return { babyPic, oldNahomPic };
+  return result ?? null;
 }
 
-export async function getRelevantClasses(): Promise<RelevantClasses[]> {
-  const classes = await client.fetch<RelevantClasses[]>(RELEVANT_CLASSES_QUERY);
-  return classes;
+export async function getProjects(): Promise<Project[]> {
+  return client.fetch<Project[]>(PROJECT_QUERY);
+}
+
+export async function getSiteSettings(): Promise<SiteSettings | null> {
+  return client.fetch<SiteSettings | null>(SITE_SETTINGS_QUERY);
 }
 
 // Utility function for environment variables
