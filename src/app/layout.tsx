@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { Bricolage_Grotesque, Newsreader, JetBrains_Mono } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { LanguageProvider } from '@/lib/i18n';
 import './globals.css';
 
 const bricolage = Bricolage_Grotesque({
@@ -53,7 +56,11 @@ export default function RootLayout({
       className={`${bricolage.variable} ${newsreader.variable} ${jetbrainsMono.variable}`}
     >
       <body className='antialiased'>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <LanguageProvider>{children}</LanguageProvider>
+        </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
