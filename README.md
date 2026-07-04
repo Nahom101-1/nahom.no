@@ -101,7 +101,7 @@ nahom.no/
 ├── .github/
 │   ├── workflows/ci.yml
 │   ├── copilot-instructions.md  # Copilot PR review rules
-│   └── scripts/setup-branch-protection.sh
+│   └── setup-branch-protection.sh
 ├── .coderabbit.yaml             # CodeRabbit PR review config
 └── .env.example
 ```
@@ -128,7 +128,7 @@ First-time repo setup for maintainers:
 
 ```bash
 gh auth login
-.github/scripts/setup-branch-protection.sh   # enforce PR + CI on main
+.github/setup-branch-protection.sh   # enforce PR + CI on main
 ```
 
 Install the [CodeRabbit GitHub App](https://coderabbit.ai/) and enable Copilot code review in repo settings. See [docs/README.md](docs/README.md) for details.

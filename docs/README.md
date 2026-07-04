@@ -115,7 +115,7 @@ After merging the protection setup once, run:
 
 ```bash
 gh auth login
-.github/scripts/setup-branch-protection.sh
+.github/setup-branch-protection.sh
 ```
 
 This creates or updates a **Protect main** ruleset that:
