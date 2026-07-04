@@ -3,31 +3,23 @@ language: en-US
 reviews:
   profile: chill
   high_level_summary: true
-  review_status: true
+  review_status: false
   poem: false
-  sequence_diagrams: true
   auto_review:
     enabled: true
+    auto_incremental_review: true
     drafts: false
+    base_branches:
+      - main
   path_filters:
     - '!package-lock.json'
     - '!**/*.lock'
   path_instructions:
-    - path: 'sanity/**'
+    - path: '**/*'
       instructions: |
-        Schema changes must stay backward-compatible with the production dataset.
-        New siteSettings fields need updates to src/types/sanity.ts, SITE_SETTINGS_QUERY,
-        section components, and scripts/seed.mjs.
-    - path: 'src/components/**'
-      instructions: |
-        Visitor-facing copy belongs in Sanity (with *No fields for Norwegian), not hard-coded.
-        Use label() / pickLang() for bilingual UI. No em dashes in user-visible text.
-    - path: 'tests/**'
-      instructions: |
-        Tests mirror src/ layout. Prefer testing pure logic in src/lib/ over full component trees.
-    - path: 'src/lib/**'
-      instructions: |
-        Keep helpers small and testable. Use @/ imports. Match existing patterns in lang.ts and cms.ts.
+        Next.js 16 App Router, TypeScript, Tailwind v4, Sanity CMS.
+        Keep diffs small. Match existing code style and @/ imports.
+        Tests live in tests/. Visitor-facing copy belongs in Sanity, not hard-coded.
 
 chat:
   auto_reply: true

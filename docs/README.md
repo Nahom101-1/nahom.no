@@ -138,13 +138,11 @@ Custom review instructions live in [`.github/copilot-instructions.md`](../.githu
 
 Configuration is in [`.coderabbit.yaml`](../.coderabbit.yaml) at the repo root.
 
-One-time setup:
-
 1. Install the [CodeRabbit GitHub App](https://coderabbit.ai/) on this repository.
-2. Merge `.coderabbit.yaml` to `main`.
-3. Open a PR — CodeRabbit posts a summary and inline comments automatically.
+2. Merge `.coderabbit.yaml` to `main` (CodeRabbit reads config from the base branch).
+3. Open a PR targeting `main` — reviews run automatically on each push.
 
-Comment `@coderabbitai configuration` on any PR to see the resolved config.
+If a PR is opened before the config is on `main`, comment `@coderabbitai review` once to trigger a review manually.
 
 ## Contributing workflow
 
