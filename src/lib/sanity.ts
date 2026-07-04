@@ -66,7 +66,7 @@ const PROJECT_QUERY = groq`*[_type == "project"] | order(order asc, year desc) {
   "imageUrl": image.asset->url
 }`;
 
-const SITE_SETTINGS_QUERY = groq`*[_type == "siteSettings"][0] {
+const SITE_SETTINGS_QUERY = groq`*[_type == "siteSettings" && _id == "siteSettings"][0] {
   name,
   roleLabel,
   roleLabelNo,
@@ -78,7 +78,7 @@ const SITE_SETTINGS_QUERY = groq`*[_type == "siteSettings"][0] {
   heroHighlights,
   aboutText,
   aboutTextNo,
-  "portraitUrl": portrait.asset->url,
+  portrait,
   languages,
   toolkitHeading,
   toolkitSubtitle,
@@ -152,8 +152,29 @@ export async function getProjects(): Promise<Project[]> {
   return client.fetch<Project[]>(PROJECT_QUERY);
 }
 
+function portraitUrlFrom(portrait?: SanityImageSource | null): string | undefined {
+  if (!portrait || typeof portrait !== 'object') return undefined;
+  const asset = (portrait as { asset?: { _ref?: string; _id?: string; url?: string } }).asset;
+  if (!asset?._ref && !asset?._id && !asset?.url) return undefined;
+  return builder.image(portrait).width(480).height(600).fit('crop').auto('format').url();
+}
+
 export async function getSiteSettings(): Promise<SiteSettings | null> {
-  return client.fetch<SiteSettings | null>(SITE_SETTINGS_QUERY);
+  const settings = await client
+    .withConfig({ useCdn: false })
+    .fetch<(SiteSettings & { portrait?: SanityImageSource }) | null>(
+      SITE_SETTINGS_QUERY,
+      {},
+      { next: { revalidate: 3600 } }
+    );
+
+  if (!settings) return null;
+
+  const { portrait, ...rest } = settings;
+  return {
+    ...rest,
+    portraitUrl: portraitUrlFrom(portrait),
+  };
 }
 
 // Utility function for environment variables

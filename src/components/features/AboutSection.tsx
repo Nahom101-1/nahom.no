@@ -75,36 +75,37 @@ export default function AboutSection({ settings }: { settings: SiteSettings | nu
           initial='hidden'
           whileInView='visible'
           viewport={{ once: true, margin: '-7% 0px' }}
+          className='max-w-[240px]'
         >
           {settings?.portraitUrl ? (
-            <div className='relative w-full border' style={{ height: '480px', borderColor: 'var(--ds-border)' }}>
+            <div
+              className='relative w-full border'
+              style={{ height: '300px', borderColor: 'var(--ds-border)' }}
+            >
               <Image
                 src={settings.portraitUrl}
                 alt={name}
                 fill
                 className='object-cover object-top'
-                sizes='(max-width: 768px) 100vw, 45vw'
+                sizes='240px'
               />
             </div>
           ) : (
             <div
               className='w-full border overflow-hidden relative'
-              style={{ height: '480px', borderColor: 'var(--ds-border)' }}
+              style={{ height: '300px', borderColor: 'var(--ds-border)' }}
             >
-              {/* Base */}
               <div className='absolute inset-0' style={{ background: 'var(--ds-bg-surface)' }} />
-              {/* Shimmer sweep */}
               <div className='absolute inset-0 portrait-shimmer' />
-              {/* Silhouette hint — subtle head + shoulders shape */}
               <svg
                 className='absolute inset-0 w-full h-full'
-                viewBox='0 0 400 480'
+                viewBox='0 0 240 300'
                 preserveAspectRatio='xMidYMid slice'
                 aria-hidden='true'
               >
-                <ellipse cx='200' cy='168' rx='68' ry='76' fill='var(--ds-border-strong)' />
+                <ellipse cx='120' cy='105' rx='42' ry='48' fill='var(--ds-border-strong)' />
                 <path
-                  d='M68,480 Q68,330 200,318 Q332,330 332,480 Z'
+                  d='M40,300 Q40,206 120,198 Q200,206 200,300 Z'
                   fill='var(--ds-border-strong)'
                 />
               </svg>
