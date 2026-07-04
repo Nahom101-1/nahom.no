@@ -38,16 +38,24 @@ export default function ContactSection({
   };
 
   const resumeLinks: ContactLink[] = [
-    ...(resumeUrl && resumeEn ? [{ label: resumeEn, href: resumeUrl, download: true }] : []),
-    ...(resumeNoUrl && resumeNo ? [{ label: resumeNo, href: resumeNoUrl, download: true }] : []),
+    ...(resumeUrl && resumeEn
+      ? [{ label: resumeEn, href: resumeUrl, download: true }]
+      : []),
+    ...(resumeNoUrl && resumeNo
+      ? [{ label: resumeNo, href: resumeNoUrl, download: true }]
+      : []),
   ];
   if (lang === 'no') resumeLinks.reverse();
 
   const links: ContactLink[] = [
-    ...(email && emailMe ? [{ label: emailMe, href: `mailto:${email}`, primary: true }] : []),
+    ...(email && emailMe
+      ? [{ label: emailMe, href: `mailto:${email}`, primary: true }]
+      : []),
     ...(github ? [{ label: 'GitHub', href: github }] : []),
     ...(linkedin ? [{ label: 'LinkedIn', href: linkedin }] : []),
-    ...(website && websiteLabel ? [{ label: websiteLabel, href: website }] : []),
+    ...(website && websiteLabel
+      ? [{ label: websiteLabel, href: website }]
+      : []),
     ...resumeLinks,
   ];
 
@@ -64,7 +72,11 @@ export default function ContactSection({
           whileInView='visible'
           viewport={{ once: true, margin: '-7% 0px' }}
           className='font-mono uppercase mb-7'
-          style={{ fontSize: '11px', letterSpacing: '0.26em', color: 'var(--ds-fg-muted)' }}
+          style={{
+            fontSize: '11px',
+            letterSpacing: '0.26em',
+            color: 'var(--ds-fg-muted)',
+          }}
         >
           {kicker}
         </motion.p>
@@ -78,7 +90,11 @@ export default function ContactSection({
           viewport={{ once: true, margin: '-7% 0px' }}
           transition={{ delay: 0.1 }}
           className='font-display font-extrabold uppercase'
-          style={{ fontSize: 'clamp(54px, 13vw, 200px)', letterSpacing: '-0.04em', lineHeight: '0.84' }}
+          style={{
+            fontSize: 'clamp(54px, 13vw, 200px)',
+            letterSpacing: '-0.04em',
+            lineHeight: '0.84',
+          }}
         >
           <a
             href={`mailto:${email}`}
@@ -104,7 +120,11 @@ export default function ContactSection({
               href={link.href}
               {...(link.download ? { download: true } : {})}
               target={link.href.startsWith('mailto') ? undefined : '_blank'}
-              rel={link.href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
+              rel={
+                link.href.startsWith('mailto')
+                  ? undefined
+                  : 'noopener noreferrer'
+              }
               className='font-mono uppercase transition-all duration-250'
               style={{
                 fontSize: '12px',

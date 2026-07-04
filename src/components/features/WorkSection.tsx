@@ -20,15 +20,24 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       className='group cursor-pointer hairline-top pt-5 pb-8'
     >
       <div className='flex justify-between items-baseline mb-5'>
-        <span className='font-mono text-[12px]' style={{ color: 'var(--ds-accent)' }}>
+        <span
+          className='font-mono text-[12px]'
+          style={{ color: 'var(--ds-accent)' }}
+        >
           № {num}
         </span>
-        <span className='font-mono text-[11px]' style={{ letterSpacing: '0.08em', color: 'var(--ds-fg-muted)' }}>
+        <span
+          className='font-mono text-[11px]'
+          style={{ letterSpacing: '0.08em', color: 'var(--ds-fg-muted)' }}
+        >
           {project.year}
         </span>
       </div>
 
-      <div className='overflow-hidden border' style={{ borderColor: 'var(--ds-border)' }}>
+      <div
+        className='overflow-hidden border'
+        style={{ borderColor: 'var(--ds-border)' }}
+      >
         {project.imageUrl ? (
           <div className='relative w-full' style={{ height: '300px' }}>
             <Image
@@ -56,7 +65,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
       <h3
         className='font-display font-bold mt-6 transition-colors duration-300 group-hover:text-accent'
-        style={{ fontSize: 'clamp(26px, 3vw, 40px)', letterSpacing: '-0.02em', lineHeight: '1' }}
+        style={{
+          fontSize: 'clamp(26px, 3vw, 40px)',
+          letterSpacing: '-0.02em',
+          lineHeight: '1',
+        }}
       >
         {project.title}
       </h3>
@@ -64,7 +77,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       {pick(project.description, project.descriptionNo) ? (
         <p
           className='font-serif mt-3'
-          style={{ fontSize: '17px', lineHeight: '1.55', color: '#3c3a32', maxWidth: '42ch' }}
+          style={{
+            fontSize: '17px',
+            lineHeight: '1.55',
+            color: '#3c3a32',
+            maxWidth: '42ch',
+          }}
         >
           {pick(project.description, project.descriptionNo)}
         </p>
@@ -120,27 +138,44 @@ export default function WorkSection({
         className='grid items-baseline gap-4 mb-14'
         style={{ gridTemplateColumns: 'auto 1fr' }}
       >
-        <span className='font-mono text-[13px]' style={{ color: 'var(--ds-accent)' }}>
+        <span
+          className='font-mono text-[13px]'
+          style={{ color: 'var(--ds-accent)' }}
+        >
           02 /
         </span>
         <div>
           {title ? (
             <h2
               className='font-display font-extrabold uppercase'
-              style={{ fontSize: 'clamp(34px, 6vw, 76px)', letterSpacing: '-0.03em', lineHeight: '0.9' }}
+              style={{
+                fontSize: 'clamp(34px, 6vw, 76px)',
+                letterSpacing: '-0.03em',
+                lineHeight: '0.9',
+              }}
             >
               {title}
             </h2>
           ) : null}
           {subtitle ? (
-            <p className='font-mono uppercase mt-1' style={{ fontSize: '11px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}>
+            <p
+              className='font-mono uppercase mt-1'
+              style={{
+                fontSize: '11px',
+                letterSpacing: '0.12em',
+                color: 'var(--ds-fg-muted)',
+              }}
+            >
               {subtitle}
             </p>
           ) : null}
         </div>
       </motion.div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-x-14' style={{ gap: '4px 56px' }}>
+      <div
+        className='grid grid-cols-1 md:grid-cols-2 gap-x-14'
+        style={{ gap: '4px 56px' }}
+      >
         {projects.slice(0, 4).map((project, i) => (
           <ProjectCard key={project._id} project={project} index={i} />
         ))}

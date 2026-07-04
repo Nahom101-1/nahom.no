@@ -1,0 +1,25 @@
+language: en-US
+
+reviews:
+  profile: chill
+  high_level_summary: true
+  review_status: false
+  poem: false
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    drafts: false
+    base_branches:
+      - main
+  path_filters:
+    - '!package-lock.json'
+    - '!**/*.lock'
+  path_instructions:
+    - path: '**/*'
+      instructions: |
+        Next.js 16 App Router, TypeScript, Tailwind v4, Sanity CMS.
+        Keep diffs small. Match existing code style and @/ imports.
+        Tests live in tests/. Visitor-facing copy belongs in Sanity, not hard-coded.
+
+chat:
+  auto_reply: true

@@ -19,14 +19,30 @@ export function Navbar({
 
   const navLinks = [
     { label: label(settings, lang, 'navWork', 'navWorkNo'), href: '#work' },
-    { label: label(settings, lang, 'navExperience', 'navExperienceNo'), href: '#experience' },
+    {
+      label: label(settings, lang, 'navExperience', 'navExperienceNo'),
+      href: '#experience',
+    },
     { label: label(settings, lang, 'navAbout', 'navAboutNo'), href: '#about' },
-    { label: label(settings, lang, 'navContact', 'navContactNo'), href: '#contact' },
+    {
+      label: label(settings, lang, 'navContact', 'navContactNo'),
+      href: '#contact',
+    },
   ].filter((l): l is { label: string; href: string } => Boolean(l.label));
 
   const cvUrl = lang === 'no' ? (resumeNoUrl ?? resumeUrl) : resumeUrl;
-  const resumeLabel = label(settings, lang, 'resumeNavLabel', 'resumeNavLabelNo');
-  const sayHello = label(settings, lang, 'sayHelloNavLabel', 'sayHelloNavLabelNo');
+  const resumeLabel = label(
+    settings,
+    lang,
+    'resumeNavLabel',
+    'resumeNavLabelNo'
+  );
+  const sayHello = label(
+    settings,
+    lang,
+    'sayHelloNavLabel',
+    'sayHelloNavLabelNo'
+  );
 
   return (
     <nav className='fixed top-0 left-0 right-0 z-50 navbar-glass'>

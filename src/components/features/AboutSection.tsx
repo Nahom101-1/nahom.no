@@ -7,7 +7,11 @@ import type { SiteSettings } from '@/types/sanity';
 import { useLang, LANGUAGE_NAMES_NO } from '@/lib/i18n';
 import { label } from '@/lib/cms';
 
-export default function AboutSection({ settings }: { settings: SiteSettings | null }) {
+export default function AboutSection({
+  settings,
+}: {
+  settings: SiteSettings | null;
+}) {
   const { lang, pickList, tr } = useLang();
 
   const paragraphs = pickList(settings?.aboutText, settings?.aboutTextNo) ?? [];
@@ -16,7 +20,12 @@ export default function AboutSection({ settings }: { settings: SiteSettings | nu
   const age = ageFrom(settings?.birthDate);
   const caption = age ? String(age) : undefined;
   const title = label(settings, lang, 'aboutHeading', 'aboutHeadingNo');
-  const subtitle = label(settings, lang, 'aboutSubheading', 'aboutSubheadingNo');
+  const subtitle = label(
+    settings,
+    lang,
+    'aboutSubheading',
+    'aboutSubheadingNo'
+  );
 
   return (
     <section
@@ -32,20 +41,34 @@ export default function AboutSection({ settings }: { settings: SiteSettings | nu
         className='grid items-baseline gap-4 mb-14'
         style={{ gridTemplateColumns: 'auto 1fr' }}
       >
-        <span className='font-mono text-[13px]' style={{ color: 'var(--ds-accent)' }}>
+        <span
+          className='font-mono text-[13px]'
+          style={{ color: 'var(--ds-accent)' }}
+        >
           01 /
         </span>
         <div>
           {title ? (
             <h2
               className='font-display font-extrabold uppercase'
-              style={{ fontSize: 'clamp(34px, 6vw, 76px)', letterSpacing: '-0.03em', lineHeight: '0.9' }}
+              style={{
+                fontSize: 'clamp(34px, 6vw, 76px)',
+                letterSpacing: '-0.03em',
+                lineHeight: '0.9',
+              }}
             >
               {title}
             </h2>
           ) : null}
           {subtitle ? (
-            <p className='font-mono uppercase mt-1' style={{ fontSize: '11px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}>
+            <p
+              className='font-mono uppercase mt-1'
+              style={{
+                fontSize: '11px',
+                letterSpacing: '0.12em',
+                color: 'var(--ds-fg-muted)',
+              }}
+            >
               {subtitle}
             </p>
           ) : null}
@@ -78,7 +101,10 @@ export default function AboutSection({ settings }: { settings: SiteSettings | nu
               className='w-full border overflow-hidden relative'
               style={{ height: '300px', borderColor: 'var(--ds-border)' }}
             >
-              <div className='absolute inset-0' style={{ background: 'var(--ds-bg-surface)' }} />
+              <div
+                className='absolute inset-0'
+                style={{ background: 'var(--ds-bg-surface)' }}
+              />
               <div className='absolute inset-0 portrait-shimmer' />
               <svg
                 className='absolute inset-0 w-full h-full'
@@ -86,7 +112,13 @@ export default function AboutSection({ settings }: { settings: SiteSettings | nu
                 preserveAspectRatio='xMidYMid slice'
                 aria-hidden='true'
               >
-                <ellipse cx='120' cy='105' rx='42' ry='48' fill='var(--ds-border-strong)' />
+                <ellipse
+                  cx='120'
+                  cy='105'
+                  rx='42'
+                  ry='48'
+                  fill='var(--ds-border-strong)'
+                />
                 <path
                   d='M40,300 Q40,206 120,198 Q200,206 200,300 Z'
                   fill='var(--ds-border-strong)'
@@ -97,7 +129,11 @@ export default function AboutSection({ settings }: { settings: SiteSettings | nu
           {(name || caption) && (
             <div
               className='flex justify-between mt-3 font-mono uppercase'
-              style={{ fontSize: '10px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}
+              style={{
+                fontSize: '10px',
+                letterSpacing: '0.12em',
+                color: 'var(--ds-fg-muted)',
+              }}
             >
               <span>{name}</span>
               <span>{caption}</span>

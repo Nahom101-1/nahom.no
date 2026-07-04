@@ -1,21 +1,45 @@
 # nahom.no
 
-Personal portfolio for Nahom Berhane — software developer based in Oslo, Norway.
+Personal portfolio for Nahom Berhane — software developer.
 
-A single-page, scroll-driven "Gallery" site: a light/dark editorial layout assembled
-from section components, with all changeable content driven by Sanity.
+A single-page, scroll-driven site with light/dark theme, bilingual EN/NO support, and
+content driven by Sanity CMS.
+
+**Docs:** [docs/README.md](docs/README.md) — architecture, CI, PR workflow, and AI review setup.
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 16 (App Router) + React 19 + TypeScript |
-| CMS | Sanity v5 (embedded studio at `/studio`) |
-| Styling | Tailwind CSS v4 |
-| Animations | Motion (Framer Motion v12) |
-| Theme | `next-themes` (dark by default) |
+| Layer         | Technology                                             |
+| ------------- | ------------------------------------------------------ |
+| Framework     | Next.js 16 (App Router) + React 19 + TypeScript        |
+| CMS           | Sanity v5 (embedded studio at `/studio`)               |
+| Styling       | Tailwind CSS v4                                        |
+| Animations    | Motion (Framer Motion v12)                             |
+| Theme         | `next-themes` (dark by default)                        |
+| i18n          | Sanity `*No` fields + `LanguageProvider`               |
 | External APIs | Spotify (now playing), Letterboxd RSS (recent watches) |
-| Linting / Fmt | ESLint + Prettier |
+| Testing       | Vitest + Testing Library                               |
+| CI            | GitHub Actions (lint, format, test, build)             |
+| Linting / Fmt | ESLint + Prettier                                      |
+
+## Architecture
+
+```mermaid
+flowchart TB
+  subgraph site["nahom.no"]
+    Page["page.tsx"]
+    Sections["Section components"]
+    Lang["Language toggle"]
+    APIs["API routes"]
+    Page --> Sections
+    Sections --> Lang
+    Sections --> APIs
+  end
+
+  Sanity["Sanity CMS"] --> Page
+  APIs --> Spotify["Spotify"]
+  APIs --> Letterboxd["Letterboxd"]
+```
 
 ## Getting Started
 
@@ -30,8 +54,8 @@ Open [http://localhost:3000](http://localhost:3000). The Sanity Studio is at
 
 ## Environment Variables
 
-See `.env.example`. None are strictly required to render the site — every section
-falls back to sensible defaults — but they unlock live content:
+See `.env.example`. None are strictly required to render the site — sections hide when
+CMS data is missing — but they unlock live content:
 
 ```bash
 # Sanity CMS (content)
@@ -52,66 +76,64 @@ LETTERBOXD_USER=
 
 ```
 nahom.no/
-├── sanity/
-│   └── schema.ts                # Sanity document types
+├── docs/README.md               # Architecture, CI, PR workflow, AI review
+├── sanity/schema.ts             # Sanity document types
 ├── sanity.config.ts             # Studio config + desk structure
+├── tests/                       # Vitest tests (mirrors src/)
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx           # Fonts + ThemeProvider
-│   │   ├── page.tsx             # Single-page assembly of all sections
-│   │   ├── not-found.tsx
-│   │   ├── globals.css          # Gallery design tokens (light + dark)
-│   │   ├── api/
-│   │   │   ├── letterboxd/      # Letterboxd RSS proxy
-│   │   │   └── now-playing/     # Spotify now-playing endpoint
-│   │   └── (routes)/
-│   │       └── studio/          # Embedded Sanity Studio
+│   │   ├── layout.tsx           # Fonts, theme, analytics
+│   │   ├── page.tsx             # Single-page section assembly
+│   │   ├── globals.css          # Design tokens (light + dark)
+│   │   ├── api/                 # Spotify + Letterboxd proxies
+│   │   └── (routes)/studio/     # Embedded Sanity Studio
 │   ├── components/
 │   │   ├── features/            # One file per page section
-│   │   │   ├── HeroSection.tsx
-│   │   │   ├── MarqueeStrip.tsx
-│   │   │   ├── AboutSection.tsx
-│   │   │   ├── WorkSection.tsx
-│   │   │   ├── ExperienceSection.tsx
-│   │   │   ├── ToolkitSection.tsx
-│   │   │   ├── EducationSection.tsx
-│   │   │   ├── OffTheClock.tsx  # Spotify + Letterboxd
-│   │   │   ├── ContactSection.tsx
-│   │   │   └── FooterSection.tsx
 │   │   ├── layout/navbar.tsx
-│   │   ├── ui/card.tsx          # shadcn primitive (used by not-found)
-│   │   ├── ThemeProvider.tsx
+│   │   ├── LanguageToggle.tsx
 │   │   └── ThemeToggle.tsx
-│   ├── lib/
-│   │   ├── api/spotify.ts       # Spotify refresh-token → access-token
-│   │   ├── sanity.ts            # Sanity client + GROQ queries
-│   │   ├── motion.ts            # Shared Framer Motion variants
-│   │   └── utils.ts             # cn(), ageFrom()
-│   └── types/
-│       ├── letterBoxItem.ts
-│       └── sanity.ts
-├── .env.example
-├── next.config.ts
-└── package.json
+│   └── lib/
+│       ├── sanity.ts            # Sanity client + GROQ queries
+│       ├── i18n.tsx             # Language context
+│       ├── lang.ts              # pickLang / pickListLang
+│       ├── cms.ts               # label() helper
+│       └── motion.ts            # Shared Motion variants
+├── .github/
+│   ├── workflows/ci.yml
+│   ├── copilot-instructions.md  # Copilot PR review rules
+│   └── setup-branch-protection.sh
+├── .coderabbit.yaml             # CodeRabbit PR review config
+└── .env.example
 ```
 
-## Sanity Content Model
+## Contributing
 
-The studio (`/studio`) is organized into one **Site Settings** singleton plus four
-content lists. Document types in `sanity/schema.ts`:
+`main` is protected — all changes go through pull requests.
 
-| Type | Purpose |
-|------|---------|
-| `siteSettings` | Singleton holding all changeable site copy — name, role, birth date (→ age), location, tagline, hero highlights, about text + portrait, spoken languages, skill groups, marquee words, contact links/labels, footer note, and section toggles |
-| `workExperience` | Each role: company, position, dates, badge, description, technologies, learnings |
-| `project` | Each project: title, year, description, stack, screenshot, link, display order |
-| `education` | Degree, institution, dates, GPA/average grade, location |
-| `relevantClasses` | A class linked to an `education` entry: code, name, grade, year |
-| `resume` | Singleton with English + Norwegian PDF uploads and download labels |
+```mermaid
+flowchart LR
+  Branch["Feature branch"] --> PR["Pull request"]
+  PR --> CI["CI checks"]
+  PR --> AI["Copilot + CodeRabbit"]
+  CI --> Merge["Merge"]
+  AI --> Merge
+```
 
-Everything subject to change (age, location, grades, languages, work, etc.) lives in
-Sanity, so the site can be updated without touching code. Each section also ships a
-hard-coded fallback so the site renders fully before any content is added.
+1. Branch from `main`, make changes, run `npm test` and `npm run build`
+2. Open a PR — CI runs Lint, Format, Test, and Build
+3. Address Copilot and CodeRabbit feedback
+4. Merge when checks pass
+
+First-time repo setup for maintainers:
+
+```bash
+gh auth login
+.github/setup-branch-protection.sh
+```
+
+The script requires `gh` to be logged in. It enforces pull requests and passing CI on the default branch.
+
+Install the [CodeRabbit GitHub App](https://coderabbit.ai/) and enable Copilot code review in repo settings. See [docs/README.md](docs/README.md) for details.
 
 ## Scripts
 
@@ -122,5 +144,23 @@ npm run start        # Start production server
 npm run lint         # ESLint
 npm run format       # Prettier write
 npm run format:check # Prettier check (CI)
+npm test             # Vitest
+npm run test:watch   # Vitest watch mode
 npm run seed         # Push content to Sanity (scripts/seed.mjs — local only, git-ignored)
 ```
+
+## Sanity Content Model
+
+The studio (`/studio`) is organized into one **Site Settings** singleton plus content lists.
+Document types in `sanity/schema.ts`:
+
+| Type              | Purpose                                                              |
+| ----------------- | -------------------------------------------------------------------- |
+| `siteSettings`    | Site copy, nav labels, section toggles, portrait (EN + `*No` fields) |
+| `workExperience`  | Roles with bilingual descriptions                                    |
+| `project`         | Projects with stack, screenshot, link                                |
+| `education`       | Degrees with GPA and location                                        |
+| `relevantClasses` | Classes linked to an `education` entry                               |
+| `resume`          | English + Norwegian PDF uploads                                      |
+
+Everything subject to change lives in Sanity so the site can be updated without touching code.

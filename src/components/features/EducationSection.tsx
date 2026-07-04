@@ -17,13 +17,27 @@ export default function EducationSection({
   const { lang, pick, tr } = useLang();
 
   const title = label(settings, lang, 'educationHeading', 'educationHeadingNo');
-  const subtitle = label(settings, lang, 'educationSubheading', 'educationSubheadingNo');
-  const languagesHeader = label(settings, lang, 'languagesHeading', 'languagesHeadingNo');
+  const subtitle = label(
+    settings,
+    lang,
+    'educationSubheading',
+    'educationSubheadingNo'
+  );
+  const languagesHeader = label(
+    settings,
+    lang,
+    'languagesHeading',
+    'languagesHeadingNo'
+  );
   const present = label(settings, lang, 'presentLabel', 'presentLabelNo');
   const gradeLabel = label(settings, lang, 'gradeLabel', 'gradeLabelNo');
 
-  const degreeName = education ? pick(education.degree, education.degreeNo) : undefined;
-  const fieldName = education ? pick(education.fieldOfStudy, education.fieldOfStudyNo) : undefined;
+  const degreeName = education
+    ? pick(education.degree, education.degreeNo)
+    : undefined;
+  const fieldName = education
+    ? pick(education.fieldOfStudy, education.fieldOfStudyNo)
+    : undefined;
   const degree =
     education && degreeName
       ? `${degreeName}${fieldName ? ` / ${fieldName}` : ''}`
@@ -61,20 +75,34 @@ export default function EducationSection({
         className='grid items-baseline gap-4 mb-14'
         style={{ gridTemplateColumns: 'auto 1fr' }}
       >
-        <span className='font-mono text-[13px]' style={{ color: 'var(--ds-accent)' }}>
+        <span
+          className='font-mono text-[13px]'
+          style={{ color: 'var(--ds-accent)' }}
+        >
           05 /
         </span>
         <div>
           {title ? (
             <h2
               className='font-display font-extrabold uppercase'
-              style={{ fontSize: 'clamp(34px, 6vw, 76px)', letterSpacing: '-0.03em', lineHeight: '0.9' }}
+              style={{
+                fontSize: 'clamp(34px, 6vw, 76px)',
+                letterSpacing: '-0.03em',
+                lineHeight: '0.9',
+              }}
             >
               {title}
             </h2>
           ) : null}
           {subtitle ? (
-            <p className='font-mono uppercase mt-1' style={{ fontSize: '11px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}>
+            <p
+              className='font-mono uppercase mt-1'
+              style={{
+                fontSize: '11px',
+                letterSpacing: '0.12em',
+                color: 'var(--ds-fg-muted)',
+              }}
+            >
               {subtitle}
             </p>
           ) : null}
@@ -92,7 +120,11 @@ export default function EducationSection({
             {degree ? (
               <div
                 className='font-display font-bold'
-                style={{ fontSize: 'clamp(28px, 3.4vw, 46px)', letterSpacing: '-0.025em', lineHeight: '1' }}
+                style={{
+                  fontSize: 'clamp(28px, 3.4vw, 46px)',
+                  letterSpacing: '-0.025em',
+                  lineHeight: '1',
+                }}
               >
                 {degree}
               </div>
@@ -100,10 +132,16 @@ export default function EducationSection({
             {school && years ? (
               <div
                 className='font-mono uppercase mt-4 mb-7'
-                style={{ fontSize: '12px', letterSpacing: '0.1em', color: 'var(--ds-accent)' }}
+                style={{
+                  fontSize: '12px',
+                  letterSpacing: '0.1em',
+                  color: 'var(--ds-accent)',
+                }}
               >
                 {school} · {years}
-                {education.gpa && gradeLabel ? ` · ${gradeLabel} ${education.gpa}` : ''}
+                {education.gpa && gradeLabel
+                  ? ` · ${gradeLabel} ${education.gpa}`
+                  : ''}
               </div>
             ) : null}
             {courses.length > 0 && (
@@ -146,7 +184,11 @@ export default function EducationSection({
           >
             <h4
               className='font-mono uppercase mb-5'
-              style={{ fontSize: '11px', letterSpacing: '0.16em', color: 'var(--ds-fg-muted)' }}
+              style={{
+                fontSize: '11px',
+                letterSpacing: '0.16em',
+                color: 'var(--ds-fg-muted)',
+              }}
             >
               {languagesHeader}
             </h4>
@@ -164,7 +206,11 @@ export default function EducationSection({
                 </span>
                 <span
                   className='font-mono uppercase'
-                  style={{ fontSize: '10px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}
+                  style={{
+                    fontSize: '10px',
+                    letterSpacing: '0.12em',
+                    color: 'var(--ds-fg-muted)',
+                  }}
                 >
                   {item.level ? tr(LANGUAGE_LEVELS_NO, item.level) : ''}
                 </span>

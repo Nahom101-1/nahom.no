@@ -3,10 +3,13 @@ import { motion } from 'motion/react';
 import { rv } from '@/lib/motion';
 import type { SiteSettings } from '@/types/sanity';
 import { useLang } from '@/lib/i18n';
-import { label } from '@/lib/cms';
 
-export default function ToolkitSection({ settings }: { settings: SiteSettings | null }) {
-  const { lang, pick } = useLang();
+export default function ToolkitSection({
+  settings,
+}: {
+  settings: SiteSettings | null;
+}) {
+  const { pick } = useLang();
   const groups = settings?.skillGroups ?? [];
   const title = pick(settings?.toolkitHeading, settings?.toolkitHeadingNo);
   const subtitle = pick(settings?.toolkitSubtitle, settings?.toolkitSubtitleNo);
@@ -27,20 +30,34 @@ export default function ToolkitSection({ settings }: { settings: SiteSettings | 
         className='grid items-baseline gap-4 mb-14'
         style={{ gridTemplateColumns: 'auto 1fr' }}
       >
-        <span className='font-mono text-[13px]' style={{ color: 'var(--ds-accent)' }}>
+        <span
+          className='font-mono text-[13px]'
+          style={{ color: 'var(--ds-accent)' }}
+        >
           04 /
         </span>
         <div>
           {title ? (
             <h2
               className='font-display font-extrabold uppercase'
-              style={{ fontSize: 'clamp(34px, 6vw, 76px)', letterSpacing: '-0.03em', lineHeight: '0.9' }}
+              style={{
+                fontSize: 'clamp(34px, 6vw, 76px)',
+                letterSpacing: '-0.03em',
+                lineHeight: '0.9',
+              }}
             >
               {title}
             </h2>
           ) : null}
           {subtitle ? (
-            <p className='font-mono uppercase mt-1' style={{ fontSize: '11px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}>
+            <p
+              className='font-mono uppercase mt-1'
+              style={{
+                fontSize: '11px',
+                letterSpacing: '0.12em',
+                color: 'var(--ds-fg-muted)',
+              }}
+            >
               {subtitle}
             </p>
           ) : null}
@@ -49,7 +66,11 @@ export default function ToolkitSection({ settings }: { settings: SiteSettings | 
 
       <div
         className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 border'
-        style={{ gap: '1px', background: 'var(--ds-border)', borderColor: 'var(--ds-border)' }}
+        style={{
+          gap: '1px',
+          background: 'var(--ds-border)',
+          borderColor: 'var(--ds-border)',
+        }}
       >
         {groups.map((group, i) => (
           <motion.div
@@ -64,7 +85,11 @@ export default function ToolkitSection({ settings }: { settings: SiteSettings | 
           >
             <h4
               className='font-mono uppercase mb-5'
-              style={{ fontSize: '11px', letterSpacing: '0.16em', color: 'var(--ds-accent)' }}
+              style={{
+                fontSize: '11px',
+                letterSpacing: '0.16em',
+                color: 'var(--ds-accent)',
+              }}
             >
               {pick(group.category, group.categoryNo) ?? group.category}
             </h4>
@@ -77,7 +102,11 @@ export default function ToolkitSection({ settings }: { settings: SiteSettings | 
                 >
                   <span
                     className='inline-block flex-none'
-                    style={{ width: '6px', height: '6px', background: 'var(--ds-accent)' }}
+                    style={{
+                      width: '6px',
+                      height: '6px',
+                      background: 'var(--ds-accent)',
+                    }}
                   />
                   {skill}
                 </li>

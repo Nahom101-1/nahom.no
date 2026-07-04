@@ -1,5 +1,9 @@
 import type { Metadata } from 'next';
-import { Bricolage_Grotesque, Newsreader, JetBrains_Mono } from 'next/font/google';
+import {
+  Bricolage_Grotesque,
+  Newsreader,
+  JetBrains_Mono,
+} from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ThemeProvider } from '@/components/ThemeProvider';

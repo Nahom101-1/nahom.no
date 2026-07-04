@@ -2,7 +2,13 @@ import { createClient } from 'next-sanity';
 import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import groq from 'groq';
-import { Education, Project, SiteSettings, WorkExperience } from '@/types/sanity';
+import {
+  Education,
+  Project,
+  SiteSettings,
+  WorkExperience,
+} from '@/types/sanity';
+import { buildPortraitUrl } from '@/lib/portrait-url';
 // Environment variables
 export const apiVersion =
   process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2025-07-31';
@@ -203,11 +209,18 @@ export async function getProjects(): Promise<Project[]> {
   return client.fetch<Project[]>(PROJECT_QUERY);
 }
 
-function portraitUrlFrom(portrait?: SanityImageSource | null): string | undefined {
-  if (!portrait || typeof portrait !== 'object') return undefined;
-  const asset = (portrait as { asset?: { _ref?: string; _id?: string; url?: string } }).asset;
-  if (!asset?._ref && !asset?._id && !asset?.url) return undefined;
-  return builder.image(portrait).width(480).height(600).fit('crop').auto('format').url();
+function portraitUrlFrom(
+  portrait?: SanityImageSource | null
+): string | undefined {
+  return buildPortraitUrl(portrait, source =>
+    builder
+      .image(source)
+      .width(480)
+      .height(600)
+      .fit('crop')
+      .auto('format')
+      .url()
+  );
 }
 
 export async function getSiteSettings(): Promise<SiteSettings | null> {

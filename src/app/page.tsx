@@ -31,13 +31,14 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const [projects, experience, educationList, settings, resume] = await Promise.all([
-    getProjects().catch(() => []),
-    getWorkExperience().catch(() => []),
-    getEducation().catch(() => []),
-    getSiteSettings().catch(() => null),
-    getResume().catch(() => null),
-  ]);
+  const [projects, experience, educationList, settings, resume] =
+    await Promise.all([
+      getProjects().catch(() => []),
+      getWorkExperience().catch(() => []),
+      getEducation().catch(() => []),
+      getSiteSettings().catch(() => null),
+      getResume().catch(() => null),
+    ]);
 
   const education = educationList[0] ?? null;
 
@@ -61,7 +62,9 @@ export default async function Home() {
           languages={settings?.languages}
           settings={settings}
         />
-        {settings?.offClockEnabled !== false && <OffTheClock settings={settings} />}
+        {settings?.offClockEnabled !== false && (
+          <OffTheClock settings={settings} />
+        )}
         <ContactSection
           settings={settings}
           resumeUrl={resume?.url}

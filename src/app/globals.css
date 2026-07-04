@@ -10,48 +10,48 @@
 @theme inline {
   /* Fonts */
   --font-display: var(--font-display, 'Bricolage Grotesque', sans-serif);
-  --font-serif:   var(--font-serif, 'Newsreader', Georgia, serif);
-  --font-mono:    var(--font-mono, 'JetBrains Mono', 'Fira Code', monospace);
-  --font-sans:    var(--font-display);
+  --font-serif: var(--font-serif, 'Newsreader', Georgia, serif);
+  --font-mono: var(--font-mono, 'JetBrains Mono', 'Fira Code', monospace);
+  --font-sans: var(--font-display);
 
   /* Color primitives → semantic aliases */
-  --color-background:        var(--ds-bg);
-  --color-foreground:        var(--ds-fg);
-  --color-card:              var(--ds-bg-surface);
-  --color-card-foreground:   var(--ds-fg);
-  --color-popover:           var(--ds-bg-elevated);
-  --color-popover-foreground:var(--ds-fg);
-  --color-primary:           var(--ds-fg);
-  --color-primary-foreground:var(--ds-bg);
-  --color-secondary:         var(--ds-bg-elevated);
+  --color-background: var(--ds-bg);
+  --color-foreground: var(--ds-fg);
+  --color-card: var(--ds-bg-surface);
+  --color-card-foreground: var(--ds-fg);
+  --color-popover: var(--ds-bg-elevated);
+  --color-popover-foreground: var(--ds-fg);
+  --color-primary: var(--ds-fg);
+  --color-primary-foreground: var(--ds-bg);
+  --color-secondary: var(--ds-bg-elevated);
   --color-secondary-foreground: var(--ds-fg-muted);
-  --color-muted:             var(--ds-bg-surface);
-  --color-muted-foreground:  var(--ds-fg-muted);
-  --color-accent:            var(--ds-accent);
+  --color-muted: var(--ds-bg-surface);
+  --color-muted-foreground: var(--ds-fg-muted);
+  --color-accent: var(--ds-accent);
   --color-accent-foreground: var(--ds-accent-fg);
-  --color-destructive:       var(--ds-error);
-  --color-border:            var(--ds-border);
-  --color-input:             var(--ds-border-strong);
-  --color-ring:              var(--ds-fg-subtle);
+  --color-destructive: var(--ds-error);
+  --color-border: var(--ds-border);
+  --color-input: var(--ds-border-strong);
+  --color-ring: var(--ds-fg-subtle);
 
   /* Design token utilities */
-  --color-ds-bg:             var(--ds-bg);
-  --color-ds-surface:        var(--ds-bg-surface);
-  --color-ds-elevated:       var(--ds-bg-elevated);
-  --color-ds-fg:             var(--ds-fg);
-  --color-ds-muted:          var(--ds-fg-muted);
-  --color-ds-subtle:         var(--ds-fg-subtle);
-  --color-ds-accent:         var(--ds-accent);
-  --color-ds-border:         var(--ds-border);
-  --color-ds-border-strong:  var(--ds-border-strong);
+  --color-ds-bg: var(--ds-bg);
+  --color-ds-surface: var(--ds-bg-surface);
+  --color-ds-elevated: var(--ds-bg-elevated);
+  --color-ds-fg: var(--ds-fg);
+  --color-ds-muted: var(--ds-fg-muted);
+  --color-ds-subtle: var(--ds-fg-subtle);
+  --color-ds-accent: var(--ds-accent);
+  --color-ds-border: var(--ds-border);
+  --color-ds-border-strong: var(--ds-border-strong);
 
   /* Motion */
-  --duration-fast:   var(--ds-duration-fast);
-  --duration-base:   var(--ds-duration-base);
-  --duration-slow:   var(--ds-duration-slow);
+  --duration-fast: var(--ds-duration-fast);
+  --duration-base: var(--ds-duration-base);
+  --duration-slow: var(--ds-duration-slow);
   --duration-slower: var(--ds-duration-slower);
-  --ease-out:        var(--ds-ease-out);
-  --ease-spring:     var(--ds-ease-spring);
+  --ease-out: var(--ds-ease-out);
+  --ease-spring: var(--ds-ease-spring);
 
   /* Radius */
   --radius-sm: calc(var(--ds-radius) - 2px);
@@ -63,70 +63,70 @@
 /* ── 2. Design tokens ───────────────────────────────────────── */
 :root {
   /* Backgrounds */
-  --ds-bg:           #f1ede3;
-  --ds-bg-surface:   #e8e3d8;
-  --ds-bg-elevated:  #ddd8cc;
+  --ds-bg: #f1ede3;
+  --ds-bg-surface: #e8e3d8;
+  --ds-bg-elevated: #ddd8cc;
 
   /* Foregrounds */
-  --ds-fg:           #17150f;
-  --ds-fg-muted:     #736f63;
-  --ds-fg-subtle:    #a8a398;
+  --ds-fg: #17150f;
+  --ds-fg-muted: #736f63;
+  --ds-fg-subtle: #a8a398;
 
   /* Borders */
-  --ds-border:       rgba(23, 21, 15, 0.12);
-  --ds-border-strong:rgba(23, 21, 15, 0.24);
-  --ds-border-ink:   #17150f;
+  --ds-border: rgba(23, 21, 15, 0.12);
+  --ds-border-strong: rgba(23, 21, 15, 0.24);
+  --ds-border-ink: #17150f;
 
   /* Accent — vermillion */
-  --ds-accent:       #d8442a;
-  --ds-accent-fg:    #f1ede3;
+  --ds-accent: #d8442a;
+  --ds-accent-fg: #f1ede3;
 
   /* Status */
-  --ds-error:        #c0392b;
-  --ds-success:      #2d7a4f;
+  --ds-error: #c0392b;
+  --ds-success: #2d7a4f;
 
   /* Radius — mostly square per design */
-  --ds-radius:       2px;
+  --ds-radius: 2px;
 
   /* Motion */
-  --ds-duration-fast:   120ms;
-  --ds-duration-base:   250ms;
-  --ds-duration-slow:   350ms;
+  --ds-duration-fast: 120ms;
+  --ds-duration-base: 250ms;
+  --ds-duration-slow: 350ms;
   --ds-duration-slower: 700ms;
-  --ds-ease-out:    cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ds-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ds-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Layout */
-  --ds-max-content:  82.5rem;   /* 1320px */
-  --ds-page-x:       1.375rem;  /* 22px */
-  --ds-page-x-md:    2.5rem;    /* 40px */
+  --ds-max-content: 82.5rem; /* 1320px */
+  --ds-page-x: 1.375rem; /* 22px */
+  --ds-page-x-md: 2.5rem; /* 40px */
 
   /* Typography */
   --ds-tracking-display: -0.035em;
-  --ds-tracking-wide:     0.10em;
-  --ds-tracking-wider:    0.16em;
-  --ds-leading-tight:     0.88;
-  --ds-leading-body:      1.55;
+  --ds-tracking-wide: 0.1em;
+  --ds-tracking-wider: 0.16em;
+  --ds-leading-tight: 0.88;
+  --ds-leading-body: 1.55;
 }
 
 /* ── 2b. Dark mode token overrides ─────────────────────────── */
 /*       next-themes adds class="dark" to <html>               */
 .dark {
-  --ds-bg:           #0f0e0b;
-  --ds-bg-surface:   #1a1815;
-  --ds-bg-elevated:  #232019;
+  --ds-bg: #0f0e0b;
+  --ds-bg-surface: #1a1815;
+  --ds-bg-elevated: #232019;
 
-  --ds-fg:           #f0ece2;
-  --ds-fg-muted:     #7a7569;
-  --ds-fg-subtle:    #3e3b35;
+  --ds-fg: #f0ece2;
+  --ds-fg-muted: #7a7569;
+  --ds-fg-subtle: #3e3b35;
 
-  --ds-border:       rgba(240, 236, 226, 0.09);
-  --ds-border-strong:rgba(240, 236, 226, 0.16);
-  --ds-border-ink:   #f0ece2;
+  --ds-border: rgba(240, 236, 226, 0.09);
+  --ds-border-strong: rgba(240, 236, 226, 0.16);
+  --ds-border-ink: #f0ece2;
 
   /* Accent stays vermillion — works on both */
-  --ds-accent:       #e0502e;
-  --ds-accent-fg:    #0f0e0b;
+  --ds-accent: #e0502e;
+  --ds-accent-fg: #0f0e0b;
 }
 
 /* ── 3. Base styles ─────────────────────────────────────────── */
@@ -152,7 +152,12 @@
     overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
     letter-spacing: var(--ds-tracking-display);
     line-height: var(--ds-leading-tight);
@@ -164,13 +169,19 @@
     color: var(--ds-accent-fg);
   }
 
-  ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: var(--ds-bg); }
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--ds-bg);
+  }
   ::-webkit-scrollbar-thumb {
     background: var(--ds-border-strong);
     border-radius: 2px;
   }
-  ::-webkit-scrollbar-thumb:hover { background: var(--ds-fg-muted); }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--ds-fg-muted);
+  }
 }
 
 /* ── 4. Typography utilities ────────────────────────────────── */
@@ -200,7 +211,9 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--ds-border);
-    transition: background var(--ds-duration-base), border-color var(--ds-duration-base);
+    transition:
+      background var(--ds-duration-base),
+      border-color var(--ds-duration-base);
   }
 
   .page-wrap {
@@ -210,12 +223,16 @@
   }
 
   @media (min-width: 720px) {
-    .page-wrap { padding-inline: var(--ds-page-x-md); }
+    .page-wrap {
+      padding-inline: var(--ds-page-x-md);
+    }
   }
 
   /* Marquee */
   @keyframes marquee-scroll {
-    to { transform: translateX(-50%); }
+    to {
+      transform: translateX(-50%);
+    }
   }
 
   .marquee-track {
@@ -223,7 +240,9 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .marquee-track { animation-play-state: paused; }
+    .marquee-track {
+      animation-play-state: paused;
+    }
   }
 
   /* Section dividers */
@@ -239,8 +258,12 @@
 /* ── 5. Skeleton / shimmer ──────────────────────────────────── */
 @layer utilities {
   @keyframes shimmer {
-    0%   { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
   }
 
   .portrait-shimmer::after {
@@ -260,8 +283,12 @@
 /* ── 6. Motion ──────────────────────────────────────────────── */
 @layer utilities {
   @keyframes fade-in {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
