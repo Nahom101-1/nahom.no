@@ -5,8 +5,6 @@ Personal portfolio for Nahom Berhane — software developer.
 A single-page, scroll-driven site with light/dark theme, bilingual EN/NO support, and
 content driven by Sanity CMS.
 
-**Docs:** [docs/README.md](docs/README.md) — architecture, CI, PR workflow, and AI review setup.
-
 ## Tech Stack
 
 | Layer         | Technology                                             |
@@ -18,9 +16,6 @@ content driven by Sanity CMS.
 | Theme         | `next-themes` (dark by default)                        |
 | i18n          | Sanity `*No` fields + `LanguageProvider`               |
 | External APIs | Spotify (now playing), Letterboxd RSS (recent watches) |
-| Testing       | Vitest + Testing Library                               |
-| CI            | GitHub Actions (lint, format, test, build)             |
-| Linting / Fmt | ESLint + Prettier                                      |
 
 ## Architecture
 
@@ -46,7 +41,7 @@ flowchart TB
 ```bash
 npm install
 cp .env.example .env.local   # then fill in real values
-npm run dev                  # Turbopack dev server
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000). The Sanity Studio is at
@@ -76,10 +71,8 @@ LETTERBOXD_USER=
 
 ```
 nahom.no/
-├── docs/README.md               # Architecture, CI, PR workflow, AI review
 ├── sanity/schema.ts             # Sanity document types
 ├── sanity.config.ts             # Studio config + desk structure
-├── tests/                       # Vitest tests (mirrors src/)
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx           # Fonts, theme, analytics
@@ -98,58 +91,7 @@ nahom.no/
 │       ├── lang.ts              # pickLang / pickListLang
 │       ├── cms.ts               # label() helper
 │       └── motion.ts            # Shared Motion variants
-├── .github/
-│   ├── workflows/ci.yml
-│   ├── copilot-instructions.md  # Copilot PR review rules
-│   ├── setup-repo.sh            # Branch protection + repo settings
-│   └── CODEOWNERS
-├── .coderabbit.yaml             # CodeRabbit PR review config
-├── SECURITY.md
 └── .env.example
-```
-
-## Contributing
-
-`main` is protected — all changes go through pull requests.
-
-```mermaid
-flowchart LR
-  Branch["Feature branch"] --> PR["Pull request"]
-  PR --> CI["CI checks"]
-  PR --> AI["Copilot + CodeRabbit"]
-  CI --> Merge["Merge"]
-  AI --> Merge
-```
-
-1. Branch from `main`, make changes, run `npm test` and `npm run build`
-2. Open a PR — CI runs Lint, Format, Test, Audit, and Build
-3. Address Copilot and CodeRabbit feedback
-4. Merge when checks pass
-
-First-time repo setup for maintainers:
-
-```bash
-gh auth login
-.github/setup-repo.sh
-```
-
-The script enables delete-branch-on-merge, auto-merge, Dependabot security updates, and branch protection with all CI checks.
-
-Install the [CodeRabbit GitHub App](https://coderabbit.ai/) and enable Copilot code review in repo settings. Add `SANITY_REVALIDATE_SECRET` in Vercel and configure a Sanity webhook (see [docs/README.md](docs/README.md)).
-
-## Scripts
-
-```bash
-npm run dev          # Start dev server (Turbopack)
-npm run build        # Production build (also type-checks)
-npm run start        # Start production server
-npm run lint         # ESLint
-npm run format       # Prettier write
-npm run format:check # Prettier check (CI)
-npm test             # Vitest
-npm run test:watch   # Vitest watch mode
-npm run audit        # Production dependency audit (CI)
-npm run seed         # Push content to Sanity (scripts/seed.mjs — local only, git-ignored)
 ```
 
 ## Sanity Content Model
