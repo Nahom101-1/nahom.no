@@ -1,131 +1,273 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
-@custom-variant dark (&:is(.dark *));
+/* ─────────────────────────────────────────────────────────────
+   DESIGN SYSTEM — nahom.no
+   Gallery direction: bright editorial, Swiss grid, vermillion accent
+   ───────────────────────────────────────────────────────────── */
 
+/* ── 1. Tailwind theme tokens ───────────────────────────────── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: 'GFS Didot', serif;
-  --font-didot: 'GFS Didot', serif;
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  /* Fonts */
+  --font-display: var(--font-display, 'Bricolage Grotesque', sans-serif);
+  --font-serif:   var(--font-serif, 'Newsreader', Georgia, serif);
+  --font-mono:    var(--font-mono, 'JetBrains Mono', 'Fira Code', monospace);
+  --font-sans:    var(--font-display);
+
+  /* Color primitives → semantic aliases */
+  --color-background:        var(--ds-bg);
+  --color-foreground:        var(--ds-fg);
+  --color-card:              var(--ds-bg-surface);
+  --color-card-foreground:   var(--ds-fg);
+  --color-popover:           var(--ds-bg-elevated);
+  --color-popover-foreground:var(--ds-fg);
+  --color-primary:           var(--ds-fg);
+  --color-primary-foreground:var(--ds-bg);
+  --color-secondary:         var(--ds-bg-elevated);
+  --color-secondary-foreground: var(--ds-fg-muted);
+  --color-muted:             var(--ds-bg-surface);
+  --color-muted-foreground:  var(--ds-fg-muted);
+  --color-accent:            var(--ds-accent);
+  --color-accent-foreground: var(--ds-accent-fg);
+  --color-destructive:       var(--ds-error);
+  --color-border:            var(--ds-border);
+  --color-input:             var(--ds-border-strong);
+  --color-ring:              var(--ds-fg-subtle);
+
+  /* Design token utilities */
+  --color-ds-bg:             var(--ds-bg);
+  --color-ds-surface:        var(--ds-bg-surface);
+  --color-ds-elevated:       var(--ds-bg-elevated);
+  --color-ds-fg:             var(--ds-fg);
+  --color-ds-muted:          var(--ds-fg-muted);
+  --color-ds-subtle:         var(--ds-fg-subtle);
+  --color-ds-accent:         var(--ds-accent);
+  --color-ds-border:         var(--ds-border);
+  --color-ds-border-strong:  var(--ds-border-strong);
+
+  /* Motion */
+  --duration-fast:   var(--ds-duration-fast);
+  --duration-base:   var(--ds-duration-base);
+  --duration-slow:   var(--ds-duration-slow);
+  --duration-slower: var(--ds-duration-slower);
+  --ease-out:        var(--ds-ease-out);
+  --ease-spring:     var(--ds-ease-spring);
+
+  /* Radius */
+  --radius-sm: calc(var(--ds-radius) - 2px);
+  --radius-md: var(--ds-radius);
+  --radius-lg: calc(var(--ds-radius) + 4px);
+  --radius-xl: calc(var(--ds-radius) + 8px);
 }
 
-html,
-body {
-  background: #000 !important;
-}
-
-body {
-  font-family: 'GFS Didot', serif;
-}
-
+/* ── 2. Design tokens ───────────────────────────────────────── */
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* Backgrounds */
+  --ds-bg:           #f1ede3;
+  --ds-bg-surface:   #e8e3d8;
+  --ds-bg-elevated:  #ddd8cc;
+
+  /* Foregrounds */
+  --ds-fg:           #17150f;
+  --ds-fg-muted:     #736f63;
+  --ds-fg-subtle:    #a8a398;
+
+  /* Borders */
+  --ds-border:       rgba(23, 21, 15, 0.12);
+  --ds-border-strong:rgba(23, 21, 15, 0.24);
+  --ds-border-ink:   #17150f;
+
+  /* Accent — vermillion */
+  --ds-accent:       #d8442a;
+  --ds-accent-fg:    #f1ede3;
+
+  /* Status */
+  --ds-error:        #c0392b;
+  --ds-success:      #2d7a4f;
+
+  /* Radius — mostly square per design */
+  --ds-radius:       2px;
+
+  /* Motion */
+  --ds-duration-fast:   120ms;
+  --ds-duration-base:   250ms;
+  --ds-duration-slow:   350ms;
+  --ds-duration-slower: 700ms;
+  --ds-ease-out:    cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ds-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Layout */
+  --ds-max-content:  82.5rem;   /* 1320px */
+  --ds-page-x:       1.375rem;  /* 22px */
+  --ds-page-x-md:    2.5rem;    /* 40px */
+
+  /* Typography */
+  --ds-tracking-display: -0.035em;
+  --ds-tracking-wide:     0.10em;
+  --ds-tracking-wider:    0.16em;
+  --ds-leading-tight:     0.88;
+  --ds-leading-body:      1.55;
 }
 
+/* ── 2b. Dark mode token overrides ─────────────────────────── */
+/*       next-themes adds class="dark" to <html>               */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --ds-bg:           #0f0e0b;
+  --ds-bg-surface:   #1a1815;
+  --ds-bg-elevated:  #232019;
+
+  --ds-fg:           #f0ece2;
+  --ds-fg-muted:     #7a7569;
+  --ds-fg-subtle:    #3e3b35;
+
+  --ds-border:       rgba(240, 236, 226, 0.09);
+  --ds-border-strong:rgba(240, 236, 226, 0.16);
+  --ds-border-ink:   #f0ece2;
+
+  /* Accent stays vermillion — works on both */
+  --ds-accent:       #e0502e;
+  --ds-accent-fg:    #0f0e0b;
 }
 
+/* ── 3. Base styles ─────────────────────────────────────────── */
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    box-sizing: border-box;
   }
+
+  html {
+    background: var(--ds-bg);
+    color: var(--ds-fg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    font-family: var(--font-serif);
+    background: var(--ds-bg);
+    color: var(--ds-fg);
+    line-height: var(--ds-leading-body);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: var(--ds-tracking-display);
+    line-height: var(--ds-leading-tight);
+    color: var(--ds-fg);
+  }
+
+  ::selection {
+    background: var(--ds-accent);
+    color: var(--ds-accent-fg);
+  }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--ds-bg); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--ds-border-strong);
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--ds-fg-muted); }
+}
+
+/* ── 4. Typography utilities ────────────────────────────────── */
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  .text-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: var(--ds-tracking-wider);
+    text-transform: uppercase;
+    color: var(--ds-fg-muted);
+    font-weight: 500;
+  }
+
+  /* Navbar glass — adapts to theme */
+  .navbar-glass {
+    background: color-mix(in srgb, var(--ds-bg) 88%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--ds-border);
+    transition: background var(--ds-duration-base), border-color var(--ds-duration-base);
+  }
+
+  .page-wrap {
+    max-width: var(--ds-max-content);
+    margin-inline: auto;
+    padding-inline: var(--ds-page-x);
+  }
+
+  @media (min-width: 720px) {
+    .page-wrap { padding-inline: var(--ds-page-x-md); }
+  }
+
+  /* Marquee */
+  @keyframes marquee-scroll {
+    to { transform: translateX(-50%); }
+  }
+
+  .marquee-track {
+    animation: marquee-scroll 34s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation-play-state: paused; }
+  }
+
+  /* Section dividers */
+  .section-border {
+    border-bottom: 1px solid var(--ds-border);
+  }
+
+  .hairline-top {
+    border-top: 2px solid var(--ds-fg);
+  }
+}
+
+/* ── 5. Skeleton / shimmer ──────────────────────────────────── */
+@layer utilities {
+  @keyframes shimmer {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .portrait-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      color-mix(in srgb, var(--ds-fg) 4%, transparent) 50%,
+      transparent 60%
+    );
+    animation: shimmer 2.2s ease-in-out infinite;
+  }
+}
+
+/* ── 6. Motion ──────────────────────────────────────────────── */
+@layer utilities {
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
