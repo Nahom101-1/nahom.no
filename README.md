@@ -101,8 +101,10 @@ nahom.no/
 ├── .github/
 │   ├── workflows/ci.yml
 │   ├── copilot-instructions.md  # Copilot PR review rules
-│   └── setup-branch-protection.sh
+│   ├── setup-repo.sh            # Branch protection + repo settings
+│   └── CODEOWNERS
 ├── .coderabbit.yaml             # CodeRabbit PR review config
+├── SECURITY.md
 └── .env.example
 ```
 
@@ -120,7 +122,7 @@ flowchart LR
 ```
 
 1. Branch from `main`, make changes, run `npm test` and `npm run build`
-2. Open a PR — CI runs Lint, Format, Test, and Build
+2. Open a PR — CI runs Lint, Format, Test, Audit, and Build
 3. Address Copilot and CodeRabbit feedback
 4. Merge when checks pass
 
@@ -128,12 +130,12 @@ First-time repo setup for maintainers:
 
 ```bash
 gh auth login
-.github/setup-branch-protection.sh
+.github/setup-repo.sh
 ```
 
-The script requires `gh` to be logged in. It enforces pull requests and passing CI on the default branch.
+The script enables delete-branch-on-merge, auto-merge, Dependabot security updates, and branch protection with all CI checks.
 
-Install the [CodeRabbit GitHub App](https://coderabbit.ai/) and enable Copilot code review in repo settings. See [docs/README.md](docs/README.md) for details.
+Install the [CodeRabbit GitHub App](https://coderabbit.ai/) and enable Copilot code review in repo settings. Add `SANITY_REVALIDATE_SECRET` in Vercel and configure a Sanity webhook (see [docs/README.md](docs/README.md)).
 
 ## Scripts
 
@@ -146,6 +148,7 @@ npm run format       # Prettier write
 npm run format:check # Prettier check (CI)
 npm test             # Vitest
 npm run test:watch   # Vitest watch mode
+npm run audit        # Production dependency audit (CI)
 npm run seed         # Push content to Sanity (scripts/seed.mjs — local only, git-ignored)
 ```
 

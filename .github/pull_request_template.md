@@ -15,6 +15,7 @@
 - [ ] `npm run format:check` passes
 - [ ] `npm run test` passes
 - [ ] `npm run build` passes
+- [ ] `npm run audit` passes
 - [ ] Sanity schema changes are reflected in types, queries, and seed (if applicable)
 - [ ] Addressed Copilot / CodeRabbit review comments (if any)
 
