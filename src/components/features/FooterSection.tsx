@@ -21,7 +21,7 @@ export default function FooterSection({
         </span>
         <span>{note ?? 'nahom.no'}</span>
         <span>
-          {(location ?? 'Gjøvik').split(',')[0]}
+          {(location ?? 'Oslo').split(',')[0]}
           {phone ? ` · ${phone}` : ''}
         </span>
       </div>

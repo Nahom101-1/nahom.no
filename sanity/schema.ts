@@ -191,7 +191,7 @@ const siteSettings = {
       title: 'Location',
       type: 'string',
       group: 'identity',
-      description: 'Where you live, e.g. "Gjøvik, Norway"',
+      description: 'Where you live, e.g. "Oslo, Norway"',
     },
     {
       name: 'tagline',

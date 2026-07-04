@@ -1,6 +1,6 @@
 # nahom.no
 
-Personal portfolio for Nahom Berhane — software developer based in Gjøvik, Norway.
+Personal portfolio for Nahom Berhane — software developer based in Oslo, Norway.
 
 A single-page, scroll-driven "Gallery" site: a light/dark editorial layout assembled
 from section components, with all changeable content driven by Sanity.

@@ -36,7 +36,7 @@ export default function HeroSection({ settings }: { settings: SiteSettings | nul
       >
         <span>{settings?.roleLabel ?? 'Programmer · Developer'}</span>
         <span>Portfolio — Index {year}</span>
-        <span>{settings?.location ?? 'Gjøvik, Norway'}</span>
+        <span>{settings?.location ?? 'Oslo, Norway'}</span>
       </div>
 
       <motion.h1

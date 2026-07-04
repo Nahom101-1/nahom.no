@@ -27,7 +27,7 @@ export default function AboutSection({ settings }: { settings: SiteSettings | nu
 
   const name = settings?.name ?? 'Nahom Berhane';
   const age = ageFrom(settings?.birthDate);
-  const place = (settings?.location ?? 'Gjøvik').split(',')[0];
+  const place = (settings?.location ?? 'Oslo').split(',')[0];
   const caption = age ? `${place} · ${age}` : `${place} · ${new Date().getFullYear()}`;
 
   return (
