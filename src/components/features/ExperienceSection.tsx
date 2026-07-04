@@ -4,15 +4,7 @@ import { rv } from '@/lib/motion';
 import type { SiteSettings, WorkExperience } from '@/types/sanity';
 import { useLang } from '@/lib/i18n';
 import { label } from '@/lib/cms';
-
-function formatYear(startDate: string, endDate?: string, isCurrent?: boolean): string {
-  const start = new Date(startDate).getFullYear();
-  if (isCurrent) return `${start} →`;
-  if (!endDate) return String(start);
-  const end = new Date(endDate).getFullYear();
-  if (start === end) return String(start);
-  return `'${String(start).slice(2)}—'${String(end).slice(2)}`;
-}
+import { formatExperienceYear } from '@/lib/utils';
 
 export default function ExperienceSection({
   experience,
@@ -22,8 +14,18 @@ export default function ExperienceSection({
   settings: SiteSettings | null;
 }) {
   const { lang, pick } = useLang();
-  const title = label(settings, lang, 'experienceHeading', 'experienceHeadingNo');
-  const subtitle = label(settings, lang, 'experienceSubheading', 'experienceSubheadingNo');
+  const title = label(
+    settings,
+    lang,
+    'experienceHeading',
+    'experienceHeadingNo'
+  );
+  const subtitle = label(
+    settings,
+    lang,
+    'experienceSubheading',
+    'experienceSubheadingNo'
+  );
 
   if (experience.length === 0) return null;
 
@@ -41,20 +43,34 @@ export default function ExperienceSection({
         className='grid items-baseline gap-4 mb-14'
         style={{ gridTemplateColumns: 'auto 1fr' }}
       >
-        <span className='font-mono text-[13px]' style={{ color: 'var(--ds-accent)' }}>
+        <span
+          className='font-mono text-[13px]'
+          style={{ color: 'var(--ds-accent)' }}
+        >
           03 /
         </span>
         <div>
           {title ? (
             <h2
               className='font-display font-extrabold uppercase'
-              style={{ fontSize: 'clamp(34px, 6vw, 76px)', letterSpacing: '-0.03em', lineHeight: '0.9' }}
+              style={{
+                fontSize: 'clamp(34px, 6vw, 76px)',
+                letterSpacing: '-0.03em',
+                lineHeight: '0.9',
+              }}
             >
               {title}
             </h2>
           ) : null}
           {subtitle ? (
-            <p className='font-mono uppercase mt-1' style={{ fontSize: '11px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}>
+            <p
+              className='font-mono uppercase mt-1'
+              style={{
+                fontSize: '11px',
+                letterSpacing: '0.12em',
+                color: 'var(--ds-fg-muted)',
+              }}
+            >
               {subtitle}
             </p>
           ) : null}
@@ -77,28 +93,41 @@ export default function ExperienceSection({
               className='font-mono text-[13px]'
               style={{ color: 'var(--ds-accent)', letterSpacing: '0.06em' }}
             >
-              {formatYear(job.startDate, job.endDate, job.isCurrent)}
+              {formatExperienceYear(job.startDate, job.endDate, job.isCurrent)}
             </span>
 
             <span>
               <span
                 className='font-display font-bold block'
-                style={{ fontSize: 'clamp(20px, 2.2vw, 28px)', letterSpacing: '-0.02em', lineHeight: '1.05' }}
+                style={{
+                  fontSize: 'clamp(20px, 2.2vw, 28px)',
+                  letterSpacing: '-0.02em',
+                  lineHeight: '1.05',
+                }}
               >
                 {pick(job.position, job.positionNo)}
               </span>
               <span
                 className='font-mono uppercase mt-1.5 block'
-                style={{ fontSize: '11px', letterSpacing: '0.1em', color: 'var(--ds-fg-muted)' }}
+                style={{
+                  fontSize: '11px',
+                  letterSpacing: '0.1em',
+                  color: 'var(--ds-fg-muted)',
+                }}
               >
-                {job.company}{job.location ? ` · ${job.location}` : ''}
+                {job.company}
+                {job.location ? ` · ${job.location}` : ''}
               </span>
             </span>
 
             {pick(job.description, job.descriptionNo) ? (
               <span
                 className='font-serif'
-                style={{ fontSize: '16px', lineHeight: '1.55', color: '#3c3a32' }}
+                style={{
+                  fontSize: '16px',
+                  lineHeight: '1.55',
+                  color: '#3c3a32',
+                }}
               >
                 {pick(job.description, job.descriptionNo)}
               </span>

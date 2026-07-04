@@ -1,7 +1,8 @@
 'use client';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { type Lang, pickLang, pickListLang, translateLang } from '@/lib/lang';
 
-export type Lang = 'en' | 'no';
+export type { Lang };
 
 export const LANGUAGE_NAMES_NO: Record<string, string> = {
   Norwegian: 'Norsk',
@@ -18,18 +19,19 @@ export const LANGUAGE_LEVELS_NO: Record<string, string> = {
   Basic: 'Grunnleggende',
 };
 
-const LanguageContext = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({
+const LanguageContext = createContext<{
+  lang: Lang;
+  setLang: (l: Lang) => void;
+}>({
   lang: 'en',
   setLang: () => {},
 });
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Lang>('en');
-
-  useEffect(() => {
-    const stored = localStorage.getItem('lang');
-    if (stored === 'en' || stored === 'no') setLangState(stored);
-  }, []);
+  const [lang, setLangState] = useState<Lang>(() => {
+    if (typeof window === 'undefined') return 'en';
+    return localStorage.getItem('lang') === 'no' ? 'no' : 'en';
+  });
 
   useEffect(() => {
     document.documentElement.lang = lang === 'no' ? 'nb' : 'en';
@@ -41,17 +43,18 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <LanguageContext.Provider value={{ lang, setLang }}>{children}</LanguageContext.Provider>
+    <LanguageContext.Provider value={{ lang, setLang }}>
+      {children}
+    </LanguageContext.Provider>
   );
 }
 
 export function useLang() {
   const { lang, setLang } = useContext(LanguageContext);
   const pick = (en?: string | null, no?: string | null) =>
-    (lang === 'no' ? (no ?? en) : en) ?? undefined;
-  const pickList = (en?: string[], no?: string[]) =>
-    lang === 'no' && no && no.length > 0 ? no : en;
+    pickLang(lang, en, no);
+  const pickList = (en?: string[], no?: string[]) => pickListLang(lang, en, no);
   const tr = (map: Record<string, string>, value: string) =>
-    lang === 'no' ? (map[value] ?? value) : value;
+    translateLang(lang, map, value);
   return { lang, setLang, pick, pickList, tr };
 }

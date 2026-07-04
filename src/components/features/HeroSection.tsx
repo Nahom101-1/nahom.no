@@ -7,11 +7,20 @@ import { label } from '@/lib/cms';
 
 const reveal = rv;
 
-export default function HeroSection({ settings }: { settings: SiteSettings | null }) {
+export default function HeroSection({
+  settings,
+}: {
+  settings: SiteSettings | null;
+}) {
   const { lang, pick } = useLang();
   const tagline = pick(settings?.tagline, settings?.taglineNo);
   const roleLabel = pick(settings?.roleLabel, settings?.roleLabelNo);
-  const portfolioIndex = label(settings, lang, 'portfolioIndex', 'portfolioIndexNo');
+  const portfolioIndex = label(
+    settings,
+    lang,
+    'portfolioIndex',
+    'portfolioIndexNo'
+  );
   const highlights = settings?.heroHighlights ?? [];
 
   const name = settings?.name ?? '';
@@ -27,7 +36,11 @@ export default function HeroSection({ settings }: { settings: SiteSettings | nul
     >
       <div
         className='flex justify-between flex-wrap gap-3 font-mono uppercase mb-9'
-        style={{ fontSize: '11px', letterSpacing: '0.14em', color: 'var(--ds-fg-muted)' }}
+        style={{
+          fontSize: '11px',
+          letterSpacing: '0.14em',
+          color: 'var(--ds-fg-muted)',
+        }}
       >
         {roleLabel ? <span>{roleLabel}</span> : <span />}
         {portfolioIndex ? (
@@ -68,7 +81,11 @@ export default function HeroSection({ settings }: { settings: SiteSettings | nul
             animate='visible'
             transition={{ delay: 0.1 }}
             className='font-serif'
-            style={{ fontSize: 'clamp(20px, 2.4vw, 30px)', lineHeight: '1.3', maxWidth: '24ch' }}
+            style={{
+              fontSize: 'clamp(20px, 2.4vw, 30px)',
+              lineHeight: '1.3',
+              maxWidth: '24ch',
+            }}
           >
             {tagline}
           </motion.p>
@@ -83,12 +100,19 @@ export default function HeroSection({ settings }: { settings: SiteSettings | nul
             animate='visible'
             transition={{ delay: 0.2 }}
             className='font-mono uppercase text-left sm:text-right'
-            style={{ fontSize: '11px', letterSpacing: '0.08em', lineHeight: '2.2', color: 'var(--ds-fg-muted)' }}
+            style={{
+              fontSize: '11px',
+              letterSpacing: '0.08em',
+              lineHeight: '2.2',
+              color: 'var(--ds-fg-muted)',
+            }}
           >
             {highlights.map((h, i) => (
               <span key={i}>
                 {pick(h.label, h.labelNo) ?? h.label} →{' '}
-                <strong style={{ color: 'var(--ds-fg)', fontWeight: 500 }}>{h.value}</strong>
+                <strong style={{ color: 'var(--ds-fg)', fontWeight: 500 }}>
+                  {h.value}
+                </strong>
                 {i < highlights.length - 1 ? <br /> : null}
               </span>
             ))}

@@ -162,7 +162,10 @@ function Stars({ rating }: { rating: number }) {
   const full = Math.floor(rating);
   const half = rating - full >= 0.5;
   return (
-    <span className='font-mono' style={{ fontSize: '11px', color: 'var(--ds-accent)' }}>
+    <span
+      className='font-mono'
+      style={{ fontSize: '11px', color: 'var(--ds-accent)' }}
+    >
       {'★'.repeat(full)}
       {half ? '½' : ''}
     </span>
@@ -204,71 +207,95 @@ function RecentlyWatched({ labelText }: { labelText?: string }) {
       </div>
 
       <div className='grid grid-cols-3 sm:grid-cols-6 gap-3'>
-        {(movies === null ? Array.from({ length: 6 }) : items).map((movie, i) => {
-          const m = movie as LetterboxdFeed | undefined;
-          return (
-            <a
-              key={m?.guid ?? i}
-              href={m?.link ?? undefined}
-              target='_blank'
-              rel='noopener noreferrer'
-              className='group block'
-            >
-              <div
-                className='relative w-full overflow-hidden border'
-                style={{
-                  aspectRatio: '2 / 3',
-                  borderColor: 'var(--ds-border)',
-                  background: 'var(--ds-bg-surface)',
-                }}
+        {(movies === null ? Array.from({ length: 6 }) : items).map(
+          (movie, i) => {
+            const m = movie as LetterboxdFeed | undefined;
+            return (
+              <a
+                key={m?.guid ?? i}
+                href={m?.link ?? undefined}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='group block'
               >
-                {m?.posterURL ? (
-                  <Image
-                    src={m.posterURL}
-                    alt={m.title}
-                    fill
-                    className='object-cover transition-transform duration-500 group-hover:scale-105'
-                    sizes='(max-width: 640px) 33vw, 120px'
-                  />
-                ) : null}
-              </div>
-              {m ? (
-                <div className='mt-2'>
-                  <div
-                    className='font-mono uppercase truncate'
-                    style={{ fontSize: '10px', letterSpacing: '0.06em' }}
-                  >
-                    {m.title}
-                  </div>
-                  <div className='flex items-center justify-between mt-0.5'>
-                    <span
-                      className='font-mono'
-                      style={{ fontSize: '10px', color: 'var(--ds-fg-muted)' }}
-                    >
-                      {m.year}
-                    </span>
-                    {m.rating ? <Stars rating={m.rating} /> : null}
-                  </div>
+                <div
+                  className='relative w-full overflow-hidden border'
+                  style={{
+                    aspectRatio: '2 / 3',
+                    borderColor: 'var(--ds-border)',
+                    background: 'var(--ds-bg-surface)',
+                  }}
+                >
+                  {m?.posterURL ? (
+                    <Image
+                      src={m.posterURL}
+                      alt={m.title}
+                      fill
+                      className='object-cover transition-transform duration-500 group-hover:scale-105'
+                      sizes='(max-width: 640px) 33vw, 120px'
+                    />
+                  ) : null}
                 </div>
-              ) : null}
-            </a>
-          );
-        })}
+                {m ? (
+                  <div className='mt-2'>
+                    <div
+                      className='font-mono uppercase truncate'
+                      style={{ fontSize: '10px', letterSpacing: '0.06em' }}
+                    >
+                      {m.title}
+                    </div>
+                    <div className='flex items-center justify-between mt-0.5'>
+                      <span
+                        className='font-mono'
+                        style={{
+                          fontSize: '10px',
+                          color: 'var(--ds-fg-muted)',
+                        }}
+                      >
+                        {m.year}
+                      </span>
+                      {m.rating ? <Stars rating={m.rating} /> : null}
+                    </div>
+                  </div>
+                ) : null}
+              </a>
+            );
+          }
+        )}
       </div>
     </div>
   );
 }
 
-export default function OffTheClock({ settings }: { settings: SiteSettings | null }) {
+export default function OffTheClock({
+  settings,
+}: {
+  settings: SiteSettings | null;
+}) {
   const { lang, pick } = useLang();
   const title = label(settings, lang, 'offClockHeading', 'offClockHeadingNo');
   const kicker = pick(settings?.offClockKicker, settings?.offClockKickerNo);
 
   const cardLabels: OffTheClockLabels = {
     nowPlaying: label(settings, lang, 'nowPlayingLabel', 'nowPlayingLabelNo'),
-    nothingPlaying: label(settings, lang, 'nothingPlayingLabel', 'nothingPlayingLabelNo'),
-    nothingPlayingSub: label(settings, lang, 'nothingPlayingSub', 'nothingPlayingSubNo'),
-    recentlyWatched: label(settings, lang, 'recentlyWatchedLabel', 'recentlyWatchedLabelNo'),
+    nothingPlaying: label(
+      settings,
+      lang,
+      'nothingPlayingLabel',
+      'nothingPlayingLabelNo'
+    ),
+    nothingPlayingSub: label(
+      settings,
+      lang,
+      'nothingPlayingSub',
+      'nothingPlayingSubNo'
+    ),
+    recentlyWatched: label(
+      settings,
+      lang,
+      'recentlyWatchedLabel',
+      'recentlyWatchedLabelNo'
+    ),
   };
 
   return (
@@ -285,7 +312,10 @@ export default function OffTheClock({ settings }: { settings: SiteSettings | nul
         className='grid items-baseline gap-4 mb-14'
         style={{ gridTemplateColumns: 'auto 1fr' }}
       >
-        <span className='font-mono text-[13px]' style={{ color: 'var(--ds-accent)' }}>
+        <span
+          className='font-mono text-[13px]'
+          style={{ color: 'var(--ds-accent)' }}
+        >
           06 /
         </span>
         <div>

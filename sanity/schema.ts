@@ -11,18 +11,38 @@ const workExperience = {
   title: 'Work Experience',
   type: 'document',
   fields: [
-    { name: 'company', title: 'Company', type: 'string', validation: (R: Rule) => R.required() },
-    { name: 'position', title: 'Position', type: 'string', validation: (R: Rule) => R.required() },
+    {
+      name: 'company',
+      title: 'Company',
+      type: 'string',
+      validation: (R: Rule) => R.required(),
+    },
+    {
+      name: 'position',
+      title: 'Position',
+      type: 'string',
+      validation: (R: Rule) => R.required(),
+    },
     { name: 'positionNo', title: 'Position (Norwegian)', type: 'string' },
     { name: 'location', title: 'Location', type: 'string' },
-    { name: 'startDate', title: 'Start Date', type: 'date', validation: (R: Rule) => R.required() },
+    {
+      name: 'startDate',
+      title: 'Start Date',
+      type: 'date',
+      validation: (R: Rule) => R.required(),
+    },
     {
       name: 'endDate',
       title: 'End Date',
       type: 'date',
       description: 'Leave empty if this is your current role',
     },
-    { name: 'isCurrent', title: 'Current Position', type: 'boolean', initialValue: false },
+    {
+      name: 'isCurrent',
+      title: 'Current Position',
+      type: 'boolean',
+      initialValue: false,
+    },
     {
       name: 'badge',
       title: 'Badge Label',
@@ -31,10 +51,30 @@ const workExperience = {
     },
     { name: 'description', title: 'Description', type: 'text' },
     { name: 'descriptionNo', title: 'Description (Norwegian)', type: 'text' },
-    { name: 'technologies', title: 'Technologies', type: 'array', of: [{ type: 'string' }] },
-    { name: 'learnings', title: 'Key Learnings', type: 'array', of: [{ type: 'string' }] },
-    { name: 'learningsNo', title: 'Key Learnings (Norwegian)', type: 'array', of: [{ type: 'string' }] },
-    { name: 'picture', title: 'Picture', type: 'image', options: { hotspot: true } },
+    {
+      name: 'technologies',
+      title: 'Technologies',
+      type: 'array',
+      of: [{ type: 'string' }],
+    },
+    {
+      name: 'learnings',
+      title: 'Key Learnings',
+      type: 'array',
+      of: [{ type: 'string' }],
+    },
+    {
+      name: 'learningsNo',
+      title: 'Key Learnings (Norwegian)',
+      type: 'array',
+      of: [{ type: 'string' }],
+    },
+    {
+      name: 'picture',
+      title: 'Picture',
+      type: 'image',
+      options: { hotspot: true },
+    },
   ],
   preview: {
     select: { title: 'position', subtitle: 'company' },
@@ -54,7 +94,12 @@ const relevantClasses = {
       description: 'The education entry this class belongs to',
     },
     { name: 'courseCode', title: 'Code', type: 'string' },
-    { name: 'courseName', title: 'Name', type: 'string', validation: (R: Rule) => R.required() },
+    {
+      name: 'courseName',
+      title: 'Name',
+      type: 'string',
+      validation: (R: Rule) => R.required(),
+    },
     { name: 'courseNameNo', title: 'Name (Norwegian)', type: 'string' },
     {
       name: 'grade',
@@ -74,11 +119,25 @@ const education = {
   title: 'Education',
   type: 'document',
   fields: [
-    { name: 'institution', title: 'Institution', type: 'string', validation: (R: Rule) => R.required() },
-    { name: 'degree', title: 'Degree', type: 'string', validation: (R: Rule) => R.required() },
+    {
+      name: 'institution',
+      title: 'Institution',
+      type: 'string',
+      validation: (R: Rule) => R.required(),
+    },
+    {
+      name: 'degree',
+      title: 'Degree',
+      type: 'string',
+      validation: (R: Rule) => R.required(),
+    },
     { name: 'degreeNo', title: 'Degree (Norwegian)', type: 'string' },
     { name: 'fieldOfStudy', title: 'Field of Study', type: 'string' },
-    { name: 'fieldOfStudyNo', title: 'Field of Study (Norwegian)', type: 'string' },
+    {
+      name: 'fieldOfStudyNo',
+      title: 'Field of Study (Norwegian)',
+      type: 'string',
+    },
     { name: 'startDate', title: 'Start Date', type: 'date' },
     {
       name: 'endDate',
@@ -86,7 +145,12 @@ const education = {
       type: 'date',
       description: 'Leave empty if currently studying',
     },
-    { name: 'isCurrent', title: 'Currently Studying', type: 'boolean', initialValue: false },
+    {
+      name: 'isCurrent',
+      title: 'Currently Studying',
+      type: 'boolean',
+      initialValue: false,
+    },
     {
       name: 'gpa',
       title: 'GPA / Average Grade',
@@ -94,7 +158,12 @@ const education = {
       description: 'Shown on the site, e.g. "B" or "4.2"',
     },
     { name: 'location', title: 'Location', type: 'string' },
-    { name: 'institutionLogo', title: 'Institution Logo', type: 'image', options: { hotspot: true } },
+    {
+      name: 'institutionLogo',
+      title: 'Institution Logo',
+      type: 'image',
+      options: { hotspot: true },
+    },
   ],
   preview: {
     select: { title: 'degree', subtitle: 'institution' },
@@ -140,12 +209,27 @@ const project = {
   title: 'Project',
   type: 'document',
   fields: [
-    { name: 'title', title: 'Title', type: 'string', validation: (R: Rule) => R.required() },
+    {
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      validation: (R: Rule) => R.required(),
+    },
     { name: 'year', title: 'Year', type: 'number' },
     { name: 'description', title: 'Description', type: 'text' },
     { name: 'descriptionNo', title: 'Description (Norwegian)', type: 'text' },
-    { name: 'stack', title: 'Tech Stack', type: 'array', of: [{ type: 'string' }] },
-    { name: 'image', title: 'Screenshot', type: 'image', options: { hotspot: true } },
+    {
+      name: 'stack',
+      title: 'Tech Stack',
+      type: 'array',
+      of: [{ type: 'string' }],
+    },
+    {
+      name: 'image',
+      title: 'Screenshot',
+      type: 'image',
+      options: { hotspot: true },
+    },
     { name: 'link', title: 'Project URL', type: 'url' },
     {
       name: 'order',
@@ -184,7 +268,8 @@ const siteSettings = {
       title: 'Role Label',
       type: 'string',
       group: 'identity',
-      description: 'Small label in the hero/footer, e.g. "Programmer · Developer"',
+      description:
+        'Small label in the hero/footer, e.g. "Programmer · Developer"',
     },
     {
       name: 'roleLabelNo',
@@ -236,7 +321,12 @@ const siteSettings = {
         {
           type: 'object',
           fields: [
-            { name: 'label', title: 'Label', type: 'string', description: 'e.g. "Now", "Prev", "Stack"' },
+            {
+              name: 'label',
+              title: 'Label',
+              type: 'string',
+              description: 'e.g. "Now", "Prev", "Stack"',
+            },
             { name: 'labelNo', title: 'Label (Norwegian)', type: 'string' },
             { name: 'value', title: 'Value', type: 'string' },
           ],
@@ -331,7 +421,15 @@ const siteSettings = {
               name: 'level',
               title: 'Level',
               type: 'string',
-              options: { list: ['Native', 'Fluent', 'Professional', 'Conversational', 'Basic'] },
+              options: {
+                list: [
+                  'Native',
+                  'Fluent',
+                  'Professional',
+                  'Conversational',
+                  'Basic',
+                ],
+              },
             },
           ],
           preview: { select: { title: 'name', subtitle: 'level' } },
@@ -351,7 +449,8 @@ const siteSettings = {
       title: 'Toolkit — Subtitle',
       type: 'string',
       group: 'skills',
-      description: 'Small line under the heading, e.g. "Languages, frameworks & methods I\'ve used or am familiar with"',
+      description:
+        'Small line under the heading, e.g. "Languages, frameworks & methods I\'ve used or am familiar with"',
     },
     {
       name: 'toolkitHeadingNo',
@@ -375,8 +474,17 @@ const siteSettings = {
           type: 'object',
           fields: [
             { name: 'category', title: 'Category', type: 'string' },
-            { name: 'categoryNo', title: 'Category (Norwegian)', type: 'string' },
-            { name: 'skills', title: 'Skills', type: 'array', of: [{ type: 'string' }] },
+            {
+              name: 'categoryNo',
+              title: 'Category (Norwegian)',
+              type: 'string',
+            },
+            {
+              name: 'skills',
+              title: 'Skills',
+              type: 'array',
+              of: [{ type: 'string' }],
+            },
           ],
           preview: { select: { title: 'category' } },
         },
@@ -393,7 +501,12 @@ const siteSettings = {
     // ── Contact & Footer ──
     { name: 'email', title: 'Email', type: 'string', group: 'contact' },
     { name: 'githubUrl', title: 'GitHub URL', type: 'url', group: 'contact' },
-    { name: 'linkedinUrl', title: 'LinkedIn URL', type: 'url', group: 'contact' },
+    {
+      name: 'linkedinUrl',
+      title: 'LinkedIn URL',
+      type: 'url',
+      group: 'contact',
+    },
     { name: 'websiteUrl', title: 'Website URL', type: 'url', group: 'contact' },
     { name: 'phone', title: 'Phone', type: 'string', group: 'contact' },
     {
@@ -401,7 +514,8 @@ const siteSettings = {
       title: 'Contact — Kicker',
       type: 'string',
       group: 'contact',
-      description: 'Small line above the big "Say hello", e.g. "Open to graduate roles"',
+      description:
+        'Small line above the big "Say hello", e.g. "Open to graduate roles"',
     },
     {
       name: 'contactHeading',
@@ -437,7 +551,8 @@ const siteSettings = {
       type: 'boolean',
       group: 'sections',
       initialValue: true,
-      description: 'The now-playing (Spotify) + recently-watched (Letterboxd) section',
+      description:
+        'The now-playing (Spotify) + recently-watched (Letterboxd) section',
     },
     {
       name: 'offClockKicker',
@@ -458,39 +573,84 @@ const siteSettings = {
       type: 'string',
       group: 'sections',
     },
-    { name: 'navWorkNo', title: 'Nav — Work (Norwegian)', type: 'string', group: 'sections' },
-    { name: 'navExperience', title: 'Nav — Experience', type: 'string', group: 'sections' },
+    {
+      name: 'navWorkNo',
+      title: 'Nav — Work (Norwegian)',
+      type: 'string',
+      group: 'sections',
+    },
+    {
+      name: 'navExperience',
+      title: 'Nav — Experience',
+      type: 'string',
+      group: 'sections',
+    },
     {
       name: 'navExperienceNo',
       title: 'Nav — Experience (Norwegian)',
       type: 'string',
       group: 'sections',
     },
-    { name: 'navAbout', title: 'Nav — About', type: 'string', group: 'sections' },
-    { name: 'navAboutNo', title: 'Nav — About (Norwegian)', type: 'string', group: 'sections' },
-    { name: 'navContact', title: 'Nav — Contact', type: 'string', group: 'sections' },
+    {
+      name: 'navAbout',
+      title: 'Nav — About',
+      type: 'string',
+      group: 'sections',
+    },
+    {
+      name: 'navAboutNo',
+      title: 'Nav — About (Norwegian)',
+      type: 'string',
+      group: 'sections',
+    },
+    {
+      name: 'navContact',
+      title: 'Nav — Contact',
+      type: 'string',
+      group: 'sections',
+    },
     {
       name: 'navContactNo',
       title: 'Nav — Contact (Norwegian)',
       type: 'string',
       group: 'sections',
     },
-    { name: 'resumeNavLabel', title: 'Nav — Résumé button', type: 'string', group: 'sections' },
+    {
+      name: 'resumeNavLabel',
+      title: 'Nav — Résumé button',
+      type: 'string',
+      group: 'sections',
+    },
     {
       name: 'resumeNavLabelNo',
       title: 'Nav — Résumé button (Norwegian)',
       type: 'string',
       group: 'sections',
     },
-    { name: 'sayHelloNavLabel', title: 'Nav — Say hello button', type: 'string', group: 'sections' },
+    {
+      name: 'sayHelloNavLabel',
+      title: 'Nav — Say hello button',
+      type: 'string',
+      group: 'sections',
+    },
     {
       name: 'sayHelloNavLabelNo',
       title: 'Nav — Say hello button (Norwegian)',
       type: 'string',
       group: 'sections',
     },
-    { name: 'workHeading', title: 'Work — Section title', type: 'string', group: 'sections' },
-    { name: 'workSubheading', title: 'Work — Section subtitle', type: 'string', group: 'sections' },
+    {
+      name: 'workHeading',
+      title: 'Work — Section title',
+      type: 'string',
+      group: 'sections',
+    },
+    {
+      name: 'workSubheading',
+      title: 'Work — Section subtitle',
+      type: 'string',
+      group: 'sections',
+    },
     {
       name: 'workHeadingNo',
       title: 'Work — Section title (Norwegian)',
@@ -563,14 +723,24 @@ const siteSettings = {
       type: 'string',
       group: 'sections',
     },
-    { name: 'presentLabel', title: 'Education — Present label', type: 'string', group: 'sections' },
+    {
+      name: 'presentLabel',
+      title: 'Education — Present label',
+      type: 'string',
+      group: 'sections',
+    },
     {
       name: 'presentLabelNo',
       title: 'Education — Present label (Norwegian)',
       type: 'string',
       group: 'sections',
     },
-    { name: 'gradeLabel', title: 'Education — Grade label', type: 'string', group: 'sections' },
+    {
+      name: 'gradeLabel',
+      title: 'Education — Grade label',
+      type: 'string',
+      group: 'sections',
+    },
     {
       name: 'gradeLabelNo',
       title: 'Education — Grade label (Norwegian)',
@@ -637,21 +807,36 @@ const siteSettings = {
       type: 'string',
       group: 'sections',
     },
-    { name: 'emailMeLabel', title: 'Contact — Email button', type: 'string', group: 'contact' },
+    {
+      name: 'emailMeLabel',
+      title: 'Contact — Email button',
+      type: 'string',
+      group: 'contact',
+    },
     {
       name: 'emailMeLabelNo',
       title: 'Contact — Email button (Norwegian)',
       type: 'string',
       group: 'contact',
     },
-    { name: 'resumeEnLabel', title: 'Contact — English CV button', type: 'string', group: 'contact' },
+    {
+      name: 'resumeEnLabel',
+      title: 'Contact — English CV button',
+      type: 'string',
+      group: 'contact',
+    },
     {
       name: 'resumeEnLabelNo',
       title: 'Contact — English CV button (Norwegian)',
       type: 'string',
       group: 'contact',
     },
-    { name: 'resumeNoLabel', title: 'Contact — Norwegian CV button', type: 'string', group: 'contact' },
+    {
+      name: 'resumeNoLabel',
+      title: 'Contact — Norwegian CV button',
+      type: 'string',
+      group: 'contact',
+    },
     {
       name: 'resumeNoLabelNo',
       title: 'Contact — Norwegian CV button (Norwegian)',
@@ -665,5 +850,12 @@ const siteSettings = {
 };
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [siteSettings, project, workExperience, education, relevantClasses, resume],
+  types: [
+    siteSettings,
+    project,
+    workExperience,
+    education,
+    relevantClasses,
+    resume,
+  ],
 };
