@@ -2,52 +2,9 @@
 import { motion } from 'motion/react';
 import { rv } from '@/lib/motion';
 import Image from 'next/image';
-import type { Project } from '@/types/sanity';
+import type { Project, SiteSettings } from '@/types/sanity';
 import { useLang } from '@/lib/i18n';
-
-const DEFAULT_PROJECTS: Project[] = [
-  {
-    _id: '1',
-    title: 'AI Travel Assistant',
-    year: 2025,
-    description:
-      'A web app that generates travel itineraries with language models and external APIs — built with a careful eye on token economy and privacy.',
-    descriptionNo:
-      'En webapp som genererer reiseplaner med språkmodeller og eksterne API-er, med fokus på tokenøkonomi og personvern.',
-    stack: ['Next.js', 'LLM', 'Firebase', 'Scrum'],
-  },
-  {
-    _id: '2',
-    title: 'Countries Dashboard API',
-    year: 2024,
-    description:
-      'A REST service with webhook notifications and saved dashboard configs. It pulls weather and currency data and runs in Docker on OpenStack.',
-    descriptionNo:
-      'En REST-tjeneste med webhook-varsler og lagrede dashboard-oppsett. Henter vær- og valutadata og kjører i Docker på OpenStack.',
-    stack: ['Go', 'REST', 'PostgreSQL', 'Docker'],
-  },
-  {
-    _id: '3',
-    title: 'E-commerce Data Model',
-    year: 2024,
-    description:
-      'Designed and normalized the relational schema for a full-stack e-commerce platform.',
-    descriptionNo:
-      'Designet og normaliserte det relasjonelle skjemaet for en fullstack e-handelsplattform.',
-    stack: ['PostgreSQL', 'SQL', 'Node.js', 'Docker'],
-  },
-  {
-    _id: '4',
-    title: 'nahom.no — Portfolio',
-    year: 2025,
-    description:
-      'My personal site with projects and contact info. Content is managed in Sanity so it can be updated without redeploying.',
-    descriptionNo:
-      'Min personlige nettside med prosjekter og kontaktinfo. Innholdet administreres i Sanity, så det kan oppdateres uten ny deploy.',
-    stack: ['React', 'Next.js', 'Tailwind', 'Sanity'],
-  },
-];
-
+import { label } from '@/lib/cms';
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const { pick } = useLang();
@@ -71,10 +28,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </span>
       </div>
 
-      <div
-        className='overflow-hidden border'
-        style={{ borderColor: 'var(--ds-border)' }}
-      >
+      <div className='overflow-hidden border' style={{ borderColor: 'var(--ds-border)' }}>
         {project.imageUrl ? (
           <div className='relative w-full' style={{ height: '300px' }}>
             <Image
@@ -107,37 +61,50 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         {project.title}
       </h3>
 
-      <p
-        className='font-serif mt-3'
-        style={{ fontSize: '17px', lineHeight: '1.55', color: '#3c3a32', maxWidth: '42ch' }}
-      >
-        {pick(project.description, project.descriptionNo)}
-      </p>
+      {pick(project.description, project.descriptionNo) ? (
+        <p
+          className='font-serif mt-3'
+          style={{ fontSize: '17px', lineHeight: '1.55', color: '#3c3a32', maxWidth: '42ch' }}
+        >
+          {pick(project.description, project.descriptionNo)}
+        </p>
+      ) : null}
 
-      <div className='flex flex-wrap gap-2 mt-4'>
-        {project.stack.map(s => (
-          <span
-            key={s}
-            className='font-mono uppercase border rounded-full'
-            style={{
-              fontSize: '10px',
-              letterSpacing: '0.06em',
-              color: 'var(--ds-fg-muted)',
-              borderColor: 'var(--ds-border)',
-              padding: '4px 10px',
-            }}
-          >
-            {s}
-          </span>
-        ))}
-      </div>
+      {project.stack.length > 0 && (
+        <div className='flex flex-wrap gap-2 mt-4'>
+          {project.stack.map(s => (
+            <span
+              key={s}
+              className='font-mono uppercase border rounded-full'
+              style={{
+                fontSize: '10px',
+                letterSpacing: '0.06em',
+                color: 'var(--ds-fg-muted)',
+                borderColor: 'var(--ds-border)',
+                padding: '4px 10px',
+              }}
+            >
+              {s}
+            </span>
+          ))}
+        </div>
+      )}
     </motion.div>
   );
 }
 
-export default function WorkSection({ projects }: { projects: Project[] }) {
-  const { ui } = useLang();
-  const items = projects.length > 0 ? projects : DEFAULT_PROJECTS;
+export default function WorkSection({
+  projects,
+  settings,
+}: {
+  projects: Project[];
+  settings: SiteSettings | null;
+}) {
+  const { lang } = useLang();
+  const title = label(settings, lang, 'workHeading', 'workHeadingNo');
+  const subtitle = label(settings, lang, 'workSubheading', 'workSubheadingNo');
+
+  if (projects.length === 0) return null;
 
   return (
     <section
@@ -157,20 +124,24 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
           02 /
         </span>
         <div>
-          <h2
-            className='font-display font-extrabold uppercase'
-            style={{ fontSize: 'clamp(34px, 6vw, 76px)', letterSpacing: '-0.03em', lineHeight: '0.9' }}
-          >
-            {ui.workTitle}
-          </h2>
-          <p className='font-mono uppercase mt-1' style={{ fontSize: '11px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}>
-            {ui.workSub}
-          </p>
+          {title ? (
+            <h2
+              className='font-display font-extrabold uppercase'
+              style={{ fontSize: 'clamp(34px, 6vw, 76px)', letterSpacing: '-0.03em', lineHeight: '0.9' }}
+            >
+              {title}
+            </h2>
+          ) : null}
+          {subtitle ? (
+            <p className='font-mono uppercase mt-1' style={{ fontSize: '11px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}>
+              {subtitle}
+            </p>
+          ) : null}
         </div>
       </motion.div>
 
       <div className='grid grid-cols-1 md:grid-cols-2 gap-x-14' style={{ gap: '4px 56px' }}>
-        {items.slice(0, 4).map((project, i) => (
+        {projects.slice(0, 4).map((project, i) => (
           <ProjectCard key={project._id} project={project} index={i} />
         ))}
       </div>

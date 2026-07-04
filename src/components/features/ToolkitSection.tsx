@@ -1,34 +1,17 @@
 'use client';
 import { motion } from 'motion/react';
 import { rv } from '@/lib/motion';
-import type { SkillGroup } from '@/types/sanity';
-import { useLang, SKILL_CATEGORIES_NO } from '@/lib/i18n';
+import type { SiteSettings } from '@/types/sanity';
+import { useLang } from '@/lib/i18n';
+import { label } from '@/lib/cms';
 
-const DEFAULT_SKILL_GROUPS: SkillGroup[] = [
-  { category: 'Languages', skills: ['Kotlin', 'JavaScript / TS', 'Go', 'C / C++'] },
-  { category: 'Frontend', skills: ['React', 'Next.js', 'Tailwind CSS'] },
-  { category: 'Backend & Data', skills: ['Node.js', 'REST APIs', 'PostgreSQL', 'Firebase'] },
-  { category: 'AI & Integration', skills: ['LLM integration', 'RAG concepts', 'AI agents', 'Token optimization'] },
-  { category: 'Tooling', skills: ['Docker', 'Git', 'GitHub Actions', 'OpenStack'] },
-  { category: 'Method', skills: ['OOP', 'Agile / Scrum', 'Scalable services'] },
-];
+export default function ToolkitSection({ settings }: { settings: SiteSettings | null }) {
+  const { lang, pick } = useLang();
+  const groups = settings?.skillGroups ?? [];
+  const title = pick(settings?.toolkitHeading, settings?.toolkitHeadingNo);
+  const subtitle = pick(settings?.toolkitSubtitle, settings?.toolkitSubtitleNo);
 
-
-export default function ToolkitSection({
-  skillGroups,
-  heading,
-  subtitle,
-  headingNo,
-  subtitleNo,
-}: {
-  skillGroups?: SkillGroup[];
-  heading?: string;
-  subtitle?: string;
-  headingNo?: string;
-  subtitleNo?: string;
-}) {
-  const { ui, pick, tr } = useLang();
-  const groups = skillGroups && skillGroups.length > 0 ? skillGroups : DEFAULT_SKILL_GROUPS;
+  if (groups.length === 0) return null;
 
   return (
     <section
@@ -48,15 +31,19 @@ export default function ToolkitSection({
           04 /
         </span>
         <div>
-          <h2
-            className='font-display font-extrabold uppercase'
-            style={{ fontSize: 'clamp(34px, 6vw, 76px)', letterSpacing: '-0.03em', lineHeight: '0.9' }}
-          >
-            {pick(heading, headingNo) ?? ui.toolkitTitle}
-          </h2>
-          <p className='font-mono uppercase mt-1' style={{ fontSize: '11px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}>
-            {pick(subtitle, subtitleNo) ?? ui.toolkitSub}
-          </p>
+          {title ? (
+            <h2
+              className='font-display font-extrabold uppercase'
+              style={{ fontSize: 'clamp(34px, 6vw, 76px)', letterSpacing: '-0.03em', lineHeight: '0.9' }}
+            >
+              {title}
+            </h2>
+          ) : null}
+          {subtitle ? (
+            <p className='font-mono uppercase mt-1' style={{ fontSize: '11px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}>
+              {subtitle}
+            </p>
+          ) : null}
         </div>
       </motion.div>
 
@@ -79,7 +66,7 @@ export default function ToolkitSection({
               className='font-mono uppercase mb-5'
               style={{ fontSize: '11px', letterSpacing: '0.16em', color: 'var(--ds-accent)' }}
             >
-              {tr(SKILL_CATEGORIES_NO, group.category)}
+              {pick(group.category, group.categoryNo) ?? group.category}
             </h4>
             <ul className='flex flex-col gap-2.5'>
               {group.skills.map(skill => (

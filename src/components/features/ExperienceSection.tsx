@@ -1,8 +1,9 @@
 'use client';
 import { motion } from 'motion/react';
 import { rv } from '@/lib/motion';
-import type { WorkExperience } from '@/types/sanity';
+import type { SiteSettings, WorkExperience } from '@/types/sanity';
 import { useLang } from '@/lib/i18n';
+import { label } from '@/lib/cms';
 
 function formatYear(startDate: string, endDate?: string, isCurrent?: boolean): string {
   const start = new Date(startDate).getFullYear();
@@ -13,41 +14,18 @@ function formatYear(startDate: string, endDate?: string, isCurrent?: boolean): s
   return `'${String(start).slice(2)}—'${String(end).slice(2)}`;
 }
 
-const DEFAULT_EXPERIENCE: WorkExperience[] = [
-  {
-    _id: '1', _type: 'workExperience',
-    company: 'Skatteetaten IT', position: 'Developer', positionNo: 'Utvikler', location: 'Trondheim',
-    startDate: '2026-06-01', isCurrent: true,
-    description: "Building an AI-based prototype for troubleshooting and optimization on the Tax Administration's Kubernetes platform: RAG, log data and dashboards.",
-    descriptionNo: 'Bygger en KI-basert prototype for feilsøking og optimalisering på Skatteetatens Kubernetes-plattform: RAG, loggdata og dashboards.',
-  },
-  {
-    _id: '2', _type: 'workExperience',
-    company: 'NAV IT', position: 'Backend Developer, Intern', positionNo: 'Backendutvikler, praksis', location: 'Norway',
-    startDate: '2025-01-01', endDate: '2025-12-31', isCurrent: false,
-    description: 'Built backend services in Kotlin exposing data through REST APIs, plus Next.js frontend data visualizations used internally.',
-    descriptionNo: 'Bygget backendtjenester i Kotlin som eksponerte data via REST API-er, pluss Next.js-datavisualiseringer brukt internt.',
-  },
-  {
-    _id: '3', _type: 'workExperience',
-    company: 'NTNU Start Gjøvik', position: 'IT Volunteer', positionNo: 'IT-frivillig', location: 'Gjøvik',
-    startDate: '2024-01-01', endDate: '2026-06-01', isCurrent: false,
-    description: 'Owned the domain, GitHub repo and ongoing site maintenance (React, Tailwind, Sanity), plus email accounts and user access.',
-    descriptionNo: 'Ansvarlig for domenet, GitHub-repoet og løpende vedlikehold av nettsiden (React, Tailwind, Sanity), pluss e-postkontoer og brukertilgang.',
-  },
-  {
-    _id: '4', _type: 'workExperience',
-    company: 'Telia', position: 'Shop Assistant', positionNo: 'Butikkmedarbeider', location: 'Gjøvik',
-    startDate: '2023-01-01', endDate: '2026-01-01', isCurrent: false,
-    description: 'Customer service, sales and hands-on technical support in store.',
-    descriptionNo: 'Kundeservice, salg og praktisk teknisk support i butikk.',
-  },
-];
+export default function ExperienceSection({
+  experience,
+  settings,
+}: {
+  experience: WorkExperience[];
+  settings: SiteSettings | null;
+}) {
+  const { lang, pick } = useLang();
+  const title = label(settings, lang, 'experienceHeading', 'experienceHeadingNo');
+  const subtitle = label(settings, lang, 'experienceSubheading', 'experienceSubheadingNo');
 
-
-export default function ExperienceSection({ experience }: { experience: WorkExperience[] }) {
-  const { ui, pick } = useLang();
-  const items = experience.length > 0 ? experience : DEFAULT_EXPERIENCE;
+  if (experience.length === 0) return null;
 
   return (
     <section
@@ -67,20 +45,24 @@ export default function ExperienceSection({ experience }: { experience: WorkExpe
           03 /
         </span>
         <div>
-          <h2
-            className='font-display font-extrabold uppercase'
-            style={{ fontSize: 'clamp(34px, 6vw, 76px)', letterSpacing: '-0.03em', lineHeight: '0.9' }}
-          >
-            {ui.expTitle}
-          </h2>
-          <p className='font-mono uppercase mt-1' style={{ fontSize: '11px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}>
-            {ui.expSub}
-          </p>
+          {title ? (
+            <h2
+              className='font-display font-extrabold uppercase'
+              style={{ fontSize: 'clamp(34px, 6vw, 76px)', letterSpacing: '-0.03em', lineHeight: '0.9' }}
+            >
+              {title}
+            </h2>
+          ) : null}
+          {subtitle ? (
+            <p className='font-mono uppercase mt-1' style={{ fontSize: '11px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}>
+              {subtitle}
+            </p>
+          ) : null}
         </div>
       </motion.div>
 
       <div className='hairline-top'>
-        {items.map((job, i) => (
+        {experience.map((job, i) => (
           <motion.div
             key={job._id}
             variants={rv}
@@ -113,12 +95,16 @@ export default function ExperienceSection({ experience }: { experience: WorkExpe
               </span>
             </span>
 
-            <span
-              className='font-serif'
-              style={{ fontSize: '16px', lineHeight: '1.55', color: '#3c3a32' }}
-            >
-              {pick(job.description, job.descriptionNo)}
-            </span>
+            {pick(job.description, job.descriptionNo) ? (
+              <span
+                className='font-serif'
+                style={{ fontSize: '16px', lineHeight: '1.55', color: '#3c3a32' }}
+              >
+                {pick(job.description, job.descriptionNo)}
+              </span>
+            ) : (
+              <span />
+            )}
 
             {job.badge ? (
               <span

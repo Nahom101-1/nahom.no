@@ -2,19 +2,31 @@
 import Link from 'next/link';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageToggle } from '@/components/LanguageToggle';
+import type { SiteSettings } from '@/types/sanity';
 import { useLang } from '@/lib/i18n';
+import { label } from '@/lib/cms';
 
-export function Navbar({ resumeUrl, resumeNoUrl }: { resumeUrl?: string; resumeNoUrl?: string }) {
-  const { lang, ui } = useLang();
+export function Navbar({
+  settings = null,
+  resumeUrl,
+  resumeNoUrl,
+}: {
+  settings?: SiteSettings | null;
+  resumeUrl?: string;
+  resumeNoUrl?: string;
+}) {
+  const { lang } = useLang();
 
   const navLinks = [
-    { label: ui.navWork, href: '#work' },
-    { label: ui.navExperience, href: '#experience' },
-    { label: ui.navAbout, href: '#about' },
-    { label: ui.navContact, href: '#contact' },
-  ];
+    { label: label(settings, lang, 'navWork', 'navWorkNo'), href: '#work' },
+    { label: label(settings, lang, 'navExperience', 'navExperienceNo'), href: '#experience' },
+    { label: label(settings, lang, 'navAbout', 'navAboutNo'), href: '#about' },
+    { label: label(settings, lang, 'navContact', 'navContactNo'), href: '#contact' },
+  ].filter((l): l is { label: string; href: string } => Boolean(l.label));
 
   const cvUrl = lang === 'no' ? (resumeNoUrl ?? resumeUrl) : resumeUrl;
+  const resumeLabel = label(settings, lang, 'resumeNavLabel', 'resumeNavLabelNo');
+  const sayHello = label(settings, lang, 'sayHelloNavLabel', 'sayHelloNavLabelNo');
 
   return (
     <nav className='fixed top-0 left-0 right-0 z-50 navbar-glass'>
@@ -28,7 +40,7 @@ export function Navbar({ resumeUrl, resumeNoUrl }: { resumeUrl?: string; resumeN
             className='inline-block w-3 h-3 flex-none'
             style={{ background: 'var(--ds-accent)' }}
           />
-          Nahom Berhane
+          {settings?.name}
         </Link>
 
         <div
@@ -57,7 +69,7 @@ export function Navbar({ resumeUrl, resumeNoUrl }: { resumeUrl?: string; resumeN
             <ThemeToggle />
           </div>
 
-          {cvUrl ? (
+          {cvUrl && resumeLabel ? (
             <a
               href={cvUrl}
               target='_blank'
@@ -70,9 +82,9 @@ export function Navbar({ resumeUrl, resumeNoUrl }: { resumeUrl?: string; resumeN
                 borderRadius: '2px',
               }}
             >
-              {ui.resumeLabel}
+              {resumeLabel}
             </a>
-          ) : (
+          ) : sayHello ? (
             <a
               href='#contact'
               className='font-mono text-[11px] uppercase px-4 py-2 transition-colors duration-200'
@@ -83,9 +95,9 @@ export function Navbar({ resumeUrl, resumeNoUrl }: { resumeUrl?: string; resumeN
                 borderRadius: '2px',
               }}
             >
-              {ui.sayHello}
+              {sayHello}
             </a>
-          )}
+          ) : null}
         </div>
       </div>
     </nav>

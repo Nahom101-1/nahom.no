@@ -12,11 +12,13 @@ export type Project = {
 
 export type SkillGroup = {
   category: string;
+  categoryNo?: string;
   skills: string[];
 };
 
 export type HeroHighlight = {
   label: string;
+  labelNo?: string;
   value: string;
 };
 
@@ -30,11 +32,17 @@ export type SiteSettings = {
   roleLabel?: string;
   roleLabelNo?: string;
   birthDate?: string;
-  location?: string;
-  locationNo?: string;
   tagline?: string;
   taglineNo?: string;
+  portfolioIndex?: string;
+  portfolioIndexNo?: string;
+  metaDescription?: string;
+  metaDescriptionNo?: string;
   heroHighlights?: HeroHighlight[];
+  aboutHeading?: string;
+  aboutSubheading?: string;
+  aboutHeadingNo?: string;
+  aboutSubheadingNo?: string;
   aboutText?: string[];
   aboutTextNo?: string[];
   portraitUrl?: string;
@@ -49,15 +57,60 @@ export type SiteSettings = {
   githubUrl?: string;
   linkedinUrl?: string;
   websiteUrl?: string;
-  phone?: string;
   contactKicker?: string;
   contactHeading?: string;
   contactKickerNo?: string;
   contactHeadingNo?: string;
+  emailMeLabel?: string;
+  emailMeLabelNo?: string;
+  resumeEnLabel?: string;
+  resumeEnLabelNo?: string;
+  resumeNoLabel?: string;
+  resumeNoLabelNo?: string;
   footerNote?: string;
   offClockEnabled?: boolean;
+  offClockHeading?: string;
+  offClockHeadingNo?: string;
   offClockKicker?: string;
   offClockKickerNo?: string;
+  nowPlayingLabel?: string;
+  nowPlayingLabelNo?: string;
+  nothingPlayingLabel?: string;
+  nothingPlayingLabelNo?: string;
+  nothingPlayingSub?: string;
+  nothingPlayingSubNo?: string;
+  recentlyWatchedLabel?: string;
+  recentlyWatchedLabelNo?: string;
+  navWork?: string;
+  navWorkNo?: string;
+  navExperience?: string;
+  navExperienceNo?: string;
+  navAbout?: string;
+  navAboutNo?: string;
+  navContact?: string;
+  navContactNo?: string;
+  resumeNavLabel?: string;
+  resumeNavLabelNo?: string;
+  sayHelloNavLabel?: string;
+  sayHelloNavLabelNo?: string;
+  workHeading?: string;
+  workSubheading?: string;
+  workHeadingNo?: string;
+  workSubheadingNo?: string;
+  experienceHeading?: string;
+  experienceSubheading?: string;
+  experienceHeadingNo?: string;
+  experienceSubheadingNo?: string;
+  educationHeading?: string;
+  educationSubheading?: string;
+  educationHeadingNo?: string;
+  educationSubheadingNo?: string;
+  languagesHeading?: string;
+  languagesHeadingNo?: string;
+  presentLabel?: string;
+  presentLabelNo?: string;
+  gradeLabel?: string;
+  gradeLabelNo?: string;
 };
 
 export type Education = {
@@ -111,7 +164,6 @@ export type RelevantClasses = {
   } | null;
 };
 
-// image type
 export type SanityImage = {
   asset: {
     _ref: string;

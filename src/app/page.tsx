@@ -20,11 +20,15 @@ import {
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: { absolute: 'Nahom Berhane' },
-  description:
-    'Backend & AI-leaning developer building the quiet infrastructure behind useful software.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings().catch(() => null);
+  return {
+    title: { absolute: settings?.name ?? 'Nahom Berhane' },
+    description:
+      settings?.metaDescription ??
+      'Backend and AI-leaning developer building the quiet infrastructure behind useful software.',
+  };
+}
 
 export default async function Home() {
   const [projects, experience, educationList, settings, resume] = await Promise.all([
@@ -39,28 +43,25 @@ export default async function Home() {
 
   return (
     <>
-      <Navbar resumeUrl={resume?.url} resumeNoUrl={resume?.urlNo} />
+      <Navbar
+        settings={settings}
+        resumeUrl={resume?.url}
+        resumeNoUrl={resume?.urlNo}
+      />
 
       <main>
         <HeroSection settings={settings} />
         <MarqueeStrip words={settings?.marqueeWords} />
         <AboutSection settings={settings} />
-        <WorkSection projects={projects} />
-        <ExperienceSection experience={experience} />
-        <ToolkitSection
-          skillGroups={settings?.skillGroups}
-          heading={settings?.toolkitHeading}
-          subtitle={settings?.toolkitSubtitle}
-          headingNo={settings?.toolkitHeadingNo}
-          subtitleNo={settings?.toolkitSubtitleNo}
+        <WorkSection projects={projects} settings={settings} />
+        <ExperienceSection experience={experience} settings={settings} />
+        <ToolkitSection settings={settings} />
+        <EducationSection
+          education={education}
+          languages={settings?.languages}
+          settings={settings}
         />
-        <EducationSection education={education} languages={settings?.languages} />
-        {settings?.offClockEnabled !== false && (
-          <OffTheClock
-            kicker={settings?.offClockKicker}
-            kickerNo={settings?.offClockKickerNo}
-          />
-        )}
+        {settings?.offClockEnabled !== false && <OffTheClock settings={settings} />}
         <ContactSection
           settings={settings}
           resumeUrl={resume?.url}
@@ -68,11 +69,7 @@ export default async function Home() {
         />
       </main>
 
-      <FooterSection
-        name={settings?.name}
-        note={settings?.footerNote}
-        email={settings?.email}
-      />
+      <FooterSection settings={settings} />
     </>
   );
 }

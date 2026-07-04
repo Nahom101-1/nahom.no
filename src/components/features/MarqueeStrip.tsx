@@ -1,12 +1,7 @@
-const DEFAULT_WORDS = [
-  'Backend', 'AI Integration', 'REST APIs', 'RAG',
-  'PostgreSQL', 'Kubernetes', 'Go', 'Kotlin',
-];
-
 export default function MarqueeStrip({ words }: { words?: string[] }) {
-  const items = words && words.length > 0 ? words : DEFAULT_WORDS;
-  // Duplicate the track for a seamless loop
-  const track = [...items, ...items];
+  if (!words || words.length === 0) return null;
+
+  const track = [...words, ...words];
 
   return (
     <div

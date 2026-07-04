@@ -5,39 +5,18 @@ import { ageFrom } from '@/lib/utils';
 import Image from 'next/image';
 import type { SiteSettings } from '@/types/sanity';
 import { useLang, LANGUAGE_NAMES_NO } from '@/lib/i18n';
-
-const DEFAULT_LANGUAGES = ['Norwegian', 'English', 'Amharic', 'Tigrinya'];
-
-const DEFAULT_PARAGRAPHS = {
-  en: [
-    'I recently finished a bachelor’s in programming at NTNU Gjøvik. I care most about the practical parts of software: APIs, data models and services that have to stay up.',
-    'Lately that has meant putting language models into real systems. This summer I’m at Skatteetaten IT, where I’m prototyping an AI tool for troubleshooting their Kubernetes platform.',
-    'Before that I built backend services at NAV, and since 2024 I’ve maintained a student organisation’s site and infrastructure on the side.',
-  ],
-  no: [
-    'Jeg har nettopp fullført en bachelor i programmering ved NTNU Gjøvik. Jeg bryr meg mest om de praktiske delene av programvare: API-er, datamodeller og tjenester som må holde seg oppe.',
-    'Den siste tiden har det betydd å ta språkmodeller inn i ekte systemer. I sommer er jeg hos Skatteetaten IT, der jeg lager en KI-prototype for feilsøking på Kubernetes-plattformen deres.',
-    'Før det bygget jeg backendtjenester i NAV, og siden 2024 har jeg vedlikeholdt nettsiden og infrastrukturen til en studentorganisasjon ved siden av.',
-  ],
-};
-
+import { label } from '@/lib/cms';
 
 export default function AboutSection({ settings }: { settings: SiteSettings | null }) {
-  const { lang, ui, pick, pickList, tr } = useLang();
+  const { lang, pickList, tr } = useLang();
 
-  const fromSanity = pickList(settings?.aboutText, settings?.aboutTextNo);
-  const paragraphs =
-    fromSanity && fromSanity.length > 0 ? fromSanity : DEFAULT_PARAGRAPHS[lang];
-
-  const languages = (
-    settings?.languages && settings.languages.length > 0
-      ? settings.languages.map(l => l.name)
-      : DEFAULT_LANGUAGES
-  ).map(name => tr(LANGUAGE_NAMES_NO, name));
-
-  const name = settings?.name ?? 'Nahom Berhane';
+  const paragraphs = pickList(settings?.aboutText, settings?.aboutTextNo) ?? [];
+  const languages = settings?.languages ?? [];
+  const name = settings?.name;
   const age = ageFrom(settings?.birthDate);
-  const caption = age ? String(age) : String(new Date().getFullYear());
+  const caption = age ? String(age) : undefined;
+  const title = label(settings, lang, 'aboutHeading', 'aboutHeadingNo');
+  const subtitle = label(settings, lang, 'aboutSubheading', 'aboutSubheadingNo');
 
   return (
     <section
@@ -57,15 +36,19 @@ export default function AboutSection({ settings }: { settings: SiteSettings | nu
           01 /
         </span>
         <div>
-          <h2
-            className='font-display font-extrabold uppercase'
-            style={{ fontSize: 'clamp(34px, 6vw, 76px)', letterSpacing: '-0.03em', lineHeight: '0.9' }}
-          >
-            {ui.aboutTitle}
-          </h2>
-          <p className='font-mono uppercase mt-1' style={{ fontSize: '11px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}>
-            {ui.aboutSub}
-          </p>
+          {title ? (
+            <h2
+              className='font-display font-extrabold uppercase'
+              style={{ fontSize: 'clamp(34px, 6vw, 76px)', letterSpacing: '-0.03em', lineHeight: '0.9' }}
+            >
+              {title}
+            </h2>
+          ) : null}
+          {subtitle ? (
+            <p className='font-mono uppercase mt-1' style={{ fontSize: '11px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}>
+              {subtitle}
+            </p>
+          ) : null}
         </div>
       </motion.div>
 
@@ -84,7 +67,7 @@ export default function AboutSection({ settings }: { settings: SiteSettings | nu
             >
               <Image
                 src={settings.portraitUrl}
-                alt={name}
+                alt={name ?? 'Portrait'}
                 fill
                 className='object-cover object-top'
                 sizes='240px'
@@ -111,13 +94,15 @@ export default function AboutSection({ settings }: { settings: SiteSettings | nu
               </svg>
             </div>
           )}
-          <div
-            className='flex justify-between mt-3 font-mono uppercase'
-            style={{ fontSize: '10px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}
-          >
-            <span>{name}</span>
-            <span>{caption}</span>
-          </div>
+          {(name || caption) && (
+            <div
+              className='flex justify-between mt-3 font-mono uppercase'
+              style={{ fontSize: '10px', letterSpacing: '0.12em', color: 'var(--ds-fg-muted)' }}
+            >
+              <span>{name}</span>
+              <span>{caption}</span>
+            </div>
+          )}
         </motion.div>
 
         <div>
@@ -136,28 +121,30 @@ export default function AboutSection({ settings }: { settings: SiteSettings | nu
             </motion.p>
           ))}
 
-          <motion.div
-            variants={rv}
-            initial='hidden'
-            whileInView='visible'
-            viewport={{ once: true, margin: '-7% 0px' }}
-            className='flex flex-wrap gap-2 mt-2'
-          >
-            {languages.map(lang => (
-              <span
-                key={lang}
-                className='font-mono uppercase border rounded-full'
-                style={{
-                  fontSize: '11px',
-                  letterSpacing: '0.06em',
-                  padding: '6px 13px',
-                  borderColor: 'var(--ds-fg)',
-                }}
-              >
-                {lang}
-              </span>
-            ))}
-          </motion.div>
+          {languages.length > 0 && (
+            <motion.div
+              variants={rv}
+              initial='hidden'
+              whileInView='visible'
+              viewport={{ once: true, margin: '-7% 0px' }}
+              className='flex flex-wrap gap-2 mt-2'
+            >
+              {languages.map(item => (
+                <span
+                  key={item.name}
+                  className='font-mono uppercase border rounded-full'
+                  style={{
+                    fontSize: '11px',
+                    letterSpacing: '0.06em',
+                    padding: '6px 13px',
+                    borderColor: 'var(--ds-fg)',
+                  }}
+                >
+                  {tr(LANGUAGE_NAMES_NO, item.name)}
+                </span>
+              ))}
+            </motion.div>
+          )}
         </div>
       </div>
     </section>

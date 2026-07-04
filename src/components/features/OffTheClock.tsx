@@ -4,7 +4,9 @@ import { motion } from 'motion/react';
 import Image from 'next/image';
 import { rv } from '@/lib/motion';
 import type { LetterboxdFeed } from '@/types/letterBoxItem';
+import type { SiteSettings } from '@/types/sanity';
 import { useLang } from '@/lib/i18n';
+import { label } from '@/lib/cms';
 
 type NowPlaying = {
   playing: boolean;
@@ -13,6 +15,13 @@ type NowPlaying = {
   album?: string;
   albumArt?: string;
   url?: string | null;
+};
+
+type OffTheClockLabels = {
+  nowPlaying?: string;
+  nothingPlaying?: string;
+  nothingPlayingSub?: string;
+  recentlyWatched?: string;
 };
 
 function Equalizer() {
@@ -36,8 +45,7 @@ function Equalizer() {
   );
 }
 
-function NowPlayingCard() {
-  const { ui } = useLang();
+function NowPlayingCard({ labels }: { labels: OffTheClockLabels }) {
   const [data, setData] = useState<NowPlaying | null>(null);
 
   useEffect(() => {
@@ -78,7 +86,7 @@ function NowPlayingCard() {
           color: 'var(--ds-fg-muted)',
         }}
       >
-        <span>{ui.nowPlaying}</span>
+        <span>{labels.nowPlaying}</span>
         {playing ? (
           <Equalizer />
         ) : (
@@ -136,13 +144,13 @@ function NowPlayingCard() {
               color: 'var(--ds-fg-muted)',
             }}
           >
-            {ui.nothingPlaying}
+            {labels.nothingPlaying}
           </div>
           <div
             className='font-serif mt-1'
             style={{ fontSize: '15px', color: 'var(--ds-fg-muted)' }}
           >
-            {ui.nothingPlayingSub}
+            {labels.nothingPlayingSub}
           </div>
         </div>
       )}
@@ -154,18 +162,14 @@ function Stars({ rating }: { rating: number }) {
   const full = Math.floor(rating);
   const half = rating - full >= 0.5;
   return (
-    <span
-      className='font-mono'
-      style={{ fontSize: '11px', color: 'var(--ds-accent)' }}
-    >
+    <span className='font-mono' style={{ fontSize: '11px', color: 'var(--ds-accent)' }}>
       {'★'.repeat(full)}
       {half ? '½' : ''}
     </span>
   );
 }
 
-function RecentlyWatched() {
-  const { ui } = useLang();
+function RecentlyWatched({ labelText }: { labelText?: string }) {
   const [movies, setMovies] = useState<LetterboxdFeed[] | null>(null);
 
   useEffect(() => {
@@ -195,79 +199,78 @@ function RecentlyWatched() {
           color: 'var(--ds-fg-muted)',
         }}
       >
-        <span>{ui.recentlyWatched}</span>
+        <span>{labelText}</span>
         <span style={{ color: 'var(--ds-fg-subtle)' }}>Letterboxd</span>
       </div>
 
       <div className='grid grid-cols-3 sm:grid-cols-6 gap-3'>
-        {(movies === null ? Array.from({ length: 6 }) : items).map(
-          (movie, i) => {
-            const m = movie as LetterboxdFeed | undefined;
-            return (
-              <a
-                key={m?.guid ?? i}
-                href={m?.link ?? undefined}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='group block'
+        {(movies === null ? Array.from({ length: 6 }) : items).map((movie, i) => {
+          const m = movie as LetterboxdFeed | undefined;
+          return (
+            <a
+              key={m?.guid ?? i}
+              href={m?.link ?? undefined}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='group block'
+            >
+              <div
+                className='relative w-full overflow-hidden border'
+                style={{
+                  aspectRatio: '2 / 3',
+                  borderColor: 'var(--ds-border)',
+                  background: 'var(--ds-bg-surface)',
+                }}
               >
-                <div
-                  className='relative w-full overflow-hidden border'
-                  style={{
-                    aspectRatio: '2 / 3',
-                    borderColor: 'var(--ds-border)',
-                    background: 'var(--ds-bg-surface)',
-                  }}
-                >
-                  {m?.posterURL ? (
-                    <Image
-                      src={m.posterURL}
-                      alt={m.title}
-                      fill
-                      className='object-cover transition-transform duration-500 group-hover:scale-105'
-                      sizes='(max-width: 640px) 33vw, 120px'
-                    />
-                  ) : null}
-                </div>
-                {m ? (
-                  <div className='mt-2'>
-                    <div
-                      className='font-mono uppercase truncate'
-                      style={{ fontSize: '10px', letterSpacing: '0.06em' }}
-                    >
-                      {m.title}
-                    </div>
-                    <div className='flex items-center justify-between mt-0.5'>
-                      <span
-                        className='font-mono'
-                        style={{
-                          fontSize: '10px',
-                          color: 'var(--ds-fg-muted)',
-                        }}
-                      >
-                        {m.year}
-                      </span>
-                      {m.rating ? <Stars rating={m.rating} /> : null}
-                    </div>
-                  </div>
+                {m?.posterURL ? (
+                  <Image
+                    src={m.posterURL}
+                    alt={m.title}
+                    fill
+                    className='object-cover transition-transform duration-500 group-hover:scale-105'
+                    sizes='(max-width: 640px) 33vw, 120px'
+                  />
                 ) : null}
-              </a>
-            );
-          }
-        )}
+              </div>
+              {m ? (
+                <div className='mt-2'>
+                  <div
+                    className='font-mono uppercase truncate'
+                    style={{ fontSize: '10px', letterSpacing: '0.06em' }}
+                  >
+                    {m.title}
+                  </div>
+                  <div className='flex items-center justify-between mt-0.5'>
+                    <span
+                      className='font-mono'
+                      style={{ fontSize: '10px', color: 'var(--ds-fg-muted)' }}
+                    >
+                      {m.year}
+                    </span>
+                    {m.rating ? <Stars rating={m.rating} /> : null}
+                  </div>
+                </div>
+              ) : null}
+            </a>
+          );
+        })}
       </div>
     </div>
   );
 }
 
-export default function OffTheClock({
-  kicker,
-  kickerNo,
-}: {
-  kicker?: string;
-  kickerNo?: string;
-}) {
-  const { ui, pick } = useLang();
+export default function OffTheClock({ settings }: { settings: SiteSettings | null }) {
+  const { lang, pick } = useLang();
+  const title = label(settings, lang, 'offClockHeading', 'offClockHeadingNo');
+  const kicker = pick(settings?.offClockKicker, settings?.offClockKickerNo);
+
+  const cardLabels: OffTheClockLabels = {
+    nowPlaying: label(settings, lang, 'nowPlayingLabel', 'nowPlayingLabelNo'),
+    nothingPlaying: label(settings, lang, 'nothingPlayingLabel', 'nothingPlayingLabelNo'),
+    nothingPlayingSub: label(settings, lang, 'nothingPlayingSub', 'nothingPlayingSubNo'),
+    recentlyWatched: label(settings, lang, 'recentlyWatchedLabel', 'recentlyWatchedLabelNo'),
+  };
+
   return (
     <section
       id='off-the-clock'
@@ -282,33 +285,34 @@ export default function OffTheClock({
         className='grid items-baseline gap-4 mb-14'
         style={{ gridTemplateColumns: 'auto 1fr' }}
       >
-        <span
-          className='font-mono text-[13px]'
-          style={{ color: 'var(--ds-accent)' }}
-        >
+        <span className='font-mono text-[13px]' style={{ color: 'var(--ds-accent)' }}>
           06 /
         </span>
         <div>
-          <h2
-            className='font-display font-extrabold uppercase'
-            style={{
-              fontSize: 'clamp(34px, 6vw, 76px)',
-              letterSpacing: '-0.03em',
-              lineHeight: '0.9',
-            }}
-          >
-            {ui.offTitle}
-          </h2>
-          <p
-            className='font-mono uppercase mt-1'
-            style={{
-              fontSize: '11px',
-              letterSpacing: '0.12em',
-              color: 'var(--ds-fg-muted)',
-            }}
-          >
-            {pick(kicker, kickerNo) ?? ui.offSub}
-          </p>
+          {title ? (
+            <h2
+              className='font-display font-extrabold uppercase'
+              style={{
+                fontSize: 'clamp(34px, 6vw, 76px)',
+                letterSpacing: '-0.03em',
+                lineHeight: '0.9',
+              }}
+            >
+              {title}
+            </h2>
+          ) : null}
+          {kicker ? (
+            <p
+              className='font-mono uppercase mt-1'
+              style={{
+                fontSize: '11px',
+                letterSpacing: '0.12em',
+                color: 'var(--ds-fg-muted)',
+              }}
+            >
+              {kicker}
+            </p>
+          ) : null}
         </div>
       </motion.div>
 
@@ -319,8 +323,8 @@ export default function OffTheClock({
         viewport={{ once: true, margin: '-7% 0px' }}
         className='grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-10 items-start'
       >
-        <NowPlayingCard />
-        <RecentlyWatched />
+        <NowPlayingCard labels={cardLabels} />
+        <RecentlyWatched labelText={cardLabels.recentlyWatched} />
       </motion.div>
     </section>
   );
