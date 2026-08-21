@@ -129,6 +129,7 @@ export type Education = {
   location?: string;
   institutionLogo?: SanityImage;
   imageUrl?: string;
+  logoUrl?: string;
   relevantClasses?: RelevantClasses[];
 };
 

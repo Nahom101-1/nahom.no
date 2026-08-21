@@ -1,5 +1,6 @@
 'use client';
 import { motion } from 'motion/react';
+import Image from 'next/image';
 import { rv } from '@/lib/motion';
 import type { Education, Language, SiteSettings } from '@/types/sanity';
 import { useLang, LANGUAGE_NAMES_NO, LANGUAGE_LEVELS_NO } from '@/lib/i18n';
@@ -113,6 +114,25 @@ export default function EducationSection({
                   viewport={{ once: true, margin: '-7% 0px' }}
                   transition={{ delay: index * 0.08 }}
                 >
+                  {education.logoUrl ? (
+                    <div
+                      className='relative mb-5 border'
+                      style={{
+                        width: '140px',
+                        height: '48px',
+                        borderColor: 'var(--ds-border)',
+                        background: 'var(--ds-bg-surface)',
+                      }}
+                    >
+                      <Image
+                        src={education.logoUrl}
+                        alt={`${education.institution} logo`}
+                        fill
+                        className='object-contain p-2'
+                        sizes='140px'
+                      />
+                    </div>
+                  ) : null}
                   {degree ? (
                     <div
                       className='font-display font-bold'
