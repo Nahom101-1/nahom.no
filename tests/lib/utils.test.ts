@@ -34,7 +34,7 @@ describe('formatExperienceYear', () => {
 
   it('formats a range across years', () => {
     expect(formatExperienceYear('2023-01-01', '2025-12-31', false)).toBe(
-      "'23—'25"
+      "'23-'25"
     );
   });
 
