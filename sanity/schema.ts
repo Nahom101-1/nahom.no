@@ -514,14 +514,16 @@ const siteSettings = {
       title: 'Contact — Kicker',
       type: 'string',
       group: 'contact',
-      description: 'Optional line above the email, e.g. "Oslo" or "Open to work"',
+      description:
+        'Optional line above the email, e.g. "Oslo" or "Open to work"',
     },
     {
       name: 'contactHeading',
       title: 'Contact — Heading',
       type: 'string',
       group: 'contact',
-      description: 'Big contact line. Prefer the email address over a soft CTA.',
+      description:
+        'Big contact line. Prefer the email address over a soft CTA.',
     },
     {
       name: 'contactKickerNo',
@@ -534,7 +536,8 @@ const siteSettings = {
       title: 'Contact — Heading (Norwegian)',
       type: 'string',
       group: 'contact',
-      description: 'Prefer the email address, or a plain line like "Send e-post"',
+      description:
+        'Prefer the email address, or a plain line like "Send e-post"',
     },
     {
       name: 'footerNote',
@@ -631,7 +634,8 @@ const siteSettings = {
       title: 'Nav — Contact button',
       type: 'string',
       group: 'sections',
-      description: 'Shown when no résumé URL is set. Keep it plain, e.g. "Email"',
+      description:
+        'Shown when no résumé URL is set. Keep it plain, e.g. "Email"',
     },
     {
       name: 'sayHelloNavLabelNo',
