@@ -4,7 +4,7 @@ import { rv } from '@/lib/motion';
 import { ageFrom } from '@/lib/utils';
 import Image from 'next/image';
 import type { SiteSettings } from '@/types/sanity';
-import { useLang, LANGUAGE_NAMES_NO } from '@/lib/i18n';
+import { useLang } from '@/lib/i18n';
 import { label } from '@/lib/cms';
 
 export default function AboutSection({
@@ -12,10 +12,9 @@ export default function AboutSection({
 }: {
   settings: SiteSettings | null;
 }) {
-  const { lang, pickList, tr } = useLang();
+  const { lang, pickList } = useLang();
 
   const paragraphs = pickList(settings?.aboutText, settings?.aboutTextNo) ?? [];
-  const languages = settings?.languages ?? [];
   const name = settings?.name;
   const age = ageFrom(settings?.birthDate);
   const caption = age ? String(age) : undefined;
@@ -156,31 +155,6 @@ export default function AboutSection({
               {p}
             </motion.p>
           ))}
-
-          {languages.length > 0 && (
-            <motion.div
-              variants={rv}
-              initial='hidden'
-              whileInView='visible'
-              viewport={{ once: true, margin: '-7% 0px' }}
-              className='flex flex-wrap gap-2 mt-2'
-            >
-              {languages.map(item => (
-                <span
-                  key={item.name}
-                  className='font-mono uppercase border rounded-full'
-                  style={{
-                    fontSize: '11px',
-                    letterSpacing: '0.06em',
-                    padding: '6px 13px',
-                    borderColor: 'var(--ds-fg)',
-                  }}
-                >
-                  {tr(LANGUAGE_NAMES_NO, item.name)}
-                </span>
-              ))}
-            </motion.div>
-          )}
         </div>
       </div>
     </section>
