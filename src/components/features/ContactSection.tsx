@@ -20,17 +20,11 @@ export default function ContactSection({
   const github = settings?.githubUrl;
   const linkedin = settings?.linkedinUrl;
   const website = settings?.websiteUrl;
-  const rawKicker = pick(settings?.contactKicker, settings?.contactKickerNo);
-  const rawHeading = pick(settings?.contactHeading, settings?.contactHeadingNo);
+  const kicker = pick(settings?.contactKicker, settings?.contactKickerNo);
+  const heading = pick(settings?.contactHeading, settings?.contactHeadingNo);
   const emailMe = label(settings, lang, 'emailMeLabel', 'emailMeLabelNo');
   const resumeEn = label(settings, lang, 'resumeEnLabel', 'resumeEnLabelNo');
   const resumeNo = label(settings, lang, 'resumeNoLabel', 'resumeNoLabelNo');
-
-  const isSoftCta = (value?: string) =>
-    !!value && /^(say hello|si hei)$/i.test(value.trim());
-
-  const kicker = isSoftCta(rawKicker) ? undefined : rawKicker;
-  const heading = isSoftCta(rawHeading) ? email : (rawHeading ?? email);
   const headingIsEmail = !!heading && !!email && heading === email;
 
   if (!email && !heading) return null;

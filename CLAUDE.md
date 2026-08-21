@@ -61,3 +61,13 @@ Defined in `.env.example`. A `.env.local` must exist locally with real values. N
 - Site copy should be **simple and plain** — no jokes, no marketing flourishes, no em dashes in visitor-facing text
 - `scripts/` is deliberately git-ignored (seed + Spotify token helpers with personal content live only on this machine)
 - The favicon is `src/app/icon.svg` (App Router file convention — no metadata config needed)
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

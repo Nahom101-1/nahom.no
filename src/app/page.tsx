@@ -40,8 +40,6 @@ export default async function Home() {
       getResume().catch(() => null),
     ]);
 
-  const education = educationList[0] ?? null;
-
   return (
     <>
       <Navbar
@@ -58,7 +56,7 @@ export default async function Home() {
         <ExperienceSection experience={experience} settings={settings} />
         <ToolkitSection settings={settings} />
         <EducationSection
-          education={education}
+          educations={educationList}
           languages={settings?.languages}
           settings={settings}
         />

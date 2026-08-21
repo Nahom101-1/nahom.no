@@ -273,17 +273,8 @@ export default function OffTheClock({
   settings: SiteSettings | null;
 }) {
   const { lang, pick } = useLang();
-  const title =
-    label(settings, lang, 'offClockHeading', 'offClockHeadingNo') ??
-    (lang === 'no' ? 'Musikk og film' : 'Music and films');
-  const rawKicker = pick(settings?.offClockKicker, settings?.offClockKickerNo);
-  const kicker =
-    rawKicker &&
-    /now playing on spotify|spilles n[aå] p[aå] spotify/i.test(rawKicker)
-      ? lang === 'no'
-        ? 'Spotify og Letterboxd'
-        : 'Spotify and Letterboxd'
-      : rawKicker;
+  const title = label(settings, lang, 'offClockHeading', 'offClockHeadingNo');
+  const kicker = pick(settings?.offClockKicker, settings?.offClockKickerNo);
 
   const cardLabels: OffTheClockLabels = {
     nowPlaying: label(settings, lang, 'nowPlayingLabel', 'nowPlayingLabelNo'),
