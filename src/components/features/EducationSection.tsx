@@ -116,20 +116,15 @@ export default function EducationSection({
                 >
                   {education.logoUrl ? (
                     <div
-                      className='relative mb-5 border'
-                      style={{
-                        width: '140px',
-                        height: '48px',
-                        borderColor: 'var(--ds-border)',
-                        background: 'var(--ds-bg-surface)',
-                      }}
+                      className='relative mb-6'
+                      style={{ height: '36px', width: 'min(220px, 55%)' }}
                     >
                       <Image
                         src={education.logoUrl}
                         alt={`${education.institution} logo`}
                         fill
-                        className='object-contain p-2'
-                        sizes='140px'
+                        className='object-contain object-left dark:brightness-0 dark:invert'
+                        sizes='220px'
                       />
                     </div>
                   ) : null}
