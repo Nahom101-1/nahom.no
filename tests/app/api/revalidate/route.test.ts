@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { NextRequest } from 'next/server';
 
 const { revalidatePath, isValidSignature } = vi.hoisted(() => ({
   revalidatePath: vi.fn(),
@@ -29,7 +30,7 @@ describe('POST /api/revalidate', () => {
   it('returns 501 when secret is not configured', async () => {
     delete process.env.SANITY_REVALIDATE_SECRET;
     const res = await POST(
-      new Request('http://localhost/api/revalidate', {
+      new NextRequest('http://localhost/api/revalidate', {
         method: 'POST',
         body: '{}',
       })
@@ -40,7 +41,7 @@ describe('POST /api/revalidate', () => {
   it('returns 401 when signature is invalid', async () => {
     isValidSignature.mockReturnValue(false);
     const res = await POST(
-      new Request('http://localhost/api/revalidate', {
+      new NextRequest('http://localhost/api/revalidate', {
         method: 'POST',
         body: '{}',
         headers: { 'sanity-webhook-signature': 'bad' },
@@ -53,7 +54,7 @@ describe('POST /api/revalidate', () => {
   it('revalidates the home page on valid webhook', async () => {
     isValidSignature.mockReturnValue(true);
     const res = await POST(
-      new Request('http://localhost/api/revalidate', {
+      new NextRequest('http://localhost/api/revalidate', {
         method: 'POST',
         body: '{"_type":"siteSettings"}',
         headers: { 'sanity-webhook-signature': 'valid' },
