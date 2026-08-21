@@ -14,7 +14,7 @@ export default function NotFound() {
           </CardHeader>
           <CardContent className='p-6'>
             <p className='text-gray-400 text-center text-lg'>
-              This page doesn&apos;t exist or is under construction.
+              This page doesn&apos;t exist.
             </p>
           </CardContent>
         </Card>

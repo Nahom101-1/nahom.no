@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: { absolute: settings?.name ?? 'Nahom Berhane' },
     description:
       settings?.metaDescription ??
-      'Backend and AI-leaning developer building the quiet infrastructure behind useful software.',
+      'Backend and AI developer in Oslo. Projects, work experience, and education.',
   };
 }
 

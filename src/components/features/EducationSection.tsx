@@ -48,7 +48,7 @@ export default function EducationSection({
     : undefined;
 
   const years = education
-    ? `${new Date(education.startDate).getFullYear()}—${education.endDate ? new Date(education.endDate).getFullYear() : present}`
+    ? `${new Date(education.startDate).getFullYear()}-${education.endDate ? new Date(education.endDate).getFullYear() : present}`
     : undefined;
 
   const courses =

@@ -34,10 +34,10 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: {
     default: 'Nahom Berhane',
-    template: '%s — Nahom Berhane',
+    template: '%s · Nahom Berhane',
   },
   description:
-    'Backend & AI-leaning developer building the quiet infrastructure behind useful software. Portfolio of projects, work experience, and education.',
+    'Backend and AI developer in Oslo. Projects, work experience, and education.',
   openGraph: {
     type: 'website',
     locale: 'en_US',

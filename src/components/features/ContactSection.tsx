@@ -20,11 +20,18 @@ export default function ContactSection({
   const github = settings?.githubUrl;
   const linkedin = settings?.linkedinUrl;
   const website = settings?.websiteUrl;
-  const kicker = pick(settings?.contactKicker, settings?.contactKickerNo);
-  const heading = pick(settings?.contactHeading, settings?.contactHeadingNo);
+  const rawKicker = pick(settings?.contactKicker, settings?.contactKickerNo);
+  const rawHeading = pick(settings?.contactHeading, settings?.contactHeadingNo);
   const emailMe = label(settings, lang, 'emailMeLabel', 'emailMeLabelNo');
   const resumeEn = label(settings, lang, 'resumeEnLabel', 'resumeEnLabelNo');
   const resumeNo = label(settings, lang, 'resumeNoLabel', 'resumeNoLabelNo');
+
+  const isSoftCta = (value?: string) =>
+    !!value && /^(say hello|si hei)$/i.test(value.trim());
+
+  const kicker = isSoftCta(rawKicker) ? undefined : rawKicker;
+  const heading = isSoftCta(rawHeading) ? email : (rawHeading ?? email);
+  const headingIsEmail = !!heading && !!email && heading === email;
 
   if (!email && !heading) return null;
 
@@ -89,11 +96,18 @@ export default function ContactSection({
           whileInView='visible'
           viewport={{ once: true, margin: '-7% 0px' }}
           transition={{ delay: 0.1 }}
-          className='font-display font-extrabold uppercase'
+          className={
+            headingIsEmail
+              ? 'font-display font-extrabold'
+              : 'font-display font-extrabold uppercase'
+          }
           style={{
-            fontSize: 'clamp(54px, 13vw, 200px)',
-            letterSpacing: '-0.04em',
-            lineHeight: '0.84',
+            fontSize: headingIsEmail
+              ? 'clamp(28px, 6.5vw, 88px)'
+              : 'clamp(54px, 13vw, 200px)',
+            letterSpacing: headingIsEmail ? '-0.02em' : '-0.04em',
+            lineHeight: '0.95',
+            wordBreak: headingIsEmail ? 'break-all' : undefined,
           }}
         >
           <a

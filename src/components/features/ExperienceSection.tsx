@@ -129,7 +129,11 @@ export default function ExperienceSection({
                   color: '#3c3a32',
                 }}
               >
-                {pick(job.description, job.descriptionNo)}
+                {pick(job.description, job.descriptionNo)!
+                  .split(/\n+/)
+                  .map(line => line.replace(/,\s*$/, '').trim())
+                  .filter(Boolean)
+                  .join(' ')}
               </span>
             ) : (
               <span />

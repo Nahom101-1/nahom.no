@@ -340,7 +340,7 @@ const siteSettings = {
       title: 'Hero — Portfolio index label',
       type: 'string',
       group: 'identity',
-      description: 'e.g. "Portfolio — Index"',
+      description: 'e.g. "Portfolio index"',
     },
     {
       name: 'portfolioIndexNo',
@@ -514,15 +514,14 @@ const siteSettings = {
       title: 'Contact — Kicker',
       type: 'string',
       group: 'contact',
-      description:
-        'Small line above the big "Say hello", e.g. "Open to graduate roles"',
+      description: 'Optional line above the email, e.g. "Oslo" or "Open to work"',
     },
     {
       name: 'contactHeading',
       title: 'Contact — Heading',
       type: 'string',
       group: 'contact',
-      description: 'The big call-to-action, e.g. "Say hello"',
+      description: 'Big contact line. Prefer the email address over a soft CTA.',
     },
     {
       name: 'contactKickerNo',
@@ -535,7 +534,7 @@ const siteSettings = {
       title: 'Contact — Heading (Norwegian)',
       type: 'string',
       group: 'contact',
-      description: 'e.g. "Si hei"',
+      description: 'Prefer the email address, or a plain line like "Send e-post"',
     },
     {
       name: 'footerNote',
@@ -559,7 +558,7 @@ const siteSettings = {
       title: 'Off the clock — Subtitle',
       type: 'string',
       group: 'sections',
-      description: 'e.g. "Now playing & recently watched"',
+      description: 'e.g. "Spotify and Letterboxd"',
     },
     {
       name: 'offClockKickerNo',
@@ -629,13 +628,14 @@ const siteSettings = {
     },
     {
       name: 'sayHelloNavLabel',
-      title: 'Nav — Say hello button',
+      title: 'Nav — Contact button',
       type: 'string',
       group: 'sections',
+      description: 'Shown when no résumé URL is set. Keep it plain, e.g. "Email"',
     },
     {
       name: 'sayHelloNavLabelNo',
-      title: 'Nav — Say hello button (Norwegian)',
+      title: 'Nav — Contact button (Norwegian)',
       type: 'string',
       group: 'sections',
     },

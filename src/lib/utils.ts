@@ -25,5 +25,5 @@ export function formatExperienceYear(
   if (!endDate) return String(start);
   const end = new Date(endDate).getFullYear();
   if (start === end) return String(start);
-  return `'${String(start).slice(2)}—'${String(end).slice(2)}`;
+  return `'${String(start).slice(2)}-'${String(end).slice(2)}`;
 }
