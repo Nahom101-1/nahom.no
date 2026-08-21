@@ -159,7 +159,7 @@ const SITE_SETTINGS_QUERY = groq`*[_type == "siteSettings" && _id == "siteSettin
 }`;
 
 const EDUCATION_QUERY = groq`*[_type == "education"] | order(startDate desc) {
-  _id, _type, picture, institution, degree, degreeNo,
+  _id, _type, institution, degree, degreeNo,
   fieldOfStudy, fieldOfStudyNo, startDate, endDate, isCurrent,
   gpa, location, institutionLogo,
   "relevantClasses": *[_type == "relevantClasses" && references(^._id)] {
@@ -182,9 +182,9 @@ export async function getEducation(): Promise<Education[]> {
   const docs = await client.fetch<Education[]>(EDUCATION_QUERY);
   return docs.map(education => ({
     ...education,
-    imageUrl: education.picture?.asset?._ref
-      ? urlFor(education.picture)
-      : '/placeholder.jpg',
+    logoUrl: education.institutionLogo?.asset?._ref
+      ? urlFor(education.institutionLogo)
+      : undefined,
   }));
 }
 
